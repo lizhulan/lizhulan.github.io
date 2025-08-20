@@ -1319,7 +1319,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ff1ff7;
+  background: #ffcf8a;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2761,28 +2761,28 @@ body {
   color: #667eea !important;
 }
 .post-body {
-  color: #e2e8f0 !important;
+  color: #fff !important;
   line-height: 1.8;
   font-size: 16px;
   font-weight: 400;
   letter-spacing: 0.3px;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 .post-body p {
-  color: #e2e8f0 !important;
+  color: #fff !important;
   margin: 1.2em 0;
   text-align: justify;
   font-weight: 400;
 }
 .post-body h1 {
-  color: #f7fafc !important;
+  color: #fff !important;
   font-size: 2.2em;
   font-weight: 700;
   margin: 2em 0 1em;
   padding-bottom: 0.5em;
   border-bottom: 3px solid #667eea;
   position: relative;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.4);
 }
 .post-body h1::after {
   content: '';
@@ -2795,13 +2795,13 @@ body {
   border-radius: 2px;
 }
 .post-body h2 {
-  color: #f7fafc !important;
+  color: #fff !important;
   font-size: 1.8em;
   font-weight: 600;
   margin: 1.8em 0 1em;
   padding-left: 20px;
   position: relative;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 .post-body h2::before {
   content: '';
@@ -2815,34 +2815,34 @@ body {
   border-radius: 2px;
 }
 .post-body h3 {
-  color: #f1f5f9 !important;
+  color: #fff !important;
   font-size: 1.5em;
   font-weight: 600;
   margin: 1.5em 0 0.8em;
   padding-left: 15px;
   border-left: 3px solid #667eea;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 .post-body h4 {
-  color: #e2e8f0 !important;
+  color: #fff !important;
   font-size: 1.3em;
   font-weight: 600;
   margin: 1.3em 0 0.6em;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 .post-body h5 {
-  color: #e2e8f0 !important;
+  color: #fff !important;
   font-size: 1.1em;
   font-weight: 600;
   margin: 1.2em 0 0.5em;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 .post-body h6 {
-  color: #e2e8f0 !important;
+  color: #fff !important;
   font-size: 1em;
   font-weight: 600;
   margin: 1em 0 0.5em;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 .post-more-link {
   display: inline-block;
@@ -3046,25 +3046,25 @@ a:hover {
   color: #5a67d8 !important;
 }
 .post-body a {
-  color: #93c5fd !important;
+  color: #60a5fa !important;
   border-bottom: 1px solid transparent;
   transition: all 0.3s ease;
   font-weight: 500;
   padding: 1px 2px;
   border-radius: 3px;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 .post-body a:hover {
-  color: #60a5fa !important;
-  background: rgba(147,197,253,0.15);
-  border-bottom-color: #93c5fd;
+  color: #3b82f6 !important;
+  background: rgba(96,165,250,0.2);
+  border-bottom-color: #60a5fa;
   text-decoration: none;
 }
 .post-body pre {
   background: #1e293b !important;
   border: 1px solid #475569 !important;
   border-radius: 12px;
-  color: #f1f5f9 !important;
+  color: #fff !important;
   padding: 20px !important;
   margin: 1.5em 0 !important;
   overflow-x: auto;
@@ -3075,43 +3075,43 @@ a:hover {
 }
 .post-body code {
   background: rgba(102,126,234,0.2) !important;
-  color: #93c5fd !important;
+  color: #60a5fa !important;
   padding: 3px 6px;
   border-radius: 4px;
   font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
   font-size: 0.9em;
   font-weight: 500;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 .post-body pre code {
   background: transparent !important;
-  color: #f1f5f9 !important;
+  color: #fff !important;
   padding: 0;
   border-radius: 0;
   text-shadow: none;
 }
 .post-body ul,
 .post-body ol {
-  color: #e2e8f0 !important;
+  color: #fff !important;
   margin: 1.2em 0;
   padding-left: 1.5em;
 }
 .post-body li {
-  color: #e2e8f0 !important;
+  color: #fff !important;
   margin: 0.5em 0;
   line-height: 1.7;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 .post-body ul li::marker {
-  color: #93c5fd !important;
+  color: #60a5fa !important;
 }
 .post-body ol li::marker {
-  color: #93c5fd !important;
+  color: #60a5fa !important;
 }
 .post-body blockquote {
-  background: rgba(102,126,234,0.1) !important;
+  background: rgba(102,126,234,0.15) !important;
   border-left: 4px solid #667eea !important;
-  color: #e2e8f0 !important;
+  color: #fff !important;
   padding: 1em 1.5em;
   margin: 1.5em 0;
   border-radius: 0 8px 8px 0;
@@ -3122,40 +3122,40 @@ a:hover {
 .post-body blockquote::before {
   content: '"';
   font-size: 3em;
-  color: rgba(102,126,234,0.3);
+  color: rgba(102,126,234,0.4);
   position: absolute;
   top: -10px;
   left: 10px;
   font-family: serif;
 }
 .post-body blockquote p {
-  color: #e2e8f0 !important;
+  color: #fff !important;
   margin: 0.5em 0;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 .post-body table {
-  background: rgba(30,41,59,0.5) !important;
+  background: rgba(30,41,59,0.7) !important;
   border-radius: 8px;
   overflow: hidden;
   margin: 1.5em 0;
   border: 1px solid #475569;
 }
 .post-body th {
-  background: rgba(102,126,234,0.2) !important;
-  color: #f7fafc !important;
+  background: rgba(102,126,234,0.3) !important;
+  color: #fff !important;
   padding: 12px;
   font-weight: 600;
   text-align: left;
   border-bottom: 1px solid #475569;
 }
 .post-body td {
-  color: #e2e8f0 !important;
+  color: #fff !important;
   padding: 12px;
   border-bottom: 1px solid #475569;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 .post-body tr:hover {
-  background: rgba(102,126,234,0.05) !important;
+  background: rgba(102,126,234,0.1) !important;
 }
 .post-body hr {
   border: none;
@@ -3165,14 +3165,14 @@ a:hover {
   border-radius: 1px;
 }
 .post-body strong {
-  color: #f7fafc !important;
+  color: #fff !important;
   font-weight: 600;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 .post-body em {
-  color: #e2e8f0 !important;
+  color: #fff !important;
   font-style: italic;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 @media (max-width: 768px) {
   .main-inner {
