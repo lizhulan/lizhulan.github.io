@@ -1319,7 +1319,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #45ffc4;
+  background: #f09e91;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2761,7 +2761,7 @@ body {
   color: #667eea !important;
 }
 .post-body {
-  color: #93c5fd !important;
+  color: #1e40af !important;
   line-height: 1.8;
   font-size: 16px;
   font-weight: 400;
@@ -2769,13 +2769,13 @@ body {
   text-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 .post-body p {
-  color: #93c5fd !important;
+  color: #1e40af !important;
   margin: 1.2em 0;
   text-align: justify;
   font-weight: 400;
 }
 .post-body h1 {
-  color: #60a5fa !important;
+  color: #1e3a8a !important;
   font-size: 2.2em;
   font-weight: 700;
   margin: 2em 0 1em;
@@ -2795,7 +2795,7 @@ body {
   border-radius: 2px;
 }
 .post-body h2 {
-  color: #60a5fa !important;
+  color: #1e3a8a !important;
   font-size: 1.8em;
   font-weight: 600;
   margin: 1.8em 0 1em;
@@ -2815,7 +2815,7 @@ body {
   border-radius: 2px;
 }
 .post-body h3 {
-  color: #60a5fa !important;
+  color: #1e3a8a !important;
   font-size: 1.5em;
   font-weight: 600;
   margin: 1.5em 0 0.8em;
@@ -2824,21 +2824,21 @@ body {
   text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 .post-body h4 {
-  color: #60a5fa !important;
+  color: #1e3a8a !important;
   font-size: 1.3em;
   font-weight: 600;
   margin: 1.3em 0 0.6em;
   text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 .post-body h5 {
-  color: #60a5fa !important;
+  color: #1e3a8a !important;
   font-size: 1.1em;
   font-weight: 600;
   margin: 1.2em 0 0.5em;
   text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 .post-body h6 {
-  color: #60a5fa !important;
+  color: #1e3a8a !important;
   font-size: 1em;
   font-weight: 600;
   margin: 1em 0 0.5em;
@@ -3046,7 +3046,7 @@ a:hover {
   color: #5a67d8 !important;
 }
 .post-body a {
-  color: #3b82f6 !important;
+  color: #1d4ed8 !important;
   border-bottom: 1px solid transparent;
   transition: all 0.3s ease;
   font-weight: 500;
@@ -3055,16 +3055,16 @@ a:hover {
   text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 .post-body a:hover {
-  color: #1d4ed8 !important;
-  background: rgba(59,130,246,0.2);
-  border-bottom-color: #3b82f6;
+  color: #1e40af !important;
+  background: rgba(29,78,216,0.2);
+  border-bottom-color: #1d4ed8;
   text-decoration: none;
 }
 .post-body pre {
   background: #1e293b !important;
   border: 1px solid #475569 !important;
   border-radius: 12px;
-  color: #93c5fd !important;
+  color: #1e40af !important;
   padding: 20px !important;
   margin: 1.5em 0 !important;
   overflow-x: auto;
@@ -3075,7 +3075,7 @@ a:hover {
 }
 .post-body code {
   background: rgba(102,126,234,0.2) !important;
-  color: #60a5fa !important;
+  color: #1d4ed8 !important;
   padding: 3px 6px;
   border-radius: 4px;
   font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
@@ -3085,33 +3085,33 @@ a:hover {
 }
 .post-body pre code {
   background: transparent !important;
-  color: #93c5fd !important;
+  color: #1e40af !important;
   padding: 0;
   border-radius: 0;
   text-shadow: none;
 }
 .post-body ul,
 .post-body ol {
-  color: #93c5fd !important;
+  color: #1e40af !important;
   margin: 1.2em 0;
   padding-left: 1.5em;
 }
 .post-body li {
-  color: #93c5fd !important;
+  color: #1e40af !important;
   margin: 0.5em 0;
   line-height: 1.7;
   text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 .post-body ul li::marker {
-  color: #60a5fa !important;
+  color: #1d4ed8 !important;
 }
 .post-body ol li::marker {
-  color: #60a5fa !important;
+  color: #1d4ed8 !important;
 }
 .post-body blockquote {
   background: rgba(102,126,234,0.15) !important;
   border-left: 4px solid #667eea !important;
-  color: #93c5fd !important;
+  color: #1e40af !important;
   padding: 1em 1.5em;
   margin: 1.5em 0;
   border-radius: 0 8px 8px 0;
@@ -3129,7 +3129,7 @@ a:hover {
   font-family: serif;
 }
 .post-body blockquote p {
-  color: #93c5fd !important;
+  color: #1e40af !important;
   margin: 0.5em 0;
   text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
@@ -3142,14 +3142,14 @@ a:hover {
 }
 .post-body th {
   background: rgba(102,126,234,0.3) !important;
-  color: #60a5fa !important;
+  color: #1d4ed8 !important;
   padding: 12px;
   font-weight: 600;
   text-align: left;
   border-bottom: 1px solid #475569;
 }
 .post-body td {
-  color: #93c5fd !important;
+  color: #1e40af !important;
   padding: 12px;
   border-bottom: 1px solid #475569;
   text-shadow: 0 1px 2px rgba(0,0,0,0.3);
@@ -3165,12 +3165,12 @@ a:hover {
   border-radius: 1px;
 }
 .post-body strong {
-  color: #60a5fa !important;
+  color: #1d4ed8 !important;
   font-weight: 600;
   text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 .post-body em {
-  color: #93c5fd !important;
+  color: #1e40af !important;
   font-style: italic;
   text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
