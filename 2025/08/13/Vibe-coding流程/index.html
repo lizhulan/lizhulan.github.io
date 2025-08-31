@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://lizhulan.github.io/imgs/2025-08-18/axoCBkI45QGuK9E6.png">
 <meta property="og:image" content="https://lizhulan.github.io/imgs/2025-08-18/vBKNhObfZahcE1DH.png">
 <meta property="og:image" content="https://lizhulan.github.io/imgs/2025-08-18/i5Ph4xnCNQFPDj4u.png">
-<meta property="og:image" content="https://lizhulan.github.io/imgs/2025-08-18/2b4ND9921N0jPDeI.png">
+<meta property="og:image" content="https://free.picui.cn/free/2025/08/20/68a5865098e4f.png">
 <meta property="og:image" content="https://lizhulan.github.io/imgs/2025-08-18/TdaDCyCyWqwuCyJw.png">
 <meta property="og:image" content="https://lizhulan.github.io/imgs/2025-08-18/8zth8JSIq4YBM7ZN.png">
 <meta property="og:image" content="https://lizhulan.github.io/imgs/2025-08-18/7VV5ijhngrZlcajU.png">
@@ -43,7 +43,7 @@
 <meta property="og:image" content="https://lizhulan.github.io/imgs/2025-08-18/tXRn6hCfnJz4lzoU.png">
 <meta property="og:image" content="https://lizhulan.github.io/imgs/2025-08-18/j9R76HU3dlvKdZLL.png">
 <meta property="article:published_time" content="2025-08-12T16:49:56.000Z">
-<meta property="article:modified_time" content="2025-08-19T17:02:36.139Z">
+<meta property="article:modified_time" content="2025-08-31T13:33:07.024Z">
 <meta property="article:author" content="李猪兰">
 <meta property="article:tag" content="最佳实践">
 <meta property="article:tag" content="AI编程">
@@ -262,7 +262,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-08-20 01:02:36" itemprop="dateModified" datetime="2025-08-20T01:02:36+08:00">2025-08-20</time>
+                <time title="修改时间：2025-08-31 21:33:07" itemprop="dateModified" datetime="2025-08-31T21:33:07+08:00">2025-08-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -625,7 +625,7 @@
 <h4 id="步骤3"><a href="#步骤3" class="headerlink" title="步骤3"></a>步骤3</h4><p>生成迁移蓝图，示例</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">请根据当前codebase的详细设计文档 @readme_xx_lld.md、第三方代码调用链 @readme_texteller_infer.md、迁移需求 @readme_mig_prd.md，完成迁移蓝图设计，并将结果保存为 texteller_migration_bluprint.md。</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">你必须牢记并遵从以下优先级设计迁移方式：</span><br><span class="line"></span><br><span class="line">1.  优先直接复制代码，迁移风险最低</span><br><span class="line">    </span><br><span class="line">2.  复制部分代码次之</span><br><span class="line">    </span><br><span class="line">3.  参照源码重新实现逻辑风险较高</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">蓝图文档内容结构：</span><br><span class="line"></span><br><span class="line">## 文件映射关系表</span><br><span class="line"></span><br><span class="line">源文件(texteller目录下)和目标文件(app目录下)映射，迁移方式(copy还是重新实现逻辑)</span><br><span class="line"></span><br><span class="line">## 逐个文件说明</span><br><span class="line"></span><br><span class="line">逐一对每个目标文件说明：</span><br><span class="line"></span><br><span class="line">目标文件用途</span><br><span class="line"></span><br><span class="line">逐一对目标文件每个类中的方法说明：</span><br><span class="line"></span><br><span class="line">详细的输入参数说明</span><br><span class="line"></span><br><span class="line">输出结构说明</span><br><span class="line"></span><br><span class="line">实现逻辑：</span><br><span class="line"></span><br><span class="line">对于修改或者重新实现的代码，用Mermaid图说明实现流程和要点。如果流程中参与者涉及到本方法外部，采用时序图；否则采用流程图。关键字和操作符之外的纯文本用双引号包围。不得在此写代码。</span><br><span class="line"></span><br><span class="line">对于复制操作，详述操作步骤、需要处理的风险。不得在此写代码。</span><br></pre></td></tr></table></figure>
 
-<p><img src="/imgs/2025-08-18/2b4ND9921N0jPDeI.png" alt="输入图片说明"></p>
+<p><img src="https://free.picui.cn/free/2025/08/20/68a5865098e4f.png" alt="输入图片说明"></p>
 <h4 id="步骤4"><a href="#步骤4" class="headerlink" title="步骤4"></a>步骤4</h4><p>迁移代码</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">务必根据@texteller_migration_bluprint.md制定任务规划，然后完成texteller公式识别迁移</span><br></pre></td></tr></table></figure>
 
