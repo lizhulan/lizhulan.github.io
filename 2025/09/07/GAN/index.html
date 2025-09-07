@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#2d3748">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#2d3748">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lizhulan.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":300,"display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#667eea","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本文全面介绍了生成对抗网络(GAN)的核心概念与发展历程，从自编码器、变分自编码器的基础原理出发，深入探讨了条件生成GAN(CGAN、InfoGAN、ACGAN)、多尺度生成GAN(LAPGAN、Progressive GAN)以及StyleGAN系列的技术创新。文章详细分析了GAN的评估方法，包括Inception Score、FID等指标，并对比了GAN与扩散模型在生成质量、训练稳定性、推理速">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GAN">
+<meta property="og:url" content="https://lizhulan.github.io/2025/09/07/GAN/index.html">
+<meta property="og:site_name" content="李猪兰">
+<meta property="og:description" content="本文全面介绍了生成对抗网络(GAN)的核心概念与发展历程，从自编码器、变分自编码器的基础原理出发，深入探讨了条件生成GAN(CGAN、InfoGAN、ACGAN)、多尺度生成GAN(LAPGAN、Progressive GAN)以及StyleGAN系列的技术创新。文章详细分析了GAN的评估方法，包括Inception Score、FID等指标，并对比了GAN与扩散模型在生成质量、训练稳定性、推理速">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://free.picui.cn/free/2025/09/06/68bba9d0072b7.png">
+<meta property="og:image" content="https://free.picui.cn/free/2025/09/07/68bd3a92b20da.png">
+<meta property="og:image" content="https://free.picui.cn/free/2025/09/07/68bd54722acf5.png">
+<meta property="article:published_time" content="2025-09-07T11:59:37.000Z">
+<meta property="article:modified_time" content="2025-09-07T12:03:28.727Z">
+<meta property="article:author" content="李猪兰">
+<meta property="article:tag" content="计算机视觉">
+<meta property="article:tag" content="机器学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://free.picui.cn/free/2025/09/06/68bba9d0072b7.png">
+
+<link rel="canonical" href="https://lizhulan.github.io/2025/09/07/GAN/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>GAN | 李猪兰</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">李猪兰</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-docs">
+
+    <a href="/docs/" rel="section"><i class="fa fa-book fa-fw"></i>docs</a>
+
+  </li>
+        <li class="menu-item menu-item-plugins">
+
+    <a href="/plugins/" rel="section"><i class="fa fa-plug fa-fw"></i>plugins</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">7</span></a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">20</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">8</span></a>
+
+  </li>
+        <li class="menu-item menu-item-resources">
+
+    <a href="/resources/" rel="section"><i class="fa fa-download fa-fw"></i>资源</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/lizhulan" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lizhulan.github.io/2025/09/07/GAN/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.jpg">
+      <meta itemprop="name" content="李猪兰">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="李猪兰">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          GAN
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-09-07 19:59:37 / 修改时间：20:03:28" itemprop="dateCreated datePublished" datetime="2025-09-07T19:59:37+08:00">2025-09-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="GAN"><a href="#GAN" class="headerlink" title="GAN"></a>GAN</h1><h2 id="编码器"><a href="#编码器" class="headerlink" title="编码器"></a>编码器</h2><h3 id="自编码器AE"><a href="#自编码器AE" class="headerlink" title="自编码器AE"></a>自编码器AE</h3><p>把输入压成“短码”再还原，像“压缩-解压”软件，只是压缩表是神经网络自己学的。</p>
+<p><strong>核心结构</strong><br>编码器 f(x)→z（短向量）<br>解码器 g(z)→x̂（还原图）</p>
+<p><strong>训练目标</strong><br>最小化“原图 vs 还原图”的像素误差，让 x̂ 尽量像 x；潜码 z 无任何额外约束。</p>
+<p><strong>典型用途</strong></p>
+<ul>
+<li><p>降维可视化（比 PCA 非线性更强）</p>
+</li>
+<li><p>图像&#x2F;语音去噪（训练时加噪声，学会“干净→干净”）</p>
+</li>
+<li><p>特征预训练（把 f(x) 抽出来喂给下游分类器）</p>
+</li>
+<li><p>异常检测（正常样本重构误差低，异常高）</p>
+</li>
+</ul>
+<h3 id="变分自编码器VAE"><a href="#变分自编码器VAE" class="headerlink" title="变分自编码器VAE"></a>变分自编码器VAE</h3><p>AE 的“概率版”：不再压成“一个点”，而是压成“一团高斯云”，因此既能解压还原，也能随机造新图。</p>
+<p><strong>核心结构</strong><br>编码器输出两个向量：μ 和 σ → 用“重参数化”技巧采样 z<br>解码器把 z 变成 x̂</p>
+<p><strong>训练目标</strong><br>同时优化两项：</p>
+<ol>
+<li><p>还原图要真（似然项）</p>
+</li>
+<li><p>高斯云必须接近标准正态（KL 散度项）<br>→ 保证潜空间连续、可采样，还能算生成概率。</p>
+</li>
+</ol>
+<p><strong>典型用途</strong></p>
+<ul>
+<li><p>生成新样本（人脸、手写数字、分子结构）</p>
+</li>
+<li><p>潜空间平滑插值（两张脸渐变）</p>
+</li>
+<li><p>可控生成（把标签一起喂进去，叫 CVAE）</p>
+</li>
+<li><p>表示解耦（β-VAE 让潜码各维度对应独立语义，如“角度&#x2F;光照”）</p>
+</li>
+</ul>
+<h2 id="第一次接触GAN"><a href="#第一次接触GAN" class="headerlink" title="第一次接触GAN"></a>第一次接触GAN</h2><p>DCGAN，全称是 Deep Convolution Generative Adversarial Networks（深度卷积生成对抗网络）<br><img src="https://free.picui.cn/free/2025/09/06/68bba9d0072b7.png" alt="输入图片说明"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 想象一个造假币的故事：</span><br><span class="line"># 1. 判别器训练（警察训练）</span><br><span class="line"># 警察学习：真钞票 → 判断为真（标签1）</span><br><span class="line"># 警察学习：假钞票 → 判断为假（标签0）</span><br><span class="line"># 2. 生成器训练（造假者训练）  </span><br><span class="line">netG.zero_grad()                    # 造假者准备学习</span><br><span class="line">label.fill_(real_label)             # 造假者的目标：让警察认为假钞是真的</span><br><span class="line">output = netD(fake).view(-1)        # 警察检查假钞票</span><br><span class="line">errG = criterion(output, label)     # 计算造假者的&quot;失败程度&quot;</span><br><span class="line">errG.backward()                     # 分析失败原因</span><br><span class="line">optimizerG.step()                   # 改进造假技术</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="条件生成GAN"><a href="#条件生成GAN" class="headerlink" title="条件生成GAN"></a>条件生成GAN</h2><h3 id="有监督"><a href="#有监督" class="headerlink" title="有监督"></a>有监督</h3><h4 id="CGAN（Conditional-GAN）"><a href="#CGAN（Conditional-GAN）" class="headerlink" title="CGAN（Conditional GAN）"></a>CGAN（Conditional GAN）</h4><ul>
+<li><p><strong>怎么做</strong><br>最早的条件版：把 one-hot 标签 y 分别拼到噪声 z（G 输入）和图像 x（D 输入），变成向量 <code>[z;y]</code> 和 <code>[x;y]</code>，再正常对抗训练。</p>
+</li>
+<li><p><strong>为什么有用</strong><br>标签当额外信息，D 同时判断“真&#x2F;假”+“是否匹配条件”，迫使 G 学到“给定 y 就应生成对应模态”的映射。</p>
+</li>
+<li><p><strong>局限</strong><br>条件 y 必须成对出现；如果标签噪声大或类别多，训练不稳定。</p>
+</li>
+<li><p><strong>论文</strong><br>Mirza M, Osindero S. Conditional Generative Adversarial Nets. arXiv 2014. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1411.1784">https://arxiv.org/abs/1411.1784</a></p>
+</li>
+</ul>
+<h4 id="AlignGAN（跨域配对生成）"><a href="#AlignGAN（跨域配对生成）" class="headerlink" title="AlignGAN（跨域配对生成）"></a>AlignGAN（跨域配对生成）</h4><ul>
+<li><p><strong>场景</strong><br>源域有标签，目标域无标签或标签空间不同，希望“把源域图片+标签”翻译成“目标域同语义的图片”。</p>
+</li>
+<li><p><strong>怎么做</strong><br>三套网络：</p>
+<ol>
+<li><p>共享潜码 E：把两域图片压到同一个 z；</p>
+</li>
+<li><p>域专属 G：根据 z+标签 y 生成目标域图像；</p>
+</li>
+<li><p>语义一致性 D：判断“生成图与条件 y 是否语义对齐”。<br>额外加 cycle-consistency 和潜码对齐损失，保证翻译前后标签不变。</p>
+</li>
+</ol>
+</li>
+<li><p><strong>优点</strong><br>不需要像素级配对，只需源域标签即可实现“语义对齐跨域生成”。</p>
+</li>
+<li><p><strong>论文</strong><br>Zhou S, et al. AlignGAN: Learning to Align Cross-Domain Images with Conditional Generative Adversarial Networks. AAAI 2020. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1907.01452">https://arxiv.org/abs/1907.01452</a></p>
+</li>
+</ul>
+<h3 id="无监督"><a href="#无监督" class="headerlink" title="无监督"></a>无监督</h3><h4 id="InfoGAN（信息最大化-GAN）"><a href="#InfoGAN（信息最大化-GAN）" class="headerlink" title="InfoGAN（信息最大化 GAN）"></a>InfoGAN（信息最大化 GAN）</h4><ul>
+<li><p><strong>目标</strong><br>没有标签，也能让潜码的某些维度“自动”对应可解释因子（旋转角、粗细、光照）。</p>
+</li>
+<li><p><strong>怎么做</strong><br>把噪声拆成两部分：</p>
+<ul>
+<li><p>z：不可压缩噪声；</p>
+</li>
+<li><p>c（小维度）：希望与生成图互信息最大。<br>额外训练一个“辅助网络 Q”去预测 c，最大化 Q 的预测似然 ≈ 最大化 I(c;G(z,c))。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>效果</strong><br>无需任何标签，c 的每一维自动抓住高维变化模式。</p>
+</li>
+<li><p><strong>缺点</strong><br>互信息估计用蒙特卡洛，训练慢；c 维度需人工选。</p>
+</li>
+<li><p><strong>论文</strong><br>Chen X, et al. InfoGAN: Interpretable Representation Learning by Information Maximizing Generative Adversarial Nets. NeurIPS 2016. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1606.03657">https://arxiv.org/abs/1606.03657</a></p>
+</li>
+</ul>
+<h3 id="半监督"><a href="#半监督" class="headerlink" title="半监督"></a>半监督</h3><h4 id="ACGAN（Auxiliary-Classifier-GAN）"><a href="#ACGAN（Auxiliary-Classifier-GAN）" class="headerlink" title="ACGAN（Auxiliary Classifier GAN）"></a>ACGAN（Auxiliary Classifier GAN）</h4><ul>
+<li><p><strong>场景</strong><br>只有一小部分图像有标签，想同时做：</p>
+<ol>
+<li><p>高保真生成；</p>
+</li>
+<li><p>用少量标签把类别信息塞进生成器；</p>
+</li>
+<li><p>顺便训练一个分类器。</p>
+</li>
+</ol>
+</li>
+<li><p><strong>怎么做</strong><br>D 改成双头：</p>
+<ul>
+<li><p>真&#x2F;假头：传统对抗 loss；</p>
+</li>
+<li><p>分类头：交叉熵 loss（对真实图用真标签，对生成图用 G 输入的 y）。<br>G 输入噪声+标签 y，目标骗过 D 的“真&#x2F;假”头，同时让 D 分类头也相信自己是对应类别。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>结果</strong><br>在 CIFAR-10 上只用 4 k 标签即可达到 85% 分类准确率，同时生成 128×128 高质量样本。</p>
+</li>
+<li><p><strong>论文</strong><br>Odena A, et al. Conditional Image Synthesis with Auxiliary Classifier GANs. ICML 2017. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1610.09585">https://arxiv.org/abs/1610.09585</a></p>
+</li>
+</ul>
+<h2 id="多尺度生成GAN"><a href="#多尺度生成GAN" class="headerlink" title="多尺度生成GAN"></a>多尺度生成GAN</h2><p>核心思想：一次生成全分辨率太难 → 先低分辨率“搭骨架”，再逐级补细节，减轻 G&#x2F;D 训练压力。</p>
+<h3 id="金字塔图像生成GAN（Laplacian-GAN）"><a href="#金字塔图像生成GAN（Laplacian-GAN）" class="headerlink" title="金字塔图像生成GAN（Laplacian GAN）"></a>金字塔图像生成GAN（Laplacian GAN）</h3><p>LAPGAN：基于残差的学习机制，多尺度增加生成分辨率</p>
+<ul>
+<li><p><strong>怎么做</strong></p>
+<ol>
+<li><p>把图像做拉普拉斯金字塔分解：每个级别只存“残差”高频；</p>
+</li>
+<li><p>每层配一个独立 CGAN：输入“上一级的上采样图+噪声+标签”，生成当前级残差；</p>
+</li>
+<li><p>最后把残差逐级加回去，得到 256×256 图像。</p>
+</li>
+</ol>
+</li>
+<li><p><strong>优点</strong><br>每级仅学“残差”，分布更简单，训练稳定；2015 年即生成 256×256 逼真鸟类、人脸。</p>
+</li>
+<li><p><strong>缺点</strong><br>级联 3–4 个独立 G&#x2F;D，参数量大，推理串行慢。</p>
+</li>
+<li><p><strong>论文</strong><br>Denton E, et al. Deep Generative Image Models using a Laplacian Pyramid of Adversarial Networks. NeurIPS 2015. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1506.05751">https://arxiv.org/abs/1506.05751</a></p>
+</li>
+</ul>
+<h3 id="渐进式图像生成GAN"><a href="#渐进式图像生成GAN" class="headerlink" title="渐进式图像生成GAN"></a>渐进式图像生成GAN</h3><p>Progressive GAN：基于残差与多尺度的学习机制，但只有一个G和一个D</p>
+<ul>
+<li><p><strong>怎么做</strong><br>只用 <strong>一个 G、一个 D</strong>，但训练过程像“盖楼”：</p>
+<ul>
+<li><p>从 4×4 开始，G 生成 4×4 真&#x2F;假图，D 判别；</p>
+</li>
+<li><p>训练稳定后，平滑“淡入”8×8 层（新旧层用 α 混合），继续对抗；</p>
+</li>
+<li><p>重复直至 1024×1024。<br>每级新增层都用 <strong>残差式 skip</strong> 学习，只需补“高频细节”，难度低。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>优点</strong><br>单 G&#x2F;D 结构简单，推理快；首次实现 1024×1024 人脸高清生成，FID 8.0（当时最佳）。</p>
+</li>
+<li><p><strong>缺点</strong><br>训练周期长（Tesla V100 上 2 周）；对超参敏感，需 careful γ 调节。</p>
+</li>
+<li><p><strong>论文</strong><br>Karras T, et al. Progressive Growing of GANs for Improved Quality, Stability, and Variation. ICLR 2018. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1710.10196">https://arxiv.org/abs/1710.10196</a></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>代表</th>
+<th>是否多级网络</th>
+<th>是否残差</th>
+<th>主要贡献</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>条件-有监督</td>
+<td>CGAN</td>
+<td>否</td>
+<td>否</td>
+<td>最早把标签塞进 GAN</td>
+</tr>
+<tr>
+<td>条件-跨域</td>
+<td>AlignGAN</td>
+<td>否</td>
+<td>部分</td>
+<td>无配对也能语义对齐</td>
+</tr>
+<tr>
+<td>条件-无监督</td>
+<td>InfoGAN</td>
+<td>否</td>
+<td>否</td>
+<td>潜码自动解耦</td>
+</tr>
+<tr>
+<td>条件-半监督</td>
+<td>ACGAN</td>
+<td>否</td>
+<td>否</td>
+<td>用少量标签同时生成+分类</td>
+</tr>
+<tr>
+<td>多尺度-金字塔</td>
+<td>LAPGAN</td>
+<td>是（3–4 级）</td>
+<td>是（残差&#x3D;高频）</td>
+<td>逐级残差补细节</td>
+</tr>
+<tr>
+<td>多尺度-渐进</td>
+<td>ProGAN</td>
+<td>是（1 G&#x2F;D，逐级放大）</td>
+<td>是（平滑 fade-in）</td>
+<td>单模型 1 k² 高清生成</td>
+</tr>
+</tbody></table>
+<h2 id="GAN的评估"><a href="#GAN的评估" class="headerlink" title="GAN的评估"></a>GAN的评估</h2><h3 id="通过数据集的划分进行评估"><a href="#通过数据集的划分进行评估" class="headerlink" title="通过数据集的划分进行评估"></a>通过数据集的划分进行评估</h3><p><strong>GAN-base</strong>根据真实图像训练了分类器，并在真实图像上进行测试。<br><strong>GAN-train</strong>根据GAN生成图像训练了一个分类器，并在真实图像上进行测试，该指标与GAN-base比较，可评估GAN生成图像的多样性和真实性。<br><strong>GAN-test</strong>根据真实图像训练了分类器，并在GAN生成图像上进行评估，该指标与GAN-base比较，可评估GAN生成图像的真实性(生成图像与数据流形之间的接近程度)。</p>
+<h3 id="Inception分数"><a href="#Inception分数" class="headerlink" title="Inception分数"></a><strong>Inception</strong>分数</h3><p>使用熵对样本的质量进行评估</p>
+<blockquote>
+<p>样本的质量问题，对质量高的生成图像x，分类模型可将其以很高的概率分类成某个类，即标签向量p(yx)数值比较集中，当p(y|x)为one-hot分布时，熵达到最小值0。</p>
+</blockquote>
+<p>使用熵对样本的多样性进行评估</p>
+<blockquote>
+<p>样本的多样性问题:若样本{x1,x.,…,x}多样性比较好,则标签向量(y,y,…,y)}的类别分布也应该是比较均匀的</p>
+</blockquote>
+<p>IS只考虑生成器的分布,而忽略数据集的分布，无法检测生成器过拟合问题,可能会鼓励模型只学习清晰和多样化图像</p>
+<p>M-IS(Modifified Inception Score):关注了类内模式崩溃的问题</p>
+<h3 id="1-最近邻分类器"><a href="#1-最近邻分类器" class="headerlink" title="1-最近邻分类器"></a>1-最近邻分类器</h3><p>通过判定真实数据分布 pdata​ 和生成数据分布 pg​ 是否相等</p>
+<h3 id="Frechet-Inception-Distance"><a href="#Frechet-Inception-Distance" class="headerlink" title="Fréchet Inception Distance"></a>Fréchet Inception Distance</h3><p>计算生成样本和真实样本的 CNN 特征构成的两个高斯分布的弗雷歇距离</p>
+<h3 id="Kernel-MMD-Kernel-Maximum-Mean-Discrepancy"><a href="#Kernel-MMD-Kernel-Maximum-Mean-Discrepancy" class="headerlink" title="Kernel MMD(Kernel Maximum Mean Discrepancy)"></a>Kernel MMD(Kernel Maximum Mean Discrepancy)</h3><p>核最大均值差异，选择一个核函数k(x,y)，计算样本距离</p>
+<h3 id="Wasserstein-Distance"><a href="#Wasserstein-Distance" class="headerlink" title="Wasserstein Distance"></a>Wasserstein Distance</h3><p>使用一个已经训练好的判别器D(x)对真实样本输出高预测值，假样本输出低预测值</p>
+<h2 id="StyleGAN"><a href="#StyleGAN" class="headerlink" title="StyleGAN"></a>StyleGAN</h2><h3 id="V1"><a href="#V1" class="headerlink" title="V1"></a>V1</h3><p><img src="https://free.picui.cn/free/2025/09/07/68bd3a92b20da.png" alt="输入图片说明"><br>由Mapping network f和Synthesis network g两部分组成<br><strong>Mapping network f</strong>：摆脱输入向量z受输入数据集分布的影响，更好的实现属性解耦合。<br><strong>Synthesis network g</strong>：512维的向量w，经过<strong>仿射变换</strong>A，得到风格向量s。AdaIN层实现分层的风格控制<br>风格分层，分辨率越大就是越宏观的特征<br>B表示可学习的权重系数<br>加噪声增加生成图像的多样性，越复杂精细的地方受噪声影响就越明显<br><strong>训练技巧</strong><br>mixing regularization（样式混合）：随机交换两个 w 向量的部分内容，进行拼接，阻止相邻特征耦合<br>Truncation Trick（截断）：解决低密度区域的生成质量问题<br><strong>评估</strong><br>路径长度perceptual path length：什么是好的Latent向量看生产期是否选择了最近的路线，perceptual path length是Latent 空间中端点的平均距离，训练过程中相邻时间节点上的两个生成图像的距离。<br>线性可分性Linear separability：</p>
+<ul>
+<li>使用分布 z ~ P (z) 生成 200,000 张图片，训练 1 个 CNN 图片分类器得到某一个属性的二分类标签</li>
+<li>对 Latent 向量 Z 或者 W 使用 SVM 进行分类，计算条件熵 H (Y|X)，X 是 SVM 分类器结果，Y 是 CNN 图片分类器结果</li>
+</ul>
+<blockquote>
+<p> H(Y|X)意义：需要多少额外信息来决定真的类别，更低的值反映出更一致Latent space方向</p>
+</blockquote>
+<h3 id="V2"><a href="#V2" class="headerlink" title="V2"></a>V2</h3><h4 id="V1的缺陷"><a href="#V1的缺陷" class="headerlink" title="V1的缺陷"></a>V1的缺陷</h4><p> StyleGAN 生成器中液滴伪影：Instance normalization 标准化层带来的瑕疵</p>
+<h4 id="V2结构"><a href="#V2结构" class="headerlink" title="V2结构"></a>V2结构</h4><p><img src="https://free.picui.cn/free/2025/09/07/68bd54722acf5.png" alt="输入图片说明"></p>
+<ul>
+<li>Norm 中去除 mean，将 noise 和 bias  移到 style block 外。</li>
+<li>简化了噪声广播操作（对所有特征图  使用单一共享比例因子）</li>
+<li>权重归一化：将 IN 替换为  demodulation 层，基于信号的统计假设，而不是特征图的实际内容 (相对较弱的调制)</li>
+</ul>
+<p>Mod 层：通过缩放卷积权重来替换缩放卷积的每个输入特征图<br>demodulation层：通过缩放相应权重的L2范数来缩放输出<br><strong>训练技巧</strong><br>残差学习：去掉渐进式分辨率提升训练策略（Progressive growing），使用残差结构。<br>路径长度正则化：假设如果在潜在空间中的每个点处，小的位移都在图像空间中产生相同大小的变化，而与方向无关，则认为从潜在空间到图像空间的生成器映射条件良好，latent vector 向量更加线性与平滑</p>
+<h2 id="数据增强与仿真GAN"><a href="#数据增强与仿真GAN" class="headerlink" title="数据增强与仿真GAN"></a>数据增强与仿真GAN</h2><p><strong>BAGAN</strong> (balancing generative adversarial network)，解决类别不平衡（class inbalance）</p>
+<p><strong>SimGAN</strong>，提高仿真数据的真实性</p>
+<h2 id="视频生成与预测GAN"><a href="#视频生成与预测GAN" class="headerlink" title="视频生成与预测GAN"></a>视频生成与预测GAN</h2><p>VideoGAN，视频生成<br>MDGAN，视频预测</p>
+<h2 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h2><h3 id="GAN和扩散模型"><a href="#GAN和扩散模型" class="headerlink" title="GAN和扩散模型"></a>GAN和扩散模型</h3><ol>
+<li><p>生成质量（FID &#x2F; IS &#x2F; 保真度） • GAN：在 2021 年以前，BigGAN、StyleGAN 系列在 ImageNet 1024² 上保持 FID 3～5 的纪录。<br>• 扩散模型：Dhariwal &amp; Nichol 通过改进 U-Net 与分类器引导，将 ImageNet 256² FID 降到 2.97，首次在公开数据集上系统性击败同期最佳 GAN。<br>论文：Dhariwal P, Nichol A. Diffusion Models Beat GANs on Image Synthesis. NeurIPS 2021. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2105.05233">https://arxiv.org/abs/2105.05233</a></p>
+</li>
+<li><p>训练稳定性（模式崩溃与收敛性） • GAN：理论上存在两玩家博弈的不稳定解，实践中易出现模式崩溃。Borji 综述中系统归纳了 18 种 GAN 训练失败模式。<br>• 扩散模型：最大似然或变分下界目标函数无对抗项，Ho et al. 证明 DDPM 在 CIFAR-10 上训练 1000 个 epoch 仍保持稳定收敛。<br>论文：Ho J, et al. Denoising Diffusion Probabilistic Models. NeurIPS 2020. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2006.11239">https://arxiv.org/abs/2006.11239</a></p>
+</li>
+<li><p>推理速度与计算成本 • GAN：一次前向即可生成样本，单张 256² 图像在 RTX-3090 上约 3 ms（GigaGAN 实测）。<br>• 扩散模型：标准 DDPM 需 1000 步去噪，耗时数十秒；即便 DDIM 加速 50 步仍比 GAN 慢 1～2 个数量级。<br>论文：Song J, et al. Denoising Diffusion Implicit Models. ICLR 2021. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2010.02502">https://arxiv.org/abs/2010.02502</a></p>
+</li>
+<li><p>样本多样性 • GAN：当判别器过强时容易丢失低概率模式，导致多样性下降（Mode Drop）。<br>• 扩散模型：基于对数似然训练天然鼓励覆盖所有模式，Kingma et al. 证明扩散模型在 ImageNet 上的召回率（Recall）显著高于 StyleGAN2。<br>论文：Kingma D, et al. Variational Diffusion Models. NeurIPS 2021. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2107.00630">https://arxiv.org/abs/2107.00630</a></p>
+</li>
+<li><p>可控 &#x2F; 条件生成 • GAN：条件 GAN 早期依赖类别标签或投影判别器；StyleGAN 通过潜空间编辑实现局部语义控制，但缺乏文本细粒度引导。<br>• 扩散模型：Classifier-Free Guidance 与大规模文本编码器（CLIP、T5）结合，Stable Diffusion、DALL-E 2 支持基于提示词的高精度可控生成。<br>论文：Ramesh A, et al. Hierarchical Text-Conditional Image Generation with CLIP Latents. arXiv 2022. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2204.06125">https://arxiv.org/abs/2204.06125</a></p>
+</li>
+<li><p>训练数据效率 • GAN：需大量样本才能稳定训练；StyleGAN3 在 70 k ImageNet 类别子集上仍需要精细超参调整。<br>• 扩散模型：DDPM 在 CIFAR-10（50 k）与 CelebA-HQ（30 k）即可训练出高质量模型，表现出更好的小数据鲁棒性。<br>论文：Ho J, et al. Denoising Diffusion Probabilistic Models. NeurIPS 2020（实验部分数据消融表）.</p>
+</li>
+<li><p>可解释性与潜在空间 • GAN：z 空间语义高度纠缠，需额外潜码解耦技术（如 SeFa）。<br>• 扩散模型：逐层去噪可视化为“雕刻”过程，直观可解释；同时支持在任意 t-step 注入控制信号，实现中间层干预。<br>论文：Meng C, et al. SDEdit: Guided Image Synthesis and Editing with Stochastic Differential Equations. ICLR 2022. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2108.01073">https://arxiv.org/abs/2108.01073</a></p>
+</li>
+<li><p>模型压缩与实时化 • GAN：天然单步生成，无需额外压缩即可部署。<br>• 扩散模型：最新一步蒸馏（One-Step Distillation）结合对抗损失，可在保持 FID &lt; 5 的前提下实现 1-step 生成，速度接近 GAN，但需额外蒸馏训练。<br>论文：Sauer A, et al. Adversarial Score Distillation: Rapidly Surpassing the Teacher in One Step. arXiv 2024. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2410.14919">https://arxiv.org/abs/2410.14919</a></p>
+</li>
+<li><p>理论可扩展性与连续时间框架 • 扩散模型可通过随机微分方程（SDE）&#x2F;概率流 ODE 统一连续时间框架，具备更丰富的理论工具（Wasserstein 收敛、分数匹配误差界等）。<br>论文：Song Y, et al. Score-Based Generative Modeling through Stochastic Differential Equations. ICLR 2021. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2011.13456">https://arxiv.org/abs/2011.13456</a></p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>GAN</th>
+<th>扩散模型</th>
+<th>关键论文</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>生成质量</td>
+<td>高（≤2021 SOTA）</td>
+<td>更高（2022 起普遍领先）</td>
+<td>[Dhariwal 2021]</td>
+</tr>
+<tr>
+<td>训练稳定性</td>
+<td>易模式崩溃</td>
+<td>稳定收敛</td>
+<td>[Ho 2020]</td>
+</tr>
+<tr>
+<td>推理速度</td>
+<td>单步，毫秒级</td>
+<td>50～1000 步，秒级</td>
+<td>[Song 2021]</td>
+</tr>
+<tr>
+<td>多样性</td>
+<td>受限于判别器过拟合</td>
+<td>高（似然训练覆盖长尾）</td>
+<td>[Kingma 2021]</td>
+</tr>
+<tr>
+<td>条件可控性</td>
+<td>弱（无文本引导）</td>
+<td>强（Prompt、ControlNet）</td>
+<td>[Ramesh 2022]</td>
+</tr>
+<tr>
+<td>小数据训练</td>
+<td>困难</td>
+<td>相对鲁棒</td>
+<td>[Ho 2020]</td>
+</tr>
+<tr>
+<td>可解释性</td>
+<td>低（潜空间纠缠）</td>
+<td>高（逐层去噪可视化）</td>
+<td>[Meng 2022]</td>
+</tr>
+<tr>
+<td>实时部署</td>
+<td>原生支持</td>
+<td>需蒸馏&#x2F;量化</td>
+<td>[Sauer 2024]</td>
+</tr>
+</tbody></table>
+
+    </div>
+
+    
+    
+    
+
+    
+      <div>
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      </div>
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>李猪兰
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://lizhulan.github.io/2025/09/07/GAN/" title="GAN">https://lizhulan.github.io/2025/09/07/GAN/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" rel="tag"># 计算机视觉</a>
+              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"># 机器学习</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/08/19/Python%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/" rel="prev" title="Python代码规范">
+      <i class="fa fa-chevron-left"></i> Python代码规范
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#GAN"><span class="nav-number">1.</span> <span class="nav-text">GAN</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E7%A0%81%E5%99%A8"><span class="nav-number">1.1.</span> <span class="nav-text">编码器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8AE"><span class="nav-number">1.1.1.</span> <span class="nav-text">自编码器AE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8VAE"><span class="nav-number">1.1.2.</span> <span class="nav-text">变分自编码器VAE</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%A6GAN"><span class="nav-number">1.2.</span> <span class="nav-text">第一次接触GAN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E7%94%9F%E6%88%90GAN"><span class="nav-number">1.3.</span> <span class="nav-text">条件生成GAN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%89%E7%9B%91%E7%9D%A3"><span class="nav-number">1.3.1.</span> <span class="nav-text">有监督</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CGAN%EF%BC%88Conditional-GAN%EF%BC%89"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">CGAN（Conditional GAN）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AlignGAN%EF%BC%88%E8%B7%A8%E5%9F%9F%E9%85%8D%E5%AF%B9%E7%94%9F%E6%88%90%EF%BC%89"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">AlignGAN（跨域配对生成）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E7%9B%91%E7%9D%A3"><span class="nav-number">1.3.2.</span> <span class="nav-text">无监督</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#InfoGAN%EF%BC%88%E4%BF%A1%E6%81%AF%E6%9C%80%E5%A4%A7%E5%8C%96-GAN%EF%BC%89"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">InfoGAN（信息最大化 GAN）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%8A%E7%9B%91%E7%9D%A3"><span class="nav-number">1.3.3.</span> <span class="nav-text">半监督</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ACGAN%EF%BC%88Auxiliary-Classifier-GAN%EF%BC%89"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">ACGAN（Auxiliary Classifier GAN）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E5%B0%BA%E5%BA%A6%E7%94%9F%E6%88%90GAN"><span class="nav-number">1.4.</span> <span class="nav-text">多尺度生成GAN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%91%E5%AD%97%E5%A1%94%E5%9B%BE%E5%83%8F%E7%94%9F%E6%88%90GAN%EF%BC%88Laplacian-GAN%EF%BC%89"><span class="nav-number">1.4.1.</span> <span class="nav-text">金字塔图像生成GAN（Laplacian GAN）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%90%E8%BF%9B%E5%BC%8F%E5%9B%BE%E5%83%8F%E7%94%9F%E6%88%90GAN"><span class="nav-number">1.4.2.</span> <span class="nav-text">渐进式图像生成GAN</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GAN%E7%9A%84%E8%AF%84%E4%BC%B0"><span class="nav-number">1.5.</span> <span class="nav-text">GAN的评估</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E5%88%92%E5%88%86%E8%BF%9B%E8%A1%8C%E8%AF%84%E4%BC%B0"><span class="nav-number">1.5.1.</span> <span class="nav-text">通过数据集的划分进行评估</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Inception%E5%88%86%E6%95%B0"><span class="nav-number">1.5.2.</span> <span class="nav-text">Inception分数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%9C%80%E8%BF%91%E9%82%BB%E5%88%86%E7%B1%BB%E5%99%A8"><span class="nav-number">1.5.3.</span> <span class="nav-text">1-最近邻分类器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Frechet-Inception-Distance"><span class="nav-number">1.5.4.</span> <span class="nav-text">Fréchet Inception Distance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kernel-MMD-Kernel-Maximum-Mean-Discrepancy"><span class="nav-number">1.5.5.</span> <span class="nav-text">Kernel MMD(Kernel Maximum Mean Discrepancy)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Wasserstein-Distance"><span class="nav-number">1.5.6.</span> <span class="nav-text">Wasserstein Distance</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#StyleGAN"><span class="nav-number">1.6.</span> <span class="nav-text">StyleGAN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#V1"><span class="nav-number">1.6.1.</span> <span class="nav-text">V1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#V2"><span class="nav-number">1.6.2.</span> <span class="nav-text">V2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#V1%E7%9A%84%E7%BC%BA%E9%99%B7"><span class="nav-number">1.6.2.1.</span> <span class="nav-text">V1的缺陷</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#V2%E7%BB%93%E6%9E%84"><span class="nav-number">1.6.2.2.</span> <span class="nav-text">V2结构</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA%E4%B8%8E%E4%BB%BF%E7%9C%9FGAN"><span class="nav-number">1.7.</span> <span class="nav-text">数据增强与仿真GAN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%86%E9%A2%91%E7%94%9F%E6%88%90%E4%B8%8E%E9%A2%84%E6%B5%8BGAN"><span class="nav-number">1.8.</span> <span class="nav-text">视频生成与预测GAN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FAQ"><span class="nav-number">1.9.</span> <span class="nav-text">FAQ</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GAN%E5%92%8C%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.9.1.</span> <span class="nav-text">GAN和扩散模型</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="李猪兰"
+      src="/images/head.jpg">
+  <p class="site-author-name" itemprop="name">李猪兰</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lizhulan" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lizhulan" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:lizhulan@example.com" title="E-Mail → mailto:lizhulan@example.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/docs/" title="Docs → &#x2F;docs&#x2F;"><i class="fa fa-book fa-fw"></i>Docs</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/plugins/" title="Plugins → &#x2F;plugins&#x2F;"><i class="fa fa-plug fa-fw"></i>Plugins</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/archives/" title="Archives → &#x2F;archives&#x2F;"><i class="fa fa-archive fa-fw"></i>Archives</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2024 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李猪兰</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">89k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:21</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共46.6k字</span>
+</div>
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客数<span id="busuanzi_value_site_uv"></span>人</span>
+    <span class="post-meta-divider">|</span>
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+$(document).ready(function() {
+
+    var int = setInterval(fixCount, 50);  // 50ms周期检测函数
+    var countOffset = 20000;  // 初始化首次数据
+
+    function fixCount() {            
+       if (document.getElementById("busuanzi_container_site_pv").style.display != "none")
+        {
+            $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + countOffset); 
+            clearInterval(int);
+        }                  
+        if ($("#busuanzi_container_site_pv").css("display") != "none")
+        {
+            $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + countOffset); // 加上初始数据 
+            clearInterval(int); // 停止检测
+        }  
+    }
+       	
+});
+</script> 
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script color='102,126,234' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest-nomobile.min.js"></script>
+  <script size="300" alpha="0.3" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/three-waves.min.js"></script>
+    <script defer src="/lib/three/canvas_lines.min.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
