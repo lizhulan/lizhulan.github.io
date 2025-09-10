@@ -22,15 +22,20 @@
     var CONFIG = {"hostname":"lizhulan.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":300,"display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#667eea","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="李猪兰">
-<meta property="og:url" content="https://lizhulan.github.io/tags/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/index.html">
+  <meta name="description" content="优化器用于更新模型的参数以最小化损失函数。以下是SGD（随机梯度下降）、SGD with Momentum（带动量的随机梯度下降）、AdaGrad、RMSProp和Adam几种常用优化器的优缺点概述： SGD（随机梯度下降）优点‌ ：简单易懂‌：SGD是最基础的优化算法之一，易于理解和实现。 ‌全局更新‌：每次迭代都会使用整个训练集的一个样本来更新参数，因此可以较快地收敛到全局最优解（在理想情况下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="各种优化器">
+<meta property="og:url" content="https://lizhulan.github.io/2025/09/10/%E5%90%84%E7%A7%8D%E4%BC%98%E5%8C%96%E5%99%A8/index.html">
 <meta property="og:site_name" content="李猪兰">
+<meta property="og:description" content="优化器用于更新模型的参数以最小化损失函数。以下是SGD（随机梯度下降）、SGD with Momentum（带动量的随机梯度下降）、AdaGrad、RMSProp和Adam几种常用优化器的优缺点概述： SGD（随机梯度下降）优点‌ ：简单易懂‌：SGD是最基础的优化算法之一，易于理解和实现。 ‌全局更新‌：每次迭代都会使用整个训练集的一个样本来更新参数，因此可以较快地收敛到全局最优解（在理想情况下">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-09-10T11:49:57.000Z">
+<meta property="article:modified_time" content="2025-09-10T11:49:57.313Z">
 <meta property="article:author" content="李猪兰">
+<meta property="article:tag" content="机器学习">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://lizhulan.github.io/tags/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/">
+<link rel="canonical" href="https://lizhulan.github.io/2025/09/10/%E5%90%84%E7%A7%8D%E4%BC%98%E5%8C%96%E5%99%A8/">
 
 
 <script id="page-configurations">
@@ -38,12 +43,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>标签: 项目管理 | 李猪兰</title>
+  <title>各种优化器 | 李猪兰</title>
   
 
 
@@ -203,51 +208,209 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">项目管理
-          <small>标签</small>
-        </h2>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lizhulan.github.io/2025/09/10/%E5%90%84%E7%A7%8D%E4%BC%98%E5%8C%96%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.jpg">
+      <meta itemprop="name" content="李猪兰">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="李猪兰">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          各种优化器
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-09-10 19:49:57" itemprop="dateCreated datePublished" datetime="2025-09-10T19:49:57+08:00">2025-09-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2025</span>
+        <p>优化器用于更新模型的参数以最小化损失函数。以下是SGD（随机梯度下降）、SGD with Momentum（带动量的随机梯度下降）、AdaGrad、RMSProp和Adam几种常用优化器的优缺点概述：</p>
+<p><strong>SGD（随机梯度下降）</strong><br>优点‌ ：<br>简单易懂‌：SGD是最基础的优化算法之一，易于理解和实现。 ‌<br>全局更新‌：每次迭代都会使用整个训练集的一个样本来更新参数，因此可以较快地收敛到全局最优解（在理想情况下）。 ‌<br>缺点‌：‌<br>收敛慢‌：由于每次只使用一个样本，梯度方向可能非常不稳定，导致收敛速度较慢。 ‌<br>震荡‌：在接近最优解时，SGD可能会因为梯度方向的频繁变化而在最优解附近震荡。 ‌难以跳出局部最优‌：SGD容易陷入局部最优解，特别是在高维空间中。<br><strong>SGD with Momentum（带动量的随机梯度下降）</strong> ‌<br>优点‌：‌<br>加速收敛‌：动量项可以加速SGD在相关方向上的收敛，同时抑制震荡。 ‌<br>减少震荡‌：通过引入动量，可以在一定程度上减少梯度方向频繁变化带来的震荡。 ‌<br>缺点‌：‌<br>参数选择‌：动量项的学习率和动量参数需要仔细选择，否则可能导致不稳定。 ‌<br>仍然可能陷入局部最优‌：虽然动量可以帮助跳出一些浅的局部最优，但在深度局部最优或鞍点处仍可能陷入。<br><strong>AdaGrad（自适应梯度算法）</strong> ‌<br>优点‌：‌<br>自适应学习率‌：AdaGrad根据每个参数的梯度历史来调整学习率，对于稀疏数据特别有效。 ‌无需手动调整学习率‌：在一定程度上，AdaGrad可以自动调整学习率，减少了手动调参的工作量。 ‌<br>缺点‌：‌<br>学习率衰减‌：由于学习率是根据梯度历史来调整的，随着训练的进行，学习率会逐渐衰减，可能导致在训练后期收敛速度非常慢。 ‌<br>对初始学习率敏感‌：虽然AdaGrad可以自适应调整学习率，但初始学习率的选择仍然很重要。<br><strong>RMSProp（均方根传播</strong>） ‌<br>优点‌：‌<br>自适应学习率‌：与AdaGrad类似，RMSProp也根据梯度历史来调整学习率，但使用了不同的方法来计算梯度平方的加权平均。 ‌ 缓解学习率衰减‌：RMSProp通过引入衰减因子来缓解AdaGrad中学习率过快衰减的问题。 ‌<br>缺点‌：‌<br>参数选择‌：RMSProp引入了额外的参数（如衰减因子），需要仔细选择。 ‌<br>可能不适用于所有情况‌：虽然RMSProp在许多情况下表现良好，但在某些特定任务或数据集上可能不是最佳选择。<br><strong>Adam（自适应矩估计）</strong> ‌<br>优点‌：‌<br>结合动量‌：Adam结合了动量（用于加速收敛）和自适应学习率（用于根据梯度历史调整学习率）的优点。<br>高效且稳定‌：在许多任务和数据集上，Adam都表现出了高效和稳定的性能。 ‌<br>较少的内存需求‌：与其他一些自适应学习率算法相比，Adam的内存需求相对较低。 ‌<br>缺点‌：‌<br>可能不收敛‌：在某些情况下（特别是当学习率设置得太高或太低时），Adam可能无法收敛到最优解。 ‌<br>对初始学习率和参数敏感‌：尽管可以自适应地调整学习率，但初始学习率和其他参数（如动量项的参数）的选择仍然很重要。 ‌<br>泛化能力问题‌：在某些情况下，使用Adam优化的模型可能在测试集上的泛化能力不如使用SGD或其他优化器的模型。</p>
+<p>总的来说，每种优化器都有其独特的优点和缺点，选择哪种优化器取决于具体的任务、数据集和模型架构。在实际应用中，通常需要通过实验来比较不同优化器的性能，并选择最适合当前任务的优化器。</p>
+<p>#################################################################<br>存在多种主流的自适应优化器，例如 Adam、Adagrad、Adadelta 及 RMSprop 等。与此同时，<strong>SGD+momentum</strong>（随机梯度下降结合动量，详见参考链接：<a target="_blank" rel="noopener" href="https://cs231n.github.io/neural-networks-3/#sgd">https://cs231n.github.io/neural-networks-3/#sgd</a>）凭借其稳定性，在各类问题场景中均有广泛应用。<br>选择优化器时，需重点考虑以下两方面核心特性：</p>
+<ol>
+<li>若优先追求<strong>快速收敛</strong>，Adam 等自适应优化器是更优选择，但这类优化器存在一定局限性 —— 可能陷入局部最小值，进而导致模型泛化能力较差。</li>
+<li>若以<strong>寻找全局最小值</strong>为目标，SGD+momentum 更具优势，但它对参数的稳健初始化依赖性较强，且收敛速度通常慢于其他自适应优化器。</li>
+</ol>
+<p><strong>AdamW</strong></p>
+<blockquote>
+<p>AdamW 通过 <strong>解耦权重衰减</strong>，解决了 Adam 中正则化效果不佳的问题，成为当前深度学习训练中的<strong>默认优化器之一</strong>。它在保持Adam 自适应学习率优势的同时，显著提升了模型的泛化能力和训练稳定性，尤其适用于大规模模型训练场景。</p>
+</blockquote>
+<p>AdamW 的核心改进：解耦权重衰减</p>
+<p>AdamW 的关键思想是：</p>
+<blockquote>
+<p><strong>将权重衰减从梯度更新中分离出来，直接作用于参数更新步骤。</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Adam</th>
+<th>AdamW</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>权重衰减实现方式</td>
+<td>加入损失函数，参与梯度计算</td>
+<td>与梯度解耦，直接更新参数</td>
+</tr>
+<tr>
+<td>正则化效果</td>
+<td>易受影响，效果不稳定</td>
+<td>更稳定、有效</td>
+</tr>
+<tr>
+<td>泛化能力</td>
+<td>较弱</td>
+<td>更强</td>
+</tr>
+<tr>
+<td>大模型表现</td>
+<td>一般</td>
+<td>优秀，尤其适用于 Transformer 等</td>
+</tr>
+<tr>
+<td>是否广泛使用</td>
+<td>较少（已过时）</td>
+<td>是，当前主流（如 BERT、GPT、T5）</td>
+</tr>
+</tbody></table>
+<p> 实际应用与调参建议</p>
+<ul>
+<li><p><strong>学习率（lr）</strong>：常用范围 1e−5 到 1e−3，需配合 warmup 使用；</p>
+</li>
+<li><p><strong>weight_decay</strong>：常用值 0.01 或 0.0001，过大可能导致欠拟合；</p>
+</li>
+<li><p><strong>beta1&#x2F;beta2</strong>：默认值为 0.9 和 0.999；</p>
+</li>
+<li><p><strong>epsilon</strong>：默认 1e−8，用于数值稳定性；</p>
+</li>
+<li><p><strong>适用场景</strong>：</p>
+<ul>
+<li><p>大型预训练模型（如 NLP、CV 中的 Transformer）；</p>
+</li>
+<li><p>需要正则化的高维模型；</p>
+</li>
+<li><p>对泛化能力要求高的任务。</p>
+</li>
+</ul>
+</li>
+</ul>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2025-08-14T22:45:55+08:00"
-              content="2025-08-14">
-          08-14
-        </time>
+    
+      <div>
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
       </div>
+    
+        
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2025/08/14/%E5%85%B3%E4%BA%8E%E9%A1%B9%E7%9B%AE%E3%80%81%E4%BA%A7%E5%93%81%E7%89%88%E6%9C%AC%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83/" itemprop="url">
-            <span itemprop="name">关于项目、产品版本命名规范</span>
-          </a>
-      </div>
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>李猪兰
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://lizhulan.github.io/2025/09/10/%E5%90%84%E7%A7%8D%E4%BC%98%E5%8C%96%E5%99%A8/" title="各种优化器">https://lizhulan.github.io/2025/09/10/各种优化器/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
 
-    </header>
+
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"># 机器学习</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/09/10/%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA%E6%96%B9%E6%B3%95/" rel="prev" title="数据增强方法">
+      <i class="fa fa-chevron-left"></i> 数据增强方法
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
   </article>
-
-    </div>
-  </div>
   
   
-  
-
   
 
 
