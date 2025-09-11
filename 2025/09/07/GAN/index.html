@@ -269,7 +269,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>7.3k</span>
+              <span>7.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -295,14 +295,14 @@
 <ul>
 <li><p>降维可视化（比 PCA 非线性更强）</p>
 </li>
-<li><p>图像&#x2F;语音去噪（训练时加噪声，学会“干净→干净”）</p>
+<li><p>图像/语音去噪（训练时加噪声，学会“干净→干净”）</p>
 </li>
 <li><p>特征预训练（把 f(x) 抽出来喂给下游分类器）</p>
 </li>
 <li><p>异常检测（正常样本重构误差低，异常高）</p>
+<h3 id="变分自编码器VAE"><a href="#变分自编码器VAE" class="headerlink" title="变分自编码器VAE"></a>变分自编码器VAE</h3><p>AE 的“概率版”：不再压成“一个点”，而是压成“一团高斯云”，因此既能解压还原，也能随机造新图。</p>
 </li>
 </ul>
-<h3 id="变分自编码器VAE"><a href="#变分自编码器VAE" class="headerlink" title="变分自编码器VAE"></a>变分自编码器VAE</h3><p>AE 的“概率版”：不再压成“一个点”，而是压成“一团高斯云”，因此既能解压还原，也能随机造新图。</p>
 <p><strong>核心结构</strong><br>编码器输出两个向量：μ 和 σ → 用“重参数化”技巧采样 z<br>解码器把 z 变成 x̂</p>
 <p><strong>训练目标</strong><br>同时优化两项：</p>
 <ol>
@@ -319,24 +319,20 @@
 </li>
 <li><p>可控生成（把标签一起喂进去，叫 CVAE）</p>
 </li>
-<li><p>表示解耦（β-VAE 让潜码各维度对应独立语义，如“角度&#x2F;光照”）</p>
+<li><p>表示解耦（β-VAE 让潜码各维度对应独立语义，如“角度/光照”）</p>
 </li>
 </ul>
 <h2 id="第一次接触GAN"><a href="#第一次接触GAN" class="headerlink" title="第一次接触GAN"></a>第一次接触GAN</h2><p>DCGAN，全称是 Deep Convolution Generative Adversarial Networks（深度卷积生成对抗网络）<br><img src="https://free.picui.cn/free/2025/09/06/68bba9d0072b7.png" alt="输入图片说明"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 想象一个造假币的故事：</span><br><span class="line"># 1. 判别器训练（警察训练）</span><br><span class="line"># 警察学习：真钞票 → 判断为真（标签1）</span><br><span class="line"># 警察学习：假钞票 → 判断为假（标签0）</span><br><span class="line"># 2. 生成器训练（造假者训练）  </span><br><span class="line">netG.zero_grad()                    # 造假者准备学习</span><br><span class="line">label.fill_(real_label)             # 造假者的目标：让警察认为假钞是真的</span><br><span class="line">output = netD(fake).view(-1)        # 警察检查假钞票</span><br><span class="line">errG = criterion(output, label)     # 计算造假者的&quot;失败程度&quot;</span><br><span class="line">errG.backward()                     # 分析失败原因</span><br><span class="line">optimizerG.step()                   # 改进造假技术</span><br></pre></td></tr></table></figure>
-
-
 <h2 id="条件生成GAN"><a href="#条件生成GAN" class="headerlink" title="条件生成GAN"></a>条件生成GAN</h2><h3 id="有监督"><a href="#有监督" class="headerlink" title="有监督"></a>有监督</h3><h4 id="CGAN（Conditional-GAN）"><a href="#CGAN（Conditional-GAN）" class="headerlink" title="CGAN（Conditional GAN）"></a>CGAN（Conditional GAN）</h4><ul>
 <li><p><strong>怎么做</strong><br>最早的条件版：把 one-hot 标签 y 分别拼到噪声 z（G 输入）和图像 x（D 输入），变成向量 <code>[z;y]</code> 和 <code>[x;y]</code>，再正常对抗训练。</p>
 </li>
-<li><p><strong>为什么有用</strong><br>标签当额外信息，D 同时判断“真&#x2F;假”+“是否匹配条件”，迫使 G 学到“给定 y 就应生成对应模态”的映射。</p>
+<li><p><strong>为什么有用</strong><br>标签当额外信息，D 同时判断“真/假”+“是否匹配条件”，迫使 G 学到“给定 y 就应生成对应模态”的映射。</p>
 </li>
 <li><p><strong>局限</strong><br>条件 y 必须成对出现；如果标签噪声大或类别多，训练不稳定。</p>
 </li>
 <li><p><strong>论文</strong><br>Mirza M, Osindero S. Conditional Generative Adversarial Nets. arXiv 2014. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1411.1784">https://arxiv.org/abs/1411.1784</a></p>
-</li>
-</ul>
-<h4 id="AlignGAN（跨域配对生成）"><a href="#AlignGAN（跨域配对生成）" class="headerlink" title="AlignGAN（跨域配对生成）"></a>AlignGAN（跨域配对生成）</h4><ul>
+<h4 id="AlignGAN（跨域配对生成）"><a href="#AlignGAN（跨域配对生成）" class="headerlink" title="AlignGAN（跨域配对生成）"></a>AlignGAN（跨域配对生成）</h4></li>
 <li><p><strong>场景</strong><br>源域有标签，目标域无标签或标签空间不同，希望“把源域图片+标签”翻译成“目标域同语义的图片”。</p>
 </li>
 <li><p><strong>怎么做</strong><br>三套网络：</p>
@@ -370,9 +366,7 @@
 <li><p><strong>缺点</strong><br>互信息估计用蒙特卡洛，训练慢；c 维度需人工选。</p>
 </li>
 <li><p><strong>论文</strong><br>Chen X, et al. InfoGAN: Interpretable Representation Learning by Information Maximizing Generative Adversarial Nets. NeurIPS 2016. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1606.03657">https://arxiv.org/abs/1606.03657</a></p>
-</li>
-</ul>
-<h3 id="半监督"><a href="#半监督" class="headerlink" title="半监督"></a>半监督</h3><h4 id="ACGAN（Auxiliary-Classifier-GAN）"><a href="#ACGAN（Auxiliary-Classifier-GAN）" class="headerlink" title="ACGAN（Auxiliary Classifier GAN）"></a>ACGAN（Auxiliary Classifier GAN）</h4><ul>
+<h3 id="半监督"><a href="#半监督" class="headerlink" title="半监督"></a>半监督</h3><h4 id="ACGAN（Auxiliary-Classifier-GAN）"><a href="#ACGAN（Auxiliary-Classifier-GAN）" class="headerlink" title="ACGAN（Auxiliary Classifier GAN）"></a>ACGAN（Auxiliary Classifier GAN）</h4></li>
 <li><p><strong>场景</strong><br>只有一小部分图像有标签，想同时做：</p>
 <ol>
 <li><p>高保真生成；</p>
@@ -385,9 +379,9 @@
 </li>
 <li><p><strong>怎么做</strong><br>D 改成双头：</p>
 <ul>
-<li><p>真&#x2F;假头：传统对抗 loss；</p>
+<li><p>真/假头：传统对抗 loss；</p>
 </li>
-<li><p>分类头：交叉熵 loss（对真实图用真标签，对生成图用 G 输入的 y）。<br>G 输入噪声+标签 y，目标骗过 D 的“真&#x2F;假”头，同时让 D 分类头也相信自己是对应类别。</p>
+<li><p>分类头：交叉熵 loss（对真实图用真标签，对生成图用 G 输入的 y）。<br>G 输入噪声+标签 y，目标骗过 D 的“真/假”头，同时让 D 分类头也相信自己是对应类别。</p>
 </li>
 </ul>
 </li>
@@ -396,7 +390,7 @@
 <li><p><strong>论文</strong><br>Odena A, et al. Conditional Image Synthesis with Auxiliary Classifier GANs. ICML 2017. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1610.09585">https://arxiv.org/abs/1610.09585</a></p>
 </li>
 </ul>
-<h2 id="多尺度生成GAN"><a href="#多尺度生成GAN" class="headerlink" title="多尺度生成GAN"></a>多尺度生成GAN</h2><p>核心思想：一次生成全分辨率太难 → 先低分辨率“搭骨架”，再逐级补细节，减轻 G&#x2F;D 训练压力。</p>
+<h2 id="多尺度生成GAN"><a href="#多尺度生成GAN" class="headerlink" title="多尺度生成GAN"></a>多尺度生成GAN</h2><p>核心思想：一次生成全分辨率太难 → 先低分辨率“搭骨架”，再逐级补细节，减轻 G/D 训练压力。</p>
 <h3 id="金字塔图像生成GAN（Laplacian-GAN）"><a href="#金字塔图像生成GAN（Laplacian-GAN）" class="headerlink" title="金字塔图像生成GAN（Laplacian GAN）"></a>金字塔图像生成GAN（Laplacian GAN）</h3><p>LAPGAN：基于残差的学习机制，多尺度增加生成分辨率</p>
 <ul>
 <li><p><strong>怎么做</strong></p>
@@ -411,16 +405,14 @@
 </li>
 <li><p><strong>优点</strong><br>每级仅学“残差”，分布更简单，训练稳定；2015 年即生成 256×256 逼真鸟类、人脸。</p>
 </li>
-<li><p><strong>缺点</strong><br>级联 3–4 个独立 G&#x2F;D，参数量大，推理串行慢。</p>
+<li><p><strong>缺点</strong><br>级联 3–4 个独立 G/D，参数量大，推理串行慢。</p>
 </li>
 <li><p><strong>论文</strong><br>Denton E, et al. Deep Generative Image Models using a Laplacian Pyramid of Adversarial Networks. NeurIPS 2015. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1506.05751">https://arxiv.org/abs/1506.05751</a></p>
-</li>
-</ul>
 <h3 id="渐进式图像生成GAN"><a href="#渐进式图像生成GAN" class="headerlink" title="渐进式图像生成GAN"></a>渐进式图像生成GAN</h3><p>Progressive GAN：基于残差与多尺度的学习机制，但只有一个G和一个D</p>
-<ul>
+</li>
 <li><p><strong>怎么做</strong><br>只用 <strong>一个 G、一个 D</strong>，但训练过程像“盖楼”：</p>
 <ul>
-<li><p>从 4×4 开始，G 生成 4×4 真&#x2F;假图，D 判别；</p>
+<li><p>从 4×4 开始，G 生成 4×4 真/假图，D 判别；</p>
 </li>
 <li><p>训练稳定后，平滑“淡入”8×8 层（新旧层用 α 混合），继续对抗；</p>
 </li>
@@ -428,13 +420,14 @@
 </li>
 </ul>
 </li>
-<li><p><strong>优点</strong><br>单 G&#x2F;D 结构简单，推理快；首次实现 1024×1024 人脸高清生成，FID 8.0（当时最佳）。</p>
+<li><p><strong>优点</strong><br>单 G/D 结构简单，推理快；首次实现 1024×1024 人脸高清生成，FID 8.0（当时最佳）。</p>
 </li>
 <li><p><strong>缺点</strong><br>训练周期长（Tesla V100 上 2 周）；对超参敏感，需 careful γ 调节。</p>
 </li>
 <li><p><strong>论文</strong><br>Karras T, et al. Progressive Growing of GANs for Improved Quality, Stability, and Variation. ICLR 2018. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1710.10196">https://arxiv.org/abs/1710.10196</a></p>
 </li>
 </ul>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -445,7 +438,8 @@
 <th>主要贡献</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>条件-有监督</td>
 <td>CGAN</td>
 <td>否</td>
@@ -477,17 +471,19 @@
 <td>多尺度-金字塔</td>
 <td>LAPGAN</td>
 <td>是（3–4 级）</td>
-<td>是（残差&#x3D;高频）</td>
+<td>是（残差=高频）</td>
 <td>逐级残差补细节</td>
 </tr>
 <tr>
 <td>多尺度-渐进</td>
 <td>ProGAN</td>
-<td>是（1 G&#x2F;D，逐级放大）</td>
+<td>是（1 G/D，逐级放大）</td>
 <td>是（平滑 fade-in）</td>
 <td>单模型 1 k² 高清生成</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h2 id="GAN的评估"><a href="#GAN的评估" class="headerlink" title="GAN的评估"></a>GAN的评估</h2><h3 id="通过数据集的划分进行评估"><a href="#通过数据集的划分进行评估" class="headerlink" title="通过数据集的划分进行评估"></a>通过数据集的划分进行评估</h3><p><strong>GAN-base</strong>根据真实图像训练了分类器，并在真实图像上进行测试。<br><strong>GAN-train</strong>根据GAN生成图像训练了一个分类器，并在真实图像上进行测试，该指标与GAN-base比较，可评估GAN生成图像的多样性和真实性。<br><strong>GAN-test</strong>根据真实图像训练了分类器，并在GAN生成图像上进行评估，该指标与GAN-base比较，可评估GAN生成图像的真实性(生成图像与数据流形之间的接近程度)。</p>
 <h3 id="Inception分数"><a href="#Inception分数" class="headerlink" title="Inception分数"></a><strong>Inception</strong>分数</h3><p>使用熵对样本的质量进行评估</p>
 <blockquote>
@@ -523,7 +519,7 @@
 <p><strong>SimGAN</strong>，提高仿真数据的真实性</p>
 <h2 id="视频生成与预测GAN"><a href="#视频生成与预测GAN" class="headerlink" title="视频生成与预测GAN"></a>视频生成与预测GAN</h2><p>VideoGAN，视频生成<br>MDGAN，视频预测</p>
 <h2 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h2><h3 id="GAN和扩散模型"><a href="#GAN和扩散模型" class="headerlink" title="GAN和扩散模型"></a>GAN和扩散模型</h3><ol>
-<li><p>生成质量（FID &#x2F; IS &#x2F; 保真度） • GAN：在 2021 年以前，BigGAN、StyleGAN 系列在 ImageNet 1024² 上保持 FID 3～5 的纪录。<br>• 扩散模型：Dhariwal &amp; Nichol 通过改进 U-Net 与分类器引导，将 ImageNet 256² FID 降到 2.97，首次在公开数据集上系统性击败同期最佳 GAN。<br>论文：Dhariwal P, Nichol A. Diffusion Models Beat GANs on Image Synthesis. NeurIPS 2021. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2105.05233">https://arxiv.org/abs/2105.05233</a></p>
+<li><p>生成质量（FID / IS / 保真度） • GAN：在 2021 年以前，BigGAN、StyleGAN 系列在 ImageNet 1024² 上保持 FID 3～5 的纪录。<br>• 扩散模型：Dhariwal &amp; Nichol 通过改进 U-Net 与分类器引导，将 ImageNet 256² FID 降到 2.97，首次在公开数据集上系统性击败同期最佳 GAN。<br>论文：Dhariwal P, Nichol A. Diffusion Models Beat GANs on Image Synthesis. NeurIPS 2021. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2105.05233">https://arxiv.org/abs/2105.05233</a></p>
 </li>
 <li><p>训练稳定性（模式崩溃与收敛性） • GAN：理论上存在两玩家博弈的不稳定解，实践中易出现模式崩溃。Borji 综述中系统归纳了 18 种 GAN 训练失败模式。<br>• 扩散模型：最大似然或变分下界目标函数无对抗项，Ho et al. 证明 DDPM 在 CIFAR-10 上训练 1000 个 epoch 仍保持稳定收敛。<br>论文：Ho J, et al. Denoising Diffusion Probabilistic Models. NeurIPS 2020. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2006.11239">https://arxiv.org/abs/2006.11239</a></p>
 </li>
@@ -531,7 +527,7 @@
 </li>
 <li><p>样本多样性 • GAN：当判别器过强时容易丢失低概率模式，导致多样性下降（Mode Drop）。<br>• 扩散模型：基于对数似然训练天然鼓励覆盖所有模式，Kingma et al. 证明扩散模型在 ImageNet 上的召回率（Recall）显著高于 StyleGAN2。<br>论文：Kingma D, et al. Variational Diffusion Models. NeurIPS 2021. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2107.00630">https://arxiv.org/abs/2107.00630</a></p>
 </li>
-<li><p>可控 &#x2F; 条件生成 • GAN：条件 GAN 早期依赖类别标签或投影判别器；StyleGAN 通过潜空间编辑实现局部语义控制，但缺乏文本细粒度引导。<br>• 扩散模型：Classifier-Free Guidance 与大规模文本编码器（CLIP、T5）结合，Stable Diffusion、DALL-E 2 支持基于提示词的高精度可控生成。<br>论文：Ramesh A, et al. Hierarchical Text-Conditional Image Generation with CLIP Latents. arXiv 2022. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2204.06125">https://arxiv.org/abs/2204.06125</a></p>
+<li><p>可控 / 条件生成 • GAN：条件 GAN 早期依赖类别标签或投影判别器；StyleGAN 通过潜空间编辑实现局部语义控制，但缺乏文本细粒度引导。<br>• 扩散模型：Classifier-Free Guidance 与大规模文本编码器（CLIP、T5）结合，Stable Diffusion、DALL-E 2 支持基于提示词的高精度可控生成。<br>论文：Ramesh A, et al. Hierarchical Text-Conditional Image Generation with CLIP Latents. arXiv 2022. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2204.06125">https://arxiv.org/abs/2204.06125</a></p>
 </li>
 <li><p>训练数据效率 • GAN：需大量样本才能稳定训练；StyleGAN3 在 70 k ImageNet 类别子集上仍需要精细超参调整。<br>• 扩散模型：DDPM 在 CIFAR-10（50 k）与 CelebA-HQ（30 k）即可训练出高质量模型，表现出更好的小数据鲁棒性。<br>论文：Ho J, et al. Denoising Diffusion Probabilistic Models. NeurIPS 2020（实验部分数据消融表）.</p>
 </li>
@@ -539,9 +535,10 @@
 </li>
 <li><p>模型压缩与实时化 • GAN：天然单步生成，无需额外压缩即可部署。<br>• 扩散模型：最新一步蒸馏（One-Step Distillation）结合对抗损失，可在保持 FID &lt; 5 的前提下实现 1-step 生成，速度接近 GAN，但需额外蒸馏训练。<br>论文：Sauer A, et al. Adversarial Score Distillation: Rapidly Surpassing the Teacher in One Step. arXiv 2024. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2410.14919">https://arxiv.org/abs/2410.14919</a></p>
 </li>
-<li><p>理论可扩展性与连续时间框架 • 扩散模型可通过随机微分方程（SDE）&#x2F;概率流 ODE 统一连续时间框架，具备更丰富的理论工具（Wasserstein 收敛、分数匹配误差界等）。<br>论文：Song Y, et al. Score-Based Generative Modeling through Stochastic Differential Equations. ICLR 2021. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2011.13456">https://arxiv.org/abs/2011.13456</a></p>
+<li><p>理论可扩展性与连续时间框架 • 扩散模型可通过随机微分方程（SDE）/概率流 ODE 统一连续时间框架，具备更丰富的理论工具（Wasserstein 收敛、分数匹配误差界等）。<br>论文：Song Y, et al. Score-Based Generative Modeling through Stochastic Differential Equations. ICLR 2021. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2011.13456">https://arxiv.org/abs/2011.13456</a></p>
 </li>
 </ol>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -551,7 +548,8 @@
 <th>关键论文</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>生成质量</td>
 <td>高（≤2021 SOTA）</td>
 <td>更高（2022 起普遍领先）</td>
@@ -596,10 +594,12 @@
 <tr>
 <td>实时部署</td>
 <td>原生支持</td>
-<td>需蒸馏&#x2F;量化</td>
+<td>需蒸馏/量化</td>
 <td>[Sauer 2024]</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 
     </div>
 
@@ -805,7 +805,7 @@
   </div>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共54.6k字</span>
+  <span class="post-count">博客全站共54.4k字</span>
 </div>
 
 
@@ -918,6 +918,61 @@ $(document).ready(function() {
 
 
   
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 

@@ -256,8 +256,8 @@
 </ul>
 <h2 id="📝-内容插件"><a href="#📝-内容插件" class="headerlink" title="📝 内容插件"></a>📝 内容插件</h2><h3 id="RSS订阅"><a href="#RSS订阅" class="headerlink" title="RSS订阅"></a>RSS订阅</h3><ul>
 <li><strong>插件</strong>：hexo-generator-feed</li>
-<li><strong>功能</strong>：生成RSS&#x2F;Atom订阅源</li>
-<li><strong>地址</strong>：<a href="/atom.xml">&#x2F;atom.xml</a></li>
+<li><strong>功能</strong>：生成RSS/Atom订阅源</li>
+<li><strong>地址</strong>：<a href="/atom.xml">/atom.xml</a></li>
 </ul>
 <h3 id="站点地图"><a href="#站点地图" class="headerlink" title="站点地图"></a>站点地图</h3><ul>
 <li><strong>插件</strong>：hexo-generator-sitemap</li>
@@ -301,7 +301,7 @@
 </ul>
 <h2 id="🚀-性能插件"><a href="#🚀-性能插件" class="headerlink" title="🚀 性能插件"></a>🚀 性能插件</h2><h3 id="压缩优化"><a href="#压缩优化" class="headerlink" title="压缩优化"></a>压缩优化</h3><ul>
 <li><strong>HTML压缩</strong>：可选启用</li>
-<li><strong>CSS&#x2F;JS压缩</strong>：可选启用</li>
+<li><strong>CSS/JS压缩</strong>：可选启用</li>
 <li><strong>图片优化</strong>：建议使用WebP格式</li>
 </ul>
 <h3 id="CDN加速"><a href="#CDN加速" class="headerlink" title="CDN加速"></a>CDN加速</h3><ul>
@@ -506,7 +506,7 @@
   </div>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共54.6k字</span>
+  <span class="post-count">博客全站共54.4k字</span>
 </div>
 
 
@@ -619,6 +619,61 @@ $(document).ready(function() {
 
 
   
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 

@@ -250,7 +250,6 @@
 <li><strong>图标</strong>：Font Awesome</li>
 </ul>
 <h2 id="📝-写作规范"><a href="#📝-写作规范" class="headerlink" title="📝 写作规范"></a>📝 写作规范</h2><h3 id="文章结构"><a href="#文章结构" class="headerlink" title="文章结构"></a>文章结构</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 文章标题</span><br><span class="line">date: 2025-01-18 12:00:00</span><br><span class="line">tags: [标签1, 标签2]</span><br><span class="line">categories: [分类]</span><br><span class="line"><span class="section">excerpt: 文章摘要</span></span><br><span class="line"><span class="section">---</span></span><br><span class="line"></span><br><span class="line">文章正文内容...</span><br></pre></td></tr></table></figure>
-
 <h3 id="标签使用"><a href="#标签使用" class="headerlink" title="标签使用"></a>标签使用</h3><ul>
 <li><strong>技术类</strong>：Python, JavaScript, Web开发</li>
 <li><strong>生活类</strong>：随笔, 思考, 分享</li>
@@ -262,7 +261,6 @@
 <li>Hexo CLI</li>
 </ul>
 <h3 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 克隆项目</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/lizhulan/blog.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装依赖</span></span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 本地预览</span></span><br><span class="line">hexo server</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成静态文件</span></span><br><span class="line">hexo generate</span><br><span class="line"></span><br><span class="line"><span class="comment"># 部署到GitHub Pages</span></span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
-
 <h2 id="📊-站点统计"><a href="#📊-站点统计" class="headerlink" title="📊 站点统计"></a>📊 站点统计</h2><p>本站使用不蒜子进行访问统计，提供以下数据：</p>
 <ul>
 <li>总访客数</li>
@@ -277,7 +275,7 @@
 </ul>
 <h2 id="📞-联系方式"><a href="#📞-联系方式" class="headerlink" title="📞 联系方式"></a>📞 联系方式</h2><ul>
 <li><strong>GitHub</strong>：<a target="_blank" rel="noopener" href="https://github.com/lizhulan">lizhulan</a></li>
-<li><strong>邮箱</strong>：<a href="mailto:&#121;&#111;&#117;&#x72;&#45;&#x65;&#109;&#97;&#105;&#108;&#x40;&#x65;&#x78;&#x61;&#109;&#112;&#108;&#101;&#46;&#x63;&#x6f;&#109;">your-email@example.com</a></li>
+<li><strong>邮箱</strong>：your-email@example.com</li>
 <li><strong>博客</strong>：<a href="/">李猪兰的博客</a></li>
 </ul>
 <hr>
@@ -435,7 +433,7 @@
   </div>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共54.6k字</span>
+  <span class="post-count">博客全站共54.4k字</span>
 </div>
 
 
@@ -548,6 +546,61 @@ $(document).ready(function() {
 
 
   
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 

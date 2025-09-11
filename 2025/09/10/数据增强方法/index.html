@@ -34,8 +34,8 @@
 <meta property="article:modified_time" content="2025-09-11T05:36:21.678Z">
 <meta property="article:author" content="李猪兰">
 <meta property="article:tag" content="计算机视觉">
-<meta property="article:tag" content="图像处理">
 <meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="图像处理">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://free.picui.cn/free/2025/09/08/68be92678b96b.png">
 
@@ -317,8 +317,8 @@
 <h3 id="自动数据增强方法"><a href="#自动数据增强方法" class="headerlink" title="自动数据增强方法"></a>自动数据增强方法</h3><h4 id="Autoaugment"><a href="#Autoaugment" class="headerlink" title="Autoaugment"></a>Autoaugment</h4><p>学习一有数据增强操作的组合，不同的任务，需要不同的数据增强操作<br>16个常用数据增强操作组合：</p>
 <blockquote>
 <p>shear裁剪，translate平移，rotate旋转，autocontrast自动对比度调整，invert负片，equalize直方图均衡化，solarize阈值反转，posterize减少位数，contrast控制对比度，color颜色平衡，brightness亮度调整，sharpness模糊，cutout随机擦除，sample pairing样本叠加</p>
-</blockquote>
 <h3 id="生成新的数据"><a href="#生成新的数据" class="headerlink" title="生成新的数据"></a>生成新的数据</h3><p>生成对抗网络</p>
+</blockquote>
 
     </div>
 
@@ -358,8 +358,8 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" rel="tag"># 计算机视觉</a>
-              <a href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" rel="tag"># 图像处理</a>
               <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"># 机器学习</a>
+              <a href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" rel="tag"># 图像处理</a>
           </div>
 
         
@@ -525,7 +525,7 @@
   </div>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共54.6k字</span>
+  <span class="post-count">博客全站共54.4k字</span>
 </div>
 
 
@@ -638,6 +638,61 @@ $(document).ready(function() {
 
 
   
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 

@@ -1319,7 +1319,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #05b318;
+  background: #96fb30;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2422,6 +2422,13 @@ ul.breadcrumb li + li:last-child {
   color: #ccc;
   margin: auto;
 }
+mjx-container[jax="CHTML"][display="true"],
+.has-jax {
+  overflow: auto hidden;
+}
+mjx-container + br {
+  display: none;
+}
 .header {
   margin: 0 auto;
   position: relative;
@@ -3148,9 +3155,12 @@ a:hover {
   overflow: hidden;
   margin: 1.5em 0;
   border: 1px solid #e2e8f0;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
 }
 .post-body th {
-  background: rgba(102,126,234,0.15) !important;
+  background: rgba(102,126,234,0.1) !important;
   color: #1d4ed8 !important;
   padding: 12px;
   font-weight: 600;
@@ -3158,13 +3168,21 @@ a:hover {
   border-bottom: 1px solid #e2e8f0;
 }
 .post-body td {
+  background: rgba(248,250,252,0.6) !important;
   color: #1e3a8a !important;
   padding: 12px;
   border-bottom: 1px solid #e2e8f0;
   text-shadow: none;
 }
-.post-body tr:hover {
-  background: rgba(102,126,234,0.05) !important;
+.post-body tr:nth-child(odd) td {
+  background: rgba(248,250,252,0.6) !important;
+}
+.post-body tr:nth-child(even) td {
+  background: rgba(248,250,252,0.6) !important;
+}
+.post-body tr:hover td {
+  background: rgba(102,126,234,0.08) !important;
+  transition: background-color 0.2s ease;
 }
 .post-body hr {
   border: none;

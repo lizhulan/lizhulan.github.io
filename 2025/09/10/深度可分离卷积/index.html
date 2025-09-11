@@ -275,7 +275,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>542</span>
+              <span>529</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -294,7 +294,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="深度可分离卷积（Depthwise-Separable-Convolution）"><a href="#深度可分离卷积（Depthwise-Separable-Convolution）" class="headerlink" title="深度可分离卷积（Depthwise Separable Convolution）"></a>深度可分离卷积（Depthwise Separable Convolution）</h2><p><strong>深度可分离卷积 &#x3D; 深度卷积（逐通道卷积） + 逐点卷积（1×1卷积）</strong><br>它将标准卷积拆分为两步：</p>
+        <h2 id="深度可分离卷积（Depthwise-Separable-Convolution）"><a href="#深度可分离卷积（Depthwise-Separable-Convolution）" class="headerlink" title="深度可分离卷积（Depthwise Separable Convolution）"></a>深度可分离卷积（Depthwise Separable Convolution）</h2><p><strong>深度可分离卷积 = 深度卷积（逐通道卷积） + 逐点卷积（1×1卷积）</strong><br>它将标准卷积拆分为两步：</p>
 <ol>
 <li>深度卷积（Depthwise Convolution）：对每个输入通道单独进行卷积，<strong>不跨通道</strong>。</li>
 <li>逐点卷积（Pointwise Convolution）：用 1×1 卷积<strong>跨通道</strong>组合信息，改变通道数。</li>
@@ -305,6 +305,7 @@
 <li><p><strong>逐点卷积</strong>：像用 1×1 的“小镜头”把所有通道的照片叠加成新照片，可以控制输出通道数。</p>
 </li>
 </ul>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -312,7 +313,8 @@
 <th>缺点</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>极大减少计算量和参数量</td>
 <td>表达能力略弱于标准卷积</td>
 </tr>
@@ -324,7 +326,10 @@
 <td>可与其他结构（如残差）结合使用</td>
 <td>对通道间复杂建模能力有限</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -333,17 +338,20 @@
 <th>参数量（Params）</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>标准卷积</td>
-<td>$H \cdot W \cdot C_{\text{in}} \cdot C_{\text{out}} \cdot K^2$</td>
-<td>$C_{\text{in}} \cdot C_{\text{out}} \cdot K^2$</td>
+<td>$H \cdot W \cdot C<em>{\text{in}} \cdot C</em>{\text{out}} \cdot K^2$</td>
+<td>$C<em>{\text{in}} \cdot C</em>{\text{out}} \cdot K^2$</td>
 </tr>
 <tr>
 <td>深度可分离卷积</td>
-<td>$H \cdot W \cdot C_{\text{in}} \cdot (K^2 + C_{\text{out}})$</td>
-<td>$C_{\text{in}} \cdot (K^2 + C_{\text{out}})$</td>
+<td>$H \cdot W \cdot C<em>{\text{in}} \cdot (K^2 + C</em>{\text{out}})$</td>
+<td>$C<em>{\text{in}} \cdot (K^2 + C</em>{\text{out}})$</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 
     </div>
 
@@ -549,7 +557,7 @@
   </div>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共54.6k字</span>
+  <span class="post-count">博客全站共54.4k字</span>
 </div>
 
 
@@ -662,6 +670,61 @@ $(document).ready(function() {
 
 
   
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
