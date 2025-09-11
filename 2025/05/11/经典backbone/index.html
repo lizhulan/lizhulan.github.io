@@ -280,7 +280,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>8.6k</span>
+              <span>9.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -299,7 +299,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="经典backbone"><a href="#经典backbone" class="headerlink" title="经典backbone"></a>经典backbone</h1><h2 id="AlexNet"><a href="#AlexNet" class="headerlink" title="AlexNet"></a>AlexNet</h2><p><strong>创新</strong></p>
+        <h1>经典backbone</h1>
+<h2 id="AlexNet">AlexNet</h2>
+<p><strong>创新</strong></p>
 <ol>
 <li>首次使用GPU训练网络</li>
 <li>使用Relu激活函数</li>
@@ -315,27 +317,43 @@
 <li><strong>抑制某些特征的主导作用</strong>：如果某些特征的值域远大于其他特征，它们可能会在模型训练中占据主导地位。归一化通过将所有特征调整到相同的范围，抑制了这些特征的过度影响，使模型能够更公平地处理所有特征。</li>
 <li><strong>抑制过大的梯度</strong>：在神经网络中，归一化可以防止某些神经元的激活值过大，从而避免梯度爆炸问题。这种对激活值的调整也可以被看作是一种“抑制”。</li>
 </ul>
-<p><strong>Dropout为什么能够解决过拟合</strong>：</p>
-<p>（1）<strong>减少过拟合：</strong><br>在标准的神经网络中，网络可能会过度依赖于一些特定的神经元，导致对训练数据的过拟合。Dropout通过随机丢弃神经元，迫使网络学习对于任何单个神经元的变化都要更加鲁棒的特征表示，从而减少了对训练数据的过度拟合。</p>
-<p>（2）<strong>取平均的作用：</strong><br>在训练过程中，通过丢弃随机的神经元，每次前向传播都相当于在训练不同的子网络。在测试阶段，不再进行Dropout，但是通过保留所有的权重，网络结构变得更加完整。因此，可以看作是在多个不同的子网络中进行了训练，最终的预测结果相当于对这些子网络的输出取平均。这种“综合取平均”的策略有助于减轻过拟合，因为一些互为反向的拟合会相互抵消。</p>
 </blockquote>
-<h2 id="VggNet"><a href="#VggNet" class="headerlink" title="VggNet"></a>VggNet</h2><p><strong>VGGNet的特点是在训练过程中采用小的卷积核和池化层，并通过堆叠多个卷积层来增加网络的深度，从而实现高精度的图像识别。</strong><br><strong>VGGNet的亮点</strong>在于它通过堆叠多个卷积层，以小的卷积核和池化层的方式来增加网络深度，从而实现高精度的图像识别。这种方法可以有效地捕获图像中的高级特征，并通过不断拟合训练数据来提高识别准确率。<br><strong>感受野</strong><br>感受野（Receptive Field），指的是神经网络中神经元“看到的”输入区域，在卷积神经网络中，feature map上某个元素的计算受输入图像上某个区域的影响，这个区域即该元素的感受野。</p>
-<p>卷积神经网络中，越深层的神经元看到的输入区域越大，如下图所示，卷积核kernel size 均为3×3，stride均为1，绿色标记的是Layer2绿色神经元看到的区域，黄色标记的是Layer3 看到的区域，具体地，Layer2每个神经元可看到Layer1上3×3 大小的区域，Layer3 每个神经元看到Layer2 上3×3 大小的区域，该区域可以又看到Layer1上5×5 大小的区域。<br><img src="https://free.picui.cn/free/2025/09/11/68c23a0ebceb9.png" alt="输入图片说明"><br>感受野是个相对概念，某层feature map上的元素看到前面不同层上的区域范围是不同的，通常在不特殊指定的情况下，感受野指的是看到输入图像上的区域。<br>堆叠<strong>两个3x3的卷积核可以替代5x5的卷积核，堆叠三个3x3的卷积核可以替代7x7的卷积核</strong>，那么通过多个小的感受野的堆叠，替代大的感受野是为了减少网络训练时参数的数量，<strong>堆叠三个3x3的卷积核的计算量要小于7x7的卷积核，而且这个差距会随着特征矩阵的channels的变大而扩大</strong></p>
+<blockquote>
+<p><strong>Dropout为什么能够解决过拟合</strong>：</p>
+<p>（1）<strong>减少过拟合：</strong><br>
+在标准的神经网络中，网络可能会过度依赖于一些特定的神经元，导致对训练数据的过拟合。Dropout通过随机丢弃神经元，迫使网络学习对于任何单个神经元的变化都要更加鲁棒的特征表示，从而减少了对训练数据的过度拟合。</p>
+<p>（2）<strong>取平均的作用：</strong><br>
+在训练过程中，通过丢弃随机的神经元，每次前向传播都相当于在训练不同的子网络。在测试阶段，不再进行Dropout，但是通过保留所有的权重，网络结构变得更加完整。因此，可以看作是在多个不同的子网络中进行了训练，最终的预测结果相当于对这些子网络的输出取平均。这种“综合取平均”的策略有助于减轻过拟合，因为一些互为反向的拟合会相互抵消。</p>
+</blockquote>
+<h2 id="VggNet">VggNet</h2>
+<p><strong>VGGNet的特点是在训练过程中采用小的卷积核和池化层，并通过堆叠多个卷积层来增加网络的深度，从而实现高精度的图像识别。</strong><br>
+<strong>VGGNet的亮点</strong>在于它通过堆叠多个卷积层，以小的卷积核和池化层的方式来增加网络深度，从而实现高精度的图像识别。这种方法可以有效地捕获图像中的高级特征，并通过不断拟合训练数据来提高识别准确率。<br>
+<strong>感受野</strong><br>
+感受野（Receptive Field），指的是神经网络中神经元“看到的”输入区域，在卷积神经网络中，feature map上某个元素的计算受输入图像上某个区域的影响，这个区域即该元素的感受野。</p>
+<p>卷积神经网络中，越深层的神经元看到的输入区域越大，如下图所示，卷积核kernel size 均为3×3，stride均为1，绿色标记的是Layer2绿色神经元看到的区域，黄色标记的是Layer3 看到的区域，具体地，Layer2每个神经元可看到Layer1上3×3 大小的区域，Layer3 每个神经元看到Layer2 上3×3 大小的区域，该区域可以又看到Layer1上5×5 大小的区域。<br>
+<img src="https://free.picui.cn/free/2025/09/11/68c23a0ebceb9.png" alt="输入图片说明"><br>
+感受野是个相对概念，某层feature map上的元素看到前面不同层上的区域范围是不同的，通常在不特殊指定的情况下，感受野指的是看到输入图像上的区域。<br>
+堆叠<strong>两个3x3的卷积核可以替代5x5的卷积核，堆叠三个3x3的卷积核可以替代7x7的卷积核</strong>，那么通过多个小的感受野的堆叠，替代大的感受野是为了减少网络训练时参数的数量，<strong>堆叠三个3x3的卷积核的计算量要小于7x7的卷积核，而且这个差距会随着特征矩阵的channels的变大而扩大</strong></p>
 <blockquote>
 <p>尽管VggNet在许多方面都表现优秀，但它也有一些缺陷：</p>
 <ol>
-<li><p>该网络架构非常大，并且需要大量的计算资源来训练。这意味着，如果你想在较小的设备上使用VggNet，比如移动设备或个人电脑，会发现它非常慢，并且可能无法获得足够的性能。</p>
+<li>
+<p>该网络架构非常大，并且需要大量的计算资源来训练。这意味着，如果你想在较小的设备上使用VggNet，比如移动设备或个人电脑，会发现它非常慢，并且可能无法获得足够的性能。</p>
 </li>
-<li><p>由于VggNet网络架构非常深，它可能会导致梯度消失或爆炸的问题。这是由于在非常深的神经网络中，梯度在传播过程中可能会变得非常小或非常大，从而导致模型无法正常训练。</p>
+<li>
+<p>由于VggNet网络架构非常深，它可能会导致梯度消失或爆炸的问题。这是由于在非常深的神经网络中，梯度在传播过程中可能会变得非常小或非常大，从而导致模型无法正常训练。</p>
 </li>
 </ol>
 </blockquote>
-<h2 id="GoogLeNet"><a href="#GoogLeNet" class="headerlink" title="GoogLeNet"></a>GoogLeNet</h2><p><strong>创新</strong></p>
+<h2 id="GoogLeNet">GoogLeNet</h2>
+<p><strong>创新</strong></p>
 <ol>
 <li>Inception结构</li>
 <li>1*1卷积核降维</li>
-<li>辅助分类器<h3 id="Inception结构"><a href="#Inception结构" class="headerlink" title="Inception结构"></a>Inception结构</h3><img src="https://free.picui.cn/free/2025/09/11/68c23b35928e1.png" alt="输入图片说明"></li>
+<li>辅助分类器</li>
 </ol>
+<h3 id="Inception结构">Inception结构</h3>
+<p><img src="https://free.picui.cn/free/2025/09/11/68c23b35928e1.png" alt="输入图片说明"></p>
 <blockquote>
 <p>Inception结构是对输入图像并行地执行多个卷积运算或池化操作，并将所有输出结果拼接为一个非常深的特征图，且不同大小卷积核的卷积运算可以得到图像中的不同信息，处理获取到的图像中的不同信息可以得到更好的图像特征</p>
 </blockquote>
@@ -343,166 +361,283 @@
 <blockquote>
 <p><strong>Inception 模块的设计基于以下两个核心思想</strong>：</p>
 <ol>
-<li><p><strong>多尺度特征提取</strong>：通过并行的多个卷积分支，Inception 模块能够同时捕捉不同尺度的特征。这使得网络能够更好地处理图像中的多尺度信息，例如小目标和大目标。</p>
+<li>
+<p><strong>多尺度特征提取</strong>：通过并行的多个卷积分支，Inception 模块能够同时捕捉不同尺度的特征。这使得网络能够更好地处理图像中的多尺度信息，例如小目标和大目标。</p>
 <ul>
-<li><p><strong>1×1 卷积分支</strong>：用于提取局部特征，同时减少通道数，起到降维的作用。</p>
+<li>
+<p><strong>1×1 卷积分支</strong>：用于提取局部特征，同时减少通道数，起到降维的作用。</p>
 </li>
-<li><p><strong>3×3 卷积分支</strong>：用于捕捉中等尺度的特征。</p>
+<li>
+<p><strong>3×3 卷积分支</strong>：用于捕捉中等尺度的特征。</p>
 </li>
-<li><p><strong>5×5 卷积分支</strong>：用于捕捉较大尺度的特征。</p>
+<li>
+<p><strong>5×5 卷积分支</strong>：用于捕捉较大尺度的特征。</p>
 </li>
-<li><p><strong>池化分支</strong>：通常是一个 3×3 的最大池化或平均池化，用于捕捉更全局的特征。</p>
+<li>
+<p><strong>池化分支</strong>：通常是一个 3×3 的最大池化或平均池化，用于捕捉更全局的特征。</p>
 </li>
 </ul>
 </li>
-<li><p><strong>计算资源优化</strong>：通过合理分配计算资源，Inception 模块在不显著增加计算量的情况下，增加了网络的深度和宽度。这使得网络能够在有限的计算资源下达到更高的性能</p>
-<h3 id="1x1卷积"><a href="#1x1卷积" class="headerlink" title="1x1卷积"></a>1x1卷积</h3><p>1x1卷积核，又称为网中网（Network in Network）。<br>其实1x1卷积，可以看成一种全连接（full connection）。</p>
-<h3 id="辅助分类器"><a href="#辅助分类器" class="headerlink" title="辅助分类器"></a>辅助分类器</h3><p>GoogLeNet（Inception v1）是一个22层的深层网络，在2014年提出时面临两个关键挑战：</p>
+<li>
+<p><strong>计算资源优化</strong>：通过合理分配计算资源，Inception 模块在不显著增加计算量的情况下，增加了网络的深度和宽度。这使得网络能够在有限的计算资源下达到更高的性能</p>
 </li>
 </ol>
 </blockquote>
+<h3 id="1x1卷积">1x1卷积</h3>
+<p>1x1卷积核，又称为网中网（Network in Network）。<br>
+其实1x1卷积，可以看成一种全连接（full connection）。</p>
+<h3 id="辅助分类器">辅助分类器</h3>
+<p>GoogLeNet（Inception v1）是一个22层的深层网络，在2014年提出时面临两个关键挑战：</p>
 <ol>
-<li><p><strong>梯度消失</strong>：深层网络中反向传播时梯度逐渐衰减</p>
+<li>
+<p><strong>梯度消失</strong>：深层网络中反向传播时梯度逐渐衰减</p>
 </li>
-<li><p><strong>训练不稳定</strong>：深层参数难以有效更新</p>
+<li>
+<p><strong>训练不稳定</strong>：深层参数难以有效更新</p>
 </li>
 </ol>
 <p>解决方案：引入辅助分类器（Auxiliary Classifiers），通过中间监督信号改善训练</p>
-<p><strong>辅助分类器主要是为了解决训练深层网络时遇到的梯度消失和过拟合问题 。</strong><br><strong>辅助分类器的作用</strong></p>
+<p><strong>辅助分类器主要是为了解决训练深层网络时遇到的梯度消失和过拟合问题 。</strong><br>
+<strong>辅助分类器的作用</strong></p>
 <ul>
-<li><p><strong>缓解梯度消失</strong>：由于网络深度达22层，反向传播时梯度可能在前几层衰减严重。辅助分类器通过中间层的额外损失计算，直接向浅层传递梯度信号，加速训练收敛28。</p>
+<li>
+<p><strong>缓解梯度消失</strong>：由于网络深度达22层，反向传播时梯度可能在前几层衰减严重。辅助分类器通过中间层的额外损失计算，直接向浅层传递梯度信号，加速训练收敛28。</p>
 </li>
-<li><p><strong>正则化效果</strong>：辅助分类器引入的额外损失（权重为0.3）对主分类器起到正则化作用，减少过拟合风险。</p>
+<li>
+<p><strong>正则化效果</strong>：辅助分类器引入的额外损失（权重为0.3）对主分类器起到正则化作用，减少过拟合风险。</p>
 </li>
-<li><p><strong>特征融合</strong>：中间层的特征具有较强判别能力，辅助分类器通过多尺度特征融合提升模型表达能力。</p>
+<li>
+<p><strong>特征融合</strong>：中间层的特征具有较强判别能力，辅助分类器通过多尺度特征融合提升模型表达能力。</p>
 </li>
 </ul>
 <p>辅助分类器通常与主要的分类器结合使用，以帮助模型更好地理解图像中的细节和复杂模式。这种技术可以提高模型的泛化能力，使其更准确地预测未知的图像，在GoogLeNet中有两个辅助分类器，分别在<strong>Inception4a和Inception4d</strong></p>
 <blockquote>
 <p>尽管GoogLeNet在当时取得了很好的成绩，但它也有一些缺点。</p>
 <ol>
-<li><p>由于其使用了Inception模块，网络的计算复杂度较高。这使得GoogLeNet的训练速度较慢，不太适合对实时性要求较高的应用。</p>
+<li>
+<p>由于其使用了Inception模块，网络的计算复杂度较高。这使得GoogLeNet的训练速度较慢，不太适合对实时性要求较高的应用。</p>
 </li>
-<li><p>GoogLeNet的网络结构相对复杂，不太容易理解，并且由于辅助分类器的存在，这使得在调试和优化网络时较为困难。</p>
+<li>
+<p>GoogLeNet的网络结构相对复杂，不太容易理解，并且由于辅助分类器的存在，这使得在调试和优化网络时较为困难。</p>
 </li>
 </ol>
 <p>总之，GoogLeNet的计算复杂度高、网络结构复杂是其主要缺点。</p>
 </blockquote>
-<h2 id="ResNet"><a href="#ResNet" class="headerlink" title="ResNet"></a>ResNet</h2><p>ResNet的主要特点是采用了残差学习机制。在传统的神经网络中，每一层的输出都是直接通过一个非线性激活函数得到的。但在ResNet中，每一层的输出是通过一个“残差块”得到的，该残差块包含了一个快捷连接（shortcut）和几个卷积层。这样，在训练过程中，每一层只需要<strong>学习残差</strong>（即输入与输出之间的差异），而不是所有的信息。这<strong>有助于防止梯度消失和梯度爆炸</strong>的问题，从而使得网络能够训练得更深。<br>ResNet的主要优点是具有非常深的层数，可以达到1000多层，但仍然能够高效地训练。这是通过使用残差连接来实现的，这种连接允许模型学习跨越多个层的残差，而不是直接学习每一层的输出。这使得ResNet能够更快地收敛，并且能够更好地泛化到新的数据集，ResNet论文中共提出了五种结构，分别是ResNet-18，ResNet-34，ResNet-50，ResNet-101，ResNet-152。<br><strong>创新</strong></p>
+<h2 id="ResNet">ResNet</h2>
+<p>ResNet的主要特点是采用了残差学习机制。在传统的神经网络中，每一层的输出都是直接通过一个非线性激活函数得到的。但在ResNet中，每一层的输出是通过一个“残差块”得到的，该残差块包含了一个快捷连接（shortcut）和几个卷积层。这样，在训练过程中，每一层只需要<strong>学习残差</strong>（即输入与输出之间的差异），而不是所有的信息。这<strong>有助于防止梯度消失和梯度爆炸</strong>的问题，从而使得网络能够训练得更深。<br>
+ResNet的主要优点是具有非常深的层数，可以达到1000多层，但仍然能够高效地训练。这是通过使用残差连接来实现的，这种连接允许模型学习跨越多个层的残差，而不是直接学习每一层的输出。这使得ResNet能够更快地收敛，并且能够更好地泛化到新的数据集，ResNet论文中共提出了五种结构，分别是ResNet-18，ResNet-34，ResNet-50，ResNet-101，ResNet-152。<br>
+<strong>创新</strong></p>
 <ol>
 <li>Residual结构</li>
-<li>Batch Normalization<h3 id="Residual结构"><a href="#Residual结构" class="headerlink" title="Residual结构"></a>Residual结构</h3>Residual结构是残差结构，在文章中给了两种不同的残差结构，在ResNet-18和ResNet-34中，用的如下图中左侧图的结构，在ResNet-50、ResNet-101和ResNet-152中，用的是下图中右侧图的结构。<br><img src="https://free.picui.cn/free/2025/09/11/68c251c5408cb.png" alt="输入图片说明"><br>在主分支上有一个圆弧的线从输入特征矩阵直接连到了一个加号，这个圆弧的线是shortcut（捷径分支），它直接将输入特征矩阵加到经过第二次3x3的卷积核卷积之后的输出特征矩阵，注意，这里描述的是加，而不是叠加或者拼接，也就是说是矩阵对应维度位置进行一个加法运算，意味着主分支的输出矩阵和shortcut的输出矩阵的shape必须相同（此时卷积默认padding=1），这里包括宽、高、channels，在相加之后，再经过Relu激活函数进行激活。<br>为什么<strong>残差结构能够抑制degradation problem(退化)</strong>问题呢？<br>其实残差的网络结构很简单：$H(x)=F(x)+x$，其中，$x$是shortcut的输出特征矩阵，在某些残差结构中它就是输入特征矩阵，$F(x)$是主分支的输出特征矩阵，假如没有残差网络的话直接将输入特征矩阵$x$放入卷积层中进行计算来得到$H(x)$，如果加入残差结构的话，输入特征矩阵$x$进入神经网络得到也就等同于$H(x)-x$，在与$x$相加得到$H(x)$。</li>
+<li>Batch Normalization</li>
 </ol>
-<p>根据$H(x)=F(x)+x$，可以求得${\frac{\partial H(x)}{\partial w}={\frac{\partial F(x)}{\partial w}}+{\frac{\partial x}{\partial w}}}$，可以知道本次残差结构的反向传播不仅与主分支$F(x)$有关，还与$x$有关，当经过主分支的卷积层的导数很小的情况下，那么会对网络起不到更新的作用，但是由于加入了输入矩阵的导数，也就保证了网络导数会一直存在，而不会出现导数消失的情况。<br><strong>ResNet网络中的残差结构的堆叠有点这类似于这个过程</strong>：刚开始的前几个残差结构提取了很重要的一些特征，后几个残差结构负责把一些特征进行细化，当然，后几个残差结构可能有的会学不到东西，但是并不会影响前面的梯度从而造成degradation problem退化问题。</p>
-<h3 id="Batch-Normalization"><a href="#Batch-Normalization" class="headerlink" title="Batch Normalization"></a>Batch Normalization</h3><p>Batch Normalization的作用是将一个批次（Batch）的特征矩阵的每一个channels（通道）计算为均值为0，方差为1的分布规律。<br>一般而言，在一个神经网络输入图像之前，会将图像进行预处理，这个预处理可能是标准化处理等手段，由于输入数据满足某一分布规律，所以会加速网络的收敛。这样在输入第一次卷积的时候满足某一分布规律，但是在输入第二次卷积时，就不一定满足某一分布规律了，再往后的卷积的输入就更不满足了，那么就需要一个中间商，让上一层的输出经过它之后能够某一分布规律，Batch Normalization就是这个中间商，它可以让输入的特征矩阵的每一个channels满足均值为0，方差为1的分布规律。</p>
+<h3 id="Residual结构">Residual结构</h3>
+<p>Residual结构是残差结构，在文章中给了两种不同的残差结构，在ResNet-18和ResNet-34中，用的如下图中左侧图的结构，在ResNet-50、ResNet-101和ResNet-152中，用的是下图中右侧图的结构。<br>
+<img src="https://free.picui.cn/free/2025/09/11/68c251c5408cb.png" alt="输入图片说明"><br>
+在主分支上有一个圆弧的线从输入特征矩阵直接连到了一个加号，这个圆弧的线是shortcut（捷径分支），它直接将输入特征矩阵加到经过第二次3x3的卷积核卷积之后的输出特征矩阵，注意，这里描述的是加，而不是叠加或者拼接，也就是说是矩阵对应维度位置进行一个加法运算，意味着主分支的输出矩阵和shortcut的输出矩阵的shape必须相同（此时卷积默认padding=1），这里包括宽、高、channels，在相加之后，再经过Relu激活函数进行激活。<br>
+为什么**残差结构能够抑制degradation problem(退化)**问题呢？<br>
+其实残差的网络结构很简单：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>H</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>=</mo><mi>F</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>+</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">H(x)=F(x)+x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.08125em;">H</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord mathit" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span><span class="mbin">+</span><span class="mord mathit">x</span></span></span></span>，其中，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span></span></span></span>是shortcut的输出特征矩阵，在某些残差结构中它就是输入特征矩阵，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">F(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span></span></span></span>是主分支的输出特征矩阵，假如没有残差网络的话直接将输入特征矩阵<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span></span></span></span>放入卷积层中进行计算来得到<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>H</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">H(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.08125em;">H</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span></span></span></span>，如果加入残差结构的话，输入特征矩阵<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span></span></span></span>进入神经网络得到也就等同于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>H</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>−</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">H(x)-x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.08125em;">H</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span><span class="mbin">−</span><span class="mord mathit">x</span></span></span></span>，在与<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span></span></span></span>相加得到<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>H</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">H(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.08125em;">H</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span></span></span></span>。</p>
+<p>根据<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>H</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>=</mo><mi>F</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>+</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">H(x)=F(x)+x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.08125em;">H</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord mathit" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span><span class="mbin">+</span><span class="mord mathit">x</span></span></span></span>，可以求得<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>H</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><mrow><mi mathvariant="normal">∂</mi><mi>w</mi></mrow></mfrac><mo>=</mo><mrow><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>F</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><mrow><mi mathvariant="normal">∂</mi><mi>w</mi></mrow></mfrac></mrow><mo>+</mo><mrow><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>x</mi></mrow><mrow><mi mathvariant="normal">∂</mi><mi>w</mi></mrow></mfrac></mrow></mrow></mrow><annotation encoding="application/x-tex">{\frac{\partial H(x)}{\partial w}={\frac{\partial F(x)}{\partial w}}+{\frac{\partial x}{\partial w}}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.01em;"></span><span class="strut bottom" style="height:1.355em;vertical-align:-0.345em;"></span><span class="base textstyle uncramped"><span class="mord textstyle uncramped"><span class="mord reset-textstyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathrm" style="margin-right:0.05556em;">∂</span><span class="mord mathit" style="margin-right:0.02691em;">w</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.485em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathrm" style="margin-right:0.05556em;">∂</span><span class="mord mathit" style="margin-right:0.08125em;">H</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="mrel">=</span><span class="mord textstyle uncramped"><span class="mord reset-textstyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathrm" style="margin-right:0.05556em;">∂</span><span class="mord mathit" style="margin-right:0.02691em;">w</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.485em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathrm" style="margin-right:0.05556em;">∂</span><span class="mord mathit" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span></span><span class="mbin">+</span><span class="mord textstyle uncramped"><span class="mord reset-textstyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathrm" style="margin-right:0.05556em;">∂</span><span class="mord mathit" style="margin-right:0.02691em;">w</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathrm" style="margin-right:0.05556em;">∂</span><span class="mord mathit">x</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span></span></span></span></span></span>，可以知道本次残差结构的反向传播不仅与主分支<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">F(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span></span></span></span>有关，还与<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span></span></span></span>有关，当经过主分支的卷积层的导数很小的情况下，那么会对网络起不到更新的作用，但是由于加入了输入矩阵的导数，也就保证了网络导数会一直存在，而不会出现导数消失的情况。<br>
+<strong>ResNet网络中的残差结构的堆叠有点这类似于这个过程</strong>：刚开始的前几个残差结构提取了很重要的一些特征，后几个残差结构负责把一些特征进行细化，当然，后几个残差结构可能有的会学不到东西，但是并不会影响前面的梯度从而造成degradation problem退化问题。</p>
+<h3 id="Batch-Normalization">Batch Normalization</h3>
+<p>Batch Normalization的作用是将一个批次（Batch）的特征矩阵的每一个channels（通道）计算为均值为0，方差为1的分布规律。<br>
+一般而言，在一个神经网络输入图像之前，会将图像进行预处理，这个预处理可能是标准化处理等手段，由于输入数据满足某一分布规律，所以会加速网络的收敛。这样在输入第一次卷积的时候满足某一分布规律，但是在输入第二次卷积时，就不一定满足某一分布规律了，再往后的卷积的输入就更不满足了，那么就需要一个中间商，让上一层的输出经过它之后能够某一分布规律，Batch Normalization就是这个中间商，它可以让输入的特征矩阵的每一个channels满足均值为0，方差为1的分布规律。</p>
 <blockquote>
 <p>用<strong>Batch Normalization要注意的问题</strong>：</p>
 <ol>
-<li><p><strong>Batch Size要设置的大一些</strong>，Batch Size越大，均值和方差越接近整个数据集的均值和方差，所以这对GPU显存比较小的机器不是很友好，个人建议要≥4。</p>
+<li>
+<p><strong>Batch Size要设置的大一些</strong>，Batch Size越大，均值和方差越接近整个数据集的均值和方差，所以这对GPU显存比较小的机器不是很友好，个人建议要≥4。</p>
 </li>
-<li><p>ResNet文章中提到BN层要放在卷积和激活之间，并且卷积层不要有偏置，因为有没有偏置都计算出来的结果都是一致的：</p>
+<li>
+<p>ResNet文章中提到BN层要放在卷积和激活之间，并且卷积层不要有偏置，因为有没有偏置都计算出来的结果都是一致的：</p>
 <ul>
-<li><p>没有偏置的公式为：$y<em>{i}={\frac{x</em>{i}-\mu(x)}{\sqrt{\sigma^{2}(x)}}}$，先放在这里，待会直接做对比。</p>
+<li>
+<p>没有偏置的公式为：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>y</mi><mrow><mi>i</mi></mrow></msub><mo>=</mo><mrow><mfrac><mrow><msub><mi>x</mi><mrow><mi>i</mi></mrow></msub><mo>−</mo><mi>μ</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><mrow><msqrt><mrow><msup><mi>σ</mi><mrow><mn>2</mn></mrow></msup><mo>(</mo><mi>x</mi><mo>)</mo></mrow></msqrt></mrow></mfrac></mrow></mrow><annotation encoding="application/x-tex">y_{i}={\frac{x_{i}-\mu(x)}{\sqrt{\sigma^{2}(x)}}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.01em;"></span><span class="strut bottom" style="height:1.86em;vertical-align:-0.8500000000000001em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mord textstyle uncramped"><span class="mord reset-textstyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.5700000000000001em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="sqrt mord"><span class="sqrt-sign" style="top:0.11428571428571432em;"><span class="style-wrap reset-scriptstyle textstyle uncramped">√</span></span><span class="vlist"><span style="top:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1.4285714285714286em;">​</span></span><span class="mord scriptstyle cramped"><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">σ</span><span class="vlist"><span style="top:-0.289em;margin-right:0.07142857142857144em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle cramped"><span class="mord scriptscriptstyle cramped"><span class="mord mathrm">2</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span></span></span><span style="top:-0.9714285714285715em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1.4285714285714286em;">​</span></span><span class="reset-scriptstyle textstyle uncramped sqrt-line"></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1.4285714285714286em;">​</span></span>​</span></span></span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.485em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.07142857142857144em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle cramped"><span class="mord scriptscriptstyle cramped"><span class="mord mathit">i</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="mord mathit">μ</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span></span></span></span></span>，先放在这里，待会直接做对比。</p>
 </li>
-<li><p>有偏置的公式为：$y<em>{i}^{b}\,=\,\frac{x</em>{i}^{b}!-!\mu(x^{b})}{\sqrt{\sigma^{2}(x^{b})}}$，其中$x<em>{i}^{b}=x</em>{i}+b$；</p>
+<li>
+<p>有偏置的公式为：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msubsup><mi>y</mi><mrow><mi>i</mi></mrow><mrow><mi>b</mi></mrow></msubsup><mspace width="0.16667em"></mspace><mo>=</mo><mspace width="0.16667em"></mspace><mfrac><mrow><msubsup><mi>x</mi><mrow><mi>i</mi></mrow><mrow><mi>b</mi></mrow></msubsup><mo>!</mo><mo>−</mo><mo>!</mo><mi>μ</mi><mo>(</mo><msup><mi>x</mi><mrow><mi>b</mi></mrow></msup><mo>)</mo></mrow><mrow><msqrt><mrow><msup><mi>σ</mi><mrow><mn>2</mn></mrow></msup><mo>(</mo><msup><mi>x</mi><mrow><mi>b</mi></mrow></msup><mo>)</mo></mrow></msqrt></mrow></mfrac></mrow><annotation encoding="application/x-tex">y_{i}^{b}\,=\,\frac{x_{i}^{b}!-!\mu(x^{b})}{\sqrt{\sigma^{2}(x^{b})}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.09898em;"></span><span class="strut bottom" style="height:1.9489800000000002em;vertical-align:-0.8500000000000001em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="vlist"><span style="top:0.258664em;margin-left:-0.03588em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span></span></span></span><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">b</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mspace thinspace"></span><span class="mrel">=</span><span class="mord mspace thinspace"></span><span class="mord reset-textstyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.58226em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="sqrt mord"><span class="sqrt-sign" style="top:0.09677142857142873em;"><span class="style-wrap reset-scriptstyle textstyle uncramped">√</span></span><span class="vlist"><span style="top:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1.4285714285714286em;">​</span></span><span class="mord scriptstyle cramped"><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">σ</span><span class="vlist"><span style="top:-0.289em;margin-right:0.07142857142857144em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle cramped"><span class="mord scriptscriptstyle cramped"><span class="mord mathrm">2</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:-0.289em;margin-right:0.07142857142857144em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle cramped"><span class="mord scriptscriptstyle cramped"><span class="mord mathit">b</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span><span style="top:-0.9889428571428572em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1.4285714285714286em;">​</span></span><span class="reset-scriptstyle textstyle uncramped sqrt-line"></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1.4285714285714286em;">​</span></span>​</span></span></span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.49766em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.26808571428571426em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle cramped"><span class="mord scriptscriptstyle cramped"><span class="mord mathit">i</span></span></span></span><span style="top:-0.363em;margin-right:0.07142857142857144em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle uncramped"><span class="mord scriptscriptstyle uncramped"><span class="mord mathit">b</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">!</span><span class="mbin">−</span><span class="mclose">!</span><span class="mord mathit">μ</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:-0.363em;margin-right:0.07142857142857144em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle uncramped"><span class="mord scriptscriptstyle uncramped"><span class="mord mathit">b</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span></span></span></span>，其中<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msubsup><mi>x</mi><mrow><mi>i</mi></mrow><mrow><mi>b</mi></mrow></msubsup><mo>=</mo><msub><mi>x</mi><mrow><mi>i</mi></mrow></msub><mo>+</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">x_{i}^{b}=x_{i}+b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.849108em;"></span><span class="strut bottom" style="height:1.107772em;vertical-align:-0.258664em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.258664em;margin-left:0em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span></span></span></span><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">b</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="mord mathit">b</span></span></span></span>；</p>
 <ul>
-<li><p>对于均值而言：$\mu(x^{b})=\mu(x)+b$；</p>
+<li>
+<p>对于均值而言：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>μ</mi><mo>(</mo><msup><mi>x</mi><mrow><mi>b</mi></mrow></msup><mo>)</mo><mo>=</mo><mi>μ</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>+</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">\mu(x^{b})=\mu(x)+b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.849108em;"></span><span class="strut bottom" style="height:1.099108em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">μ</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">b</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span><span class="mrel">=</span><span class="mord mathit">μ</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span><span class="mbin">+</span><span class="mord mathit">b</span></span></span></span>；</p>
 </li>
-<li><p>对于方差而言：$\sigma^{2}(x^{b})=\frac{1}{m}\sum<em>{i=1}^{m}[x</em>{i}^{b}-\mu(x^{b})]^{2}=\frac{1}{m}\sum<em>{i=1}^{m}[x</em>{i}+b-\mu(x)-b]^{2}=\frac{1}{m}\sum<em>{i=1}^{m}[x</em>{i}-\mu(x)]^{2}=\sigma^{2}(x)$，</p>
+<li>
+<p>对于方差而言：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>σ</mi><mrow><mn>2</mn></mrow></msup><mo>(</mo><msup><mi>x</mi><mrow><mi>b</mi></mrow></msup><mo>)</mo><mo>=</mo><mfrac><mrow><mn>1</mn></mrow><mrow><mi>m</mi></mrow></mfrac><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>m</mi></mrow></msubsup><mo>[</mo><msubsup><mi>x</mi><mrow><mi>i</mi></mrow><mrow><mi>b</mi></mrow></msubsup><mo>−</mo><mi>μ</mi><mo>(</mo><msup><mi>x</mi><mrow><mi>b</mi></mrow></msup><mo>)</mo><msup><mo>]</mo><mrow><mn>2</mn></mrow></msup><mo>=</mo><mfrac><mrow><mn>1</mn></mrow><mrow><mi>m</mi></mrow></mfrac><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>m</mi></mrow></msubsup><mo>[</mo><msub><mi>x</mi><mrow><mi>i</mi></mrow></msub><mo>+</mo><mi>b</mi><mo>−</mo><mi>μ</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>−</mo><mi>b</mi><msup><mo>]</mo><mrow><mn>2</mn></mrow></msup><mo>=</mo><mfrac><mrow><mn>1</mn></mrow><mrow><mi>m</mi></mrow></mfrac><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>m</mi></mrow></msubsup><mo>[</mo><msub><mi>x</mi><mrow><mi>i</mi></mrow></msub><mo>−</mo><mi>μ</mi><mo>(</mo><mi>x</mi><mo>)</mo><msup><mo>]</mo><mrow><mn>2</mn></mrow></msup><mo>=</mo><msup><mi>σ</mi><mrow><mn>2</mn></mrow></msup><mo>(</mo><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\sigma^{2}(x^{b})=\frac{1}{m}\sum_{i=1}^{m}[x_{i}^{b}-\mu(x^{b})]^{2}=\frac{1}{m}\sum_{i=1}^{m}[x_{i}+b-\mu(x)-b]^{2}=\frac{1}{m}\sum_{i=1}^{m}[x_{i}-\mu(x)]^{2}=\sigma^{2}(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.849108em;"></span><span class="strut bottom" style="height:1.194108em;vertical-align:-0.345em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">σ</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathrm">2</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">b</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span><span class="mrel">=</span><span class="mord reset-textstyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">m</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathrm">1</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="mop"><span class="op-symbol small-op mop" style="top:-0.0000050000000000050004em;">∑</span><span class="vlist"><span style="top:0.30001em;margin-left:0em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span><span class="mrel">=</span><span class="mord mathrm">1</span></span></span></span><span style="top:-0.364em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">m</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">[</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.258664em;margin-left:0em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span></span></span></span><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">b</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="mord mathit">μ</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">b</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span><span class="mclose"><span class="mclose">]</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathrm">2</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mord reset-textstyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">m</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathrm">1</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="mop"><span class="op-symbol small-op mop" style="top:-0.0000050000000000050004em;">∑</span><span class="vlist"><span style="top:0.30001em;margin-left:0em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span><span class="mrel">=</span><span class="mord mathrm">1</span></span></span></span><span style="top:-0.364em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">m</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">[</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="mord mathit">b</span><span class="mbin">−</span><span class="mord mathit">μ</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span><span class="mbin">−</span><span class="mord mathit">b</span><span class="mclose"><span class="mclose">]</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathrm">2</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mord reset-textstyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.345em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">m</span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.394em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathrm">1</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="mop"><span class="op-symbol small-op mop" style="top:-0.0000050000000000050004em;">∑</span><span class="vlist"><span style="top:0.30001em;margin-left:0em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span><span class="mrel">=</span><span class="mord mathrm">1</span></span></span></span><span style="top:-0.364em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">m</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">[</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="mord mathit">μ</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span><span class="mclose"><span class="mclose">]</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathrm">2</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">σ</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathrm">2</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span></span></span></span>，</p>
 </li>
-<li><p>那么可以计算出：$y<em>{i}^{b}=\frac{x</em>{i}^{b}-\mu(x^{b})}{\sqrt{\sigma^{2}(x^{b})}}=\frac{x<em>{i}+b-\mu(x)-b}{\sqrt{\sigma^{2}(x)}}=\frac{x</em>{i}-\mu(x)}{\sqrt{\sigma^{2}(x)}}$。</p>
+<li>
+<p>那么可以计算出：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msubsup><mi>y</mi><mrow><mi>i</mi></mrow><mrow><mi>b</mi></mrow></msubsup><mo>=</mo><mfrac><mrow><msubsup><mi>x</mi><mrow><mi>i</mi></mrow><mrow><mi>b</mi></mrow></msubsup><mo>−</mo><mi>μ</mi><mo>(</mo><msup><mi>x</mi><mrow><mi>b</mi></mrow></msup><mo>)</mo></mrow><mrow><msqrt><mrow><msup><mi>σ</mi><mrow><mn>2</mn></mrow></msup><mo>(</mo><msup><mi>x</mi><mrow><mi>b</mi></mrow></msup><mo>)</mo></mrow></msqrt></mrow></mfrac><mo>=</mo><mfrac><mrow><msub><mi>x</mi><mrow><mi>i</mi></mrow></msub><mo>+</mo><mi>b</mi><mo>−</mo><mi>μ</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>−</mo><mi>b</mi></mrow><mrow><msqrt><mrow><msup><mi>σ</mi><mrow><mn>2</mn></mrow></msup><mo>(</mo><mi>x</mi><mo>)</mo></mrow></msqrt></mrow></mfrac><mo>=</mo><mfrac><mrow><msub><mi>x</mi><mrow><mi>i</mi></mrow></msub><mo>−</mo><mi>μ</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><mrow><msqrt><mrow><msup><mi>σ</mi><mrow><mn>2</mn></mrow></msup><mo>(</mo><mi>x</mi><mo>)</mo></mrow></msqrt></mrow></mfrac></mrow><annotation encoding="application/x-tex">y_{i}^{b}=\frac{x_{i}^{b}-\mu(x^{b})}{\sqrt{\sigma^{2}(x^{b})}}=\frac{x_{i}+b-\mu(x)-b}{\sqrt{\sigma^{2}(x)}}=\frac{x_{i}-\mu(x)}{\sqrt{\sigma^{2}(x)}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.09898em;"></span><span class="strut bottom" style="height:1.9489800000000002em;vertical-align:-0.8500000000000001em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="vlist"><span style="top:0.258664em;margin-left:-0.03588em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span></span></span></span><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">b</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mord reset-textstyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.58226em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="sqrt mord"><span class="sqrt-sign" style="top:0.09677142857142873em;"><span class="style-wrap reset-scriptstyle textstyle uncramped">√</span></span><span class="vlist"><span style="top:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1.4285714285714286em;">​</span></span><span class="mord scriptstyle cramped"><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">σ</span><span class="vlist"><span style="top:-0.289em;margin-right:0.07142857142857144em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle cramped"><span class="mord scriptscriptstyle cramped"><span class="mord mathrm">2</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:-0.289em;margin-right:0.07142857142857144em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle cramped"><span class="mord scriptscriptstyle cramped"><span class="mord mathit">b</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span><span style="top:-0.9889428571428572em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1.4285714285714286em;">​</span></span><span class="reset-scriptstyle textstyle uncramped sqrt-line"></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1.4285714285714286em;">​</span></span>​</span></span></span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.49766em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.26808571428571426em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle cramped"><span class="mord scriptscriptstyle cramped"><span class="mord mathit">i</span></span></span></span><span style="top:-0.363em;margin-right:0.07142857142857144em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle uncramped"><span class="mord scriptscriptstyle uncramped"><span class="mord mathit">b</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="mord mathit">μ</span><span class="mopen">(</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:-0.363em;margin-right:0.07142857142857144em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle uncramped"><span class="mord scriptscriptstyle uncramped"><span class="mord mathit">b</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="mrel">=</span><span class="mord reset-textstyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.5700000000000001em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="sqrt mord"><span class="sqrt-sign" style="top:0.11428571428571432em;"><span class="style-wrap reset-scriptstyle textstyle uncramped">√</span></span><span class="vlist"><span style="top:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1.4285714285714286em;">​</span></span><span class="mord scriptstyle cramped"><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">σ</span><span class="vlist"><span style="top:-0.289em;margin-right:0.07142857142857144em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle cramped"><span class="mord scriptscriptstyle cramped"><span class="mord mathrm">2</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span></span></span><span style="top:-0.9714285714285715em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1.4285714285714286em;">​</span></span><span class="reset-scriptstyle textstyle uncramped sqrt-line"></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1.4285714285714286em;">​</span></span>​</span></span></span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.485em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.07142857142857144em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle cramped"><span class="mord scriptscriptstyle cramped"><span class="mord mathit">i</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="mord mathit">b</span><span class="mbin">−</span><span class="mord mathit">μ</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span><span class="mbin">−</span><span class="mord mathit">b</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span><span class="mrel">=</span><span class="mord reset-textstyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.5700000000000001em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="sqrt mord"><span class="sqrt-sign" style="top:0.11428571428571432em;"><span class="style-wrap reset-scriptstyle textstyle uncramped">√</span></span><span class="vlist"><span style="top:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1.4285714285714286em;">​</span></span><span class="mord scriptstyle cramped"><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">σ</span><span class="vlist"><span style="top:-0.289em;margin-right:0.07142857142857144em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle cramped"><span class="mord scriptscriptstyle cramped"><span class="mord mathrm">2</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span></span></span><span style="top:-0.9714285714285715em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1.4285714285714286em;">​</span></span><span class="reset-scriptstyle textstyle uncramped sqrt-line"></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1.4285714285714286em;">​</span></span>​</span></span></span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.485em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.07142857142857144em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle cramped"><span class="mord scriptscriptstyle cramped"><span class="mord mathit">i</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="mord mathit">μ</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span></span></span></span>。</p>
 </li>
-<li><p>可以看出来，这个值和没有偏置的时候的$y<em>{i}={\frac{x</em>{i}-\mu(x)}{\sqrt{\sigma^{2}(x)}}}$是完全一致的。</p>
+<li>
+<p>可以看出来，这个值和没有偏置的时候的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>y</mi><mrow><mi>i</mi></mrow></msub><mo>=</mo><mrow><mfrac><mrow><msub><mi>x</mi><mrow><mi>i</mi></mrow></msub><mo>−</mo><mi>μ</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><mrow><msqrt><mrow><msup><mi>σ</mi><mrow><mn>2</mn></mrow></msup><mo>(</mo><mi>x</mi><mo>)</mo></mrow></msqrt></mrow></mfrac></mrow></mrow><annotation encoding="application/x-tex">y_{i}={\frac{x_{i}-\mu(x)}{\sqrt{\sigma^{2}(x)}}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.01em;"></span><span class="strut bottom" style="height:1.86em;vertical-align:-0.8500000000000001em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mord textstyle uncramped"><span class="mord reset-textstyle textstyle uncramped"><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span><span class="mfrac"><span class="vlist"><span style="top:0.5700000000000001em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="sqrt mord"><span class="sqrt-sign" style="top:0.11428571428571432em;"><span class="style-wrap reset-scriptstyle textstyle uncramped">√</span></span><span class="vlist"><span style="top:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1.4285714285714286em;">​</span></span><span class="mord scriptstyle cramped"><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">σ</span><span class="vlist"><span style="top:-0.289em;margin-right:0.07142857142857144em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle cramped"><span class="mord scriptscriptstyle cramped"><span class="mord mathrm">2</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span></span></span><span style="top:-0.9714285714285715em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1.4285714285714286em;">​</span></span><span class="reset-scriptstyle textstyle uncramped sqrt-line"></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1.4285714285714286em;">​</span></span>​</span></span></span></span></span></span><span style="top:-0.22999999999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle textstyle uncramped frac-line"></span></span><span style="top:-0.485em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.07142857142857144em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-scriptstyle scriptscriptstyle cramped"><span class="mord scriptscriptstyle cramped"><span class="mord mathit">i</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="mord mathit">μ</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:1em;">​</span></span>​</span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span></span></span></span></span>是完全一致的。</p>
 </li>
 </ul>
 </li>
 </ul>
 </li>
 </ol>
+</blockquote>
+<blockquote>
 <p>由于ResNet的结构非常复杂，所以它的训练时间比较长。此外，由于它具有非常深的层数，因此它需要大量的数据来进行训练。</p>
 </blockquote>
-<h2 id="MobileNet"><a href="#MobileNet" class="headerlink" title="MobileNet"></a>MobileNet</h2><h3 id="V1"><a href="#V1" class="headerlink" title="V1"></a>V1</h3><p><strong>创新</strong></p>
+<h2 id="MobileNet">MobileNet</h2>
+<h3 id="V1">V1</h3>
+<p><strong>创新</strong></p>
 <ol>
 <li>Depthwise Convolution</li>
-<li>$\alpha、\beta$ 的引入<h4 id="Depthwise-Convolution"><a href="#Depthwise-Convolution" class="headerlink" title="Depthwise Convolution"></a>Depthwise Convolution</h4>DW卷积（Depthwise Convolution），它能够大大减少模型的参数以及运算量。<br><strong>经典的卷积</strong><br><img src="https://free.picui.cn/free/2025/09/11/68c254ae99a9d.png" alt="输入图片说明"><br><strong>DW卷积</strong><br><img src="https://free.picui.cn/free/2025/09/11/68c254daf0e90.png" alt="输入图片说明"><br>DW卷积的每一个卷积核负责一个输入特征矩阵的channel，那么总结下来：输入特征矩阵的channel = 卷积核个数 = 输出特征矩阵的channel。<br><strong>深度可分卷积操作（Depthwise Separable Conv</strong><br><a target="_blank" rel="noopener" href="https://lizhuoran.com/2025/09/10/%E6%B7%B1%E5%BA%A6%E5%8F%AF%E5%88%86%E7%A6%BB%E5%8D%B7%E7%A7%AF/">深度可分离卷积 | 李猪兰</a><br>这种卷积操作是有两种卷积组成的，即DW卷积和PW卷积（Pointwise Conv）组成，先DW卷积，结果作为PW卷积的输入<br><strong>PW卷积</strong><br><img src="https://free.picui.cn/free/2025/09/11/68c255abc4aa0.png" alt="输入图片说明"><br>通常情况下，DW卷积核PW卷积是放在一起使用的，这种卷积比普通的卷积能节省大量的计算量，由上图普通卷积、DW卷积、PW卷积三个图可知，普通卷积的输入是3通道，输出是4通道，深度可分卷积由DW和PW一起构成（先DW后PW），所以输入是3通道，输出是4通道。<blockquote>
+<li>\alpha、\beta 的引入</li>
+</ol>
+<h4 id="Depthwise-Convolution">Depthwise Convolution</h4>
+<p>DW卷积（Depthwise Convolution），它能够大大减少模型的参数以及运算量。<br>
+<strong>经典的卷积</strong><br>
+<img src="https://free.picui.cn/free/2025/09/11/68c254ae99a9d.png" alt="输入图片说明"><br>
+<strong>DW卷积</strong><br>
+<img src="https://free.picui.cn/free/2025/09/11/68c254daf0e90.png" alt="输入图片说明"><br>
+DW卷积的每一个卷积核负责一个输入特征矩阵的channel，那么总结下来：输入特征矩阵的channel = 卷积核个数 = 输出特征矩阵的channel。<br>
+<strong>深度可分卷积操作（Depthwise Separable Conv</strong><br>
+<a target="_blank" rel="noopener" href="https://lizhuoran.com/2025/09/10/%E6%B7%B1%E5%BA%A6%E5%8F%AF%E5%88%86%E7%A6%BB%E5%8D%B7%E7%A7%AF/">深度可分离卷积 | 李猪兰</a><br>
+这种卷积操作是有两种卷积组成的，即DW卷积和PW卷积（Pointwise Conv）组成，先DW卷积，结果作为PW卷积的输入<br>
+<strong>PW卷积</strong><br>
+<img src="https://free.picui.cn/free/2025/09/11/68c255abc4aa0.png" alt="输入图片说明"><br>
+通常情况下，DW卷积核PW卷积是放在一起使用的，这种卷积比普通的卷积能节省大量的计算量，由上图普通卷积、DW卷积、PW卷积三个图可知，普通卷积的输入是3通道，输出是4通道，深度可分卷积由DW和PW一起构成（先DW后PW），所以输入是3通道，输出是4通道。</p>
+<blockquote>
 <p>在使用过程中，发现了部分DW卷积核会废掉的情况，即卷积核的参数为0，为什么会出现这种问题呢？主要是以下几个原因：</p>
 <ol>
-<li><p>卷积核、通道数量以及权重数量太少，感受野太单薄；</p>
+<li>
+<p>卷积核、通道数量以及权重数量太少，感受野太单薄；</p>
 </li>
-<li><p>Relu激活函数；</p>
+<li>
+<p>Relu激活函数；</p>
 </li>
-<li><p>精度低时，例如float18，int8这种低精度浮点数表示时很有限。</p>
+<li>
+<p>精度低时，例如float18，int8这种低精度浮点数表示时很有限。</p>
 </li>
 </ol>
 <p>这种情况会造成特征拿不全的问题，但是这个问题在MobileNetV2中得以改善。</p>
 </blockquote>
-</li>
-</ol>
-<h4 id="alpha、-beta"><a href="#alpha、-beta" class="headerlink" title="$\alpha、\beta$"></a>$\alpha、\beta$</h4><p>$\alpha$ 是卷积核个数的倍率，用来控制卷积过程中卷积核的个数，当取不同的$\alpha$的时候，准确率、计算量和参数量是不一样的<br>$\beta$ 是分辨率参数，即输入图像尺寸的参数</p>
+<h4 id="alpha、-beta">\alpha、\beta</h4>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.0037em;">α</span></span></span></span> 是卷积核个数的倍率，用来控制卷积过程中卷积核的个数，当取不同的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.0037em;">α</span></span></span></span>的时候，准确率、计算量和参数量是不一样的<br>
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>β</mi></mrow><annotation encoding="application/x-tex">\beta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.05278em;">β</span></span></span></span> 是分辨率参数，即输入图像尺寸的参数</p>
 <p>这种情况会造成特征拿不全的问题，但是这个问题在MobileNetV2中得以改善。</p>
-<h3 id="V2"><a href="#V2" class="headerlink" title="V2"></a>V2</h3><p><strong>创新</strong></p>
+<h3 id="V2">V2</h3>
+<p><strong>创新</strong></p>
 <ol>
 <li>Inverted Residuals（倒残差结构）</li>
 <li>Relu6</li>
 <li>Linear Bottlenecks</li>
 <li>Shortcut</li>
-<li>拓展因子<h4 id="Inverted-Residuals（倒残差结构）"><a href="#Inverted-Residuals（倒残差结构）" class="headerlink" title="Inverted Residuals（倒残差结构）"></a>Inverted Residuals（倒残差结构）</h4>在之前的ResNet残差结构是先用1x1的卷积降维，再升维的操作。而在MobileNetV2中，是先升维，再降维的操作，所以该结构叫倒残差结构，网络结构表格中的bottleneck就是倒残差结构。</li>
+<li>拓展因子</li>
 </ol>
+<h4 id="Inverted-Residuals（倒残差结构）">Inverted Residuals（倒残差结构）</h4>
+<p>在之前的ResNet残差结构是先用1x1的卷积降维，再升维的操作。而在MobileNetV2中，是先升维，再降维的操作，所以该结构叫倒残差结构，网络结构表格中的bottleneck就是倒残差结构。</p>
 <blockquote>
 <p><strong>残差结构的过程是</strong>：</p>
 <ol>
-<li><p>1x1卷积降维</p>
+<li>
+<p>1x1卷积降维</p>
 </li>
-<li><p>3x3卷积</p>
+<li>
+<p>3x3卷积</p>
 </li>
-<li><p>1x1卷积升维</p>
+<li>
+<p>1x1卷积升维</p>
 </li>
 </ol>
 <p>即对输入特征矩阵进行利用1x1卷积进行降维，减少输入特征矩阵的channel，然后通过3x3的卷积核进行处理提取特征，最后通过1x1的卷积核进行升维，那么它的结构就是两边深，中间浅的结构</p>
+</blockquote>
+<blockquote>
 <p><strong>倒残差结构的过程是</strong>：</p>
 <ol>
-<li><p>首先会通过一个1x1卷积层来进行升维处理，在卷积后会跟有BN和Relu6激活函数</p>
+<li>
+<p>首先会通过一个1x1卷积层来进行升维处理，在卷积后会跟有BN和Relu6激活函数</p>
 </li>
-<li><p>紧接着是一个3x3大小DW卷积，卷积后面依旧会跟有BN和Relu6激活函数</p>
+<li>
+<p>紧接着是一个3x3大小DW卷积，卷积后面依旧会跟有BN和Relu6激活函数</p>
 </li>
-<li><p>最后一个卷积层是1x1卷积，起到降维作用，注意卷积后只跟了BN结构，并没有使用Relu6激活函数。</p>
+<li>
+<p>最后一个卷积层是1x1卷积，起到降维作用，注意卷积后只跟了BN结构，并没有使用Relu6激活函数。</p>
 </li>
 </ol>
 <p>结构应该是中间深，两边浅</p>
 </blockquote>
-<h4 id="Relu6"><a href="#Relu6" class="headerlink" title="Relu6"></a>Relu6</h4><p>$y=ReLU6(x)=min(max(x,0),6)$</p>
-<p>Relu6激活函数是Relu的变种，它的输入小于0时，结果为0，输入大于6时：结果为6。在0到6之间时：$y=x$。</p>
+<h4 id="Relu6">Relu6</h4>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi><mo>=</mo><mi>R</mi><mi>e</mi><mi>L</mi><mi>U</mi><mn>6</mn><mo>(</mo><mi>x</mi><mo>)</mo><mo>=</mo><mi>m</mi><mi>i</mi><mi>n</mi><mo>(</mo><mi>m</mi><mi>a</mi><mi>x</mi><mo>(</mo><mi>x</mi><mo separator="true">,</mo><mn>0</mn><mo>)</mo><mo separator="true">,</mo><mn>6</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">y=ReLU6(x)=min(max(x,0),6)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="mrel">=</span><span class="mord mathit" style="margin-right:0.00773em;">R</span><span class="mord mathit">e</span><span class="mord mathit">L</span><span class="mord mathit" style="margin-right:0.10903em;">U</span><span class="mord mathrm">6</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord mathit">m</span><span class="mord mathit">i</span><span class="mord mathit">n</span><span class="mopen">(</span><span class="mord mathit">m</span><span class="mord mathit">a</span><span class="mord mathit">x</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mpunct">,</span><span class="mord mathrm">0</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mord mathrm">6</span><span class="mclose">)</span></span></span></span></p>
+<p>Relu6激活函数是Relu的变种，它的输入小于0时，结果为0，输入大于6时：结果为6。在0到6之间时：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi><mo>=</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">y=x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="mrel">=</span><span class="mord mathit">x</span></span></span></span>。</p>
 <blockquote>
 <p>如果对Relu的激活范围不加限制，输出范围为0到正无穷，如果激活值非常大，分布在一个很大的范围内，则低精度的float16无法很好地精确描述如此大范围的数值，带来精度损失，所以在量化过程中，Relu6能够有更好的量化表现和更小的精度下降。</p>
 </blockquote>
-<h4 id="Linear-Bottlenecks"><a href="#Linear-Bottlenecks" class="headerlink" title="Linear Bottlenecks"></a>Linear Bottlenecks</h4><p> Linear Bottlenecks（线性瓶颈）</p>
-<h4 id="Shortcut"><a href="#Shortcut" class="headerlink" title="Shortcut"></a>Shortcut</h4><p>Shortcut并不是该网络提出的，而是残差结构提出的。<br><img src="https://free.picui.cn/free/2025/09/11/68c2596129090.png" alt="输入图片说明"><br>shortcut将输入与输出直接进行相加，可以使得网络在较深的时候依旧可以进行训练。</p>
-<h3 id="V3"><a href="#V3" class="headerlink" title="V3"></a>V3</h3><p><strong>创新</strong></p>
+<h4 id="Linear-Bottlenecks">Linear Bottlenecks</h4>
+<p>Linear Bottlenecks（线性瓶颈）</p>
+<h4 id="Shortcut">Shortcut</h4>
+<p>Shortcut并不是该网络提出的，而是残差结构提出的。<br>
+<img src="https://free.picui.cn/free/2025/09/11/68c2596129090.png" alt="输入图片说明"><br>
+shortcut将输入与输出直接进行相加，可以使得网络在较深的时候依旧可以进行训练。</p>
+<h3 id="V3">V3</h3>
+<p><strong>创新</strong></p>
 <ol>
 <li>更新Block</li>
 <li>使用NAS搜索参数</li>
 <li>重新设计耗时层</li>
 </ol>
-<p>NAS是Neural Architecture Search，实现网络结构搜索<br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/450940875">https://zhuanlan.zhihu.com/p/450940875</a>。</p>
+<p>NAS是Neural Architecture Search，实现网络结构搜索<br>
+<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/450940875">https://zhuanlan.zhihu.com/p/450940875</a>。</p>
 <blockquote>
-<p>在使用过程中，可能会出现MobileNetV3准确率不如MobileNetV2的情况，MobileNetV3是来自于Google的，自然它更关注的是网络在Android设备上的表现，事实也的确如此，作者主要针对Google<br>Pixel硬件对网络做了参数优化。</p>
+<p>在使用过程中，可能会出现MobileNetV3准确率不如MobileNetV2的情况，MobileNetV3是来自于Google的，自然它更关注的是网络在Android设备上的表现，事实也的确如此，作者主要针对Google<br>
+Pixel硬件对网络做了参数优化。</p>
 <p>当然这并不意味着MobileNet V3就是慢的了，只不过它无法在其他一些设备上达到最佳效果。</p>
 </blockquote>
-<h3 id="V4"><a href="#V4" class="headerlink" title="V4"></a>V4</h3><p><strong>创新</strong></p>
+<h3 id="V4">V4</h3>
+<p><strong>创新</strong></p>
 <ol>
 <li>Universal Inverted Bottleneck（UIB）——统一可搜索的构建块</li>
 <li>Mobile MQA——为移动加速器定制的注意力机制</li>
 <li>两阶段NAS配方——硬件感知的结构搜索</li>
-<li>蒸馏增强训练——精度再提升<h2 id="DenseNet"><a href="#DenseNet" class="headerlink" title="DenseNet"></a>DenseNet</h2>密集连接，<strong>特征复用</strong>强，参数效率高<h2 id="SENet（Squeeze-and-Excitation）"><a href="#SENet（Squeeze-and-Excitation）" class="headerlink" title="SENet（Squeeze-and-Excitation）"></a>SENet（Squeeze-and-Excitation）</h2>引入 <strong>通道注意力机制</strong>，可嵌入其他网络提升性能<h2 id="ResNeXt"><a href="#ResNeXt" class="headerlink" title="ResNeXt"></a>ResNeXt</h2>ResNet 的升级版，引入 <strong>分组卷积</strong>，性能更强</li>
+<li>蒸馏增强训练——精度再提升</li>
 </ol>
-<h2 id="ShuffleNet-V1-V2"><a href="#ShuffleNet-V1-V2" class="headerlink" title="ShuffleNet V1/V2"></a>ShuffleNet V1/V2</h2><p>轻量级网络，<strong>通道打乱机制</strong>，适合移动端</p>
-<h2 id="EfficientNet"><a href="#EfficientNet" class="headerlink" title="EfficientNet"></a>EfficientNet</h2><p><strong>复合缩放</strong>策略，精度高、参数少，<strong>EfficientDet 的 backbone</strong></p>
-<h2 id="RegNet"><a href="#RegNet" class="headerlink" title="RegNet"></a>RegNet</h2><p>Facebook 提出，<strong>系统设计网络结构</strong>，Detectron2 默认使用</p>
-<h2 id="Vision-Transformer-ViT"><a href="#Vision-Transformer-ViT" class="headerlink" title="Vision Transformer (ViT)"></a>Vision Transformer (ViT)</h2><p>使用 Transformer 架构，<strong>无卷积</strong>，在大规模数据上表现强劲</p>
-<h2 id="Swin-Transformer"><a href="#Swin-Transformer" class="headerlink" title="Swin Transformer"></a>Swin Transformer</h2><p>分层 Transformer，<strong>兼容 CNN 结构</strong>，在检测/分割任务中表现优异</p>
-<h2 id="怎么选择"><a href="#怎么选择" class="headerlink" title="怎么选择"></a>怎么选择</h2><p><strong>按类型分类</strong><br>| 类型                 | 代表模型                                               |<br>| ————————— | ————————————————————————— |<br>| <strong>标准 CNN</strong>         | AlexNet, VGG, GoogLeNet, ResNet, DenseNet, ResNeXt |<br>| <strong>轻量级</strong>            | MobileNet V1/V2/V3, ShuffleNet V1/V2, EfficientNet |<br>| <strong>注意力机制</strong>          | SENet, CBAM（可嵌入其他网络）                               |<br>| <strong>Transformer 系列</strong> | ViT, Swin Transformer, DeiT                        |</p>
+<h2 id="DenseNet">DenseNet</h2>
+<p>密集连接，<strong>特征复用</strong>强，参数效率高</p>
+<h2 id="SENet（Squeeze-and-Excitation）">SENet（Squeeze-and-Excitation）</h2>
+<p>引入 <strong>通道注意力机制</strong>，可嵌入其他网络提升性能</p>
+<h2 id="ResNeXt">ResNeXt</h2>
+<p>ResNet 的升级版，引入 <strong>分组卷积</strong>，性能更强</p>
+<h2 id="ShuffleNet-V1-V2">ShuffleNet V1/V2</h2>
+<p>轻量级网络，<strong>通道打乱机制</strong>，适合移动端</p>
+<h2 id="EfficientNet">EfficientNet</h2>
+<p><strong>复合缩放</strong>策略，精度高、参数少，<strong>EfficientDet 的 backbone</strong></p>
+<h2 id="RegNet">RegNet</h2>
+<p>Facebook 提出，<strong>系统设计网络结构</strong>，Detectron2 默认使用</p>
+<h2 id="Vision-Transformer-ViT">Vision Transformer (ViT)</h2>
+<p>使用 Transformer 架构，<strong>无卷积</strong>，在大规模数据上表现强劲</p>
+<h2 id="Swin-Transformer">Swin Transformer</h2>
+<p>分层 Transformer，<strong>兼容 CNN 结构</strong>，在检测/分割任务中表现优异</p>
+<h2 id="怎么选择">怎么选择</h2>
+<p><strong>按类型分类</strong></p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>代表模型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>标准 CNN</strong></td>
+<td>AlexNet, VGG, GoogLeNet, ResNet, DenseNet, ResNeXt</td>
+</tr>
+<tr>
+<td><strong>轻量级</strong></td>
+<td>MobileNet V1/V2/V3, ShuffleNet V1/V2, EfficientNet</td>
+</tr>
+<tr>
+<td><strong>注意力机制</strong></td>
+<td>SENet, CBAM（可嵌入其他网络）</td>
+</tr>
+<tr>
+<td><strong>Transformer 系列</strong></td>
+<td>ViT, Swin Transformer, DeiT</td>
+</tr>
+</tbody>
+</table>
 <p><strong>按用途分类</strong></p>
-<h3 id="目标检测"><a href="#目标检测" class="headerlink" title="目标检测"></a><strong>目标检测</strong></h3><div class="table-container">
+<h3 id="目标检测"><strong>目标检测</strong></h3>
 <table>
 <thead>
 <tr>
@@ -533,8 +668,7 @@
 </tr>
 </tbody>
 </table>
-</div>
-<h3 id="语义分割-实例分割"><a href="#语义分割-实例分割" class="headerlink" title="语义分割 / 实例分割"></a><strong>语义分割 / 实例分割</strong></h3><div class="table-container">
+<h3 id="语义分割-实例分割"><strong>语义分割 / 实例分割</strong></h3>
 <table>
 <thead>
 <tr>
@@ -554,7 +688,7 @@
 <tr>
 <td><strong>实时</strong></td>
 <td>MobileNet-V2<br>ShuffleNet-V2</td>
-<td>速度 30+ FPS\@720p， TensorRT 友好</td>
+<td>速度 30+ FPS@720p， TensorRT 友好</td>
 <td>BiSeNet、SwiftNet</td>
 </tr>
 <tr>
@@ -565,8 +699,7 @@
 </tr>
 </tbody>
 </table>
-</div>
-<h3 id="微调"><a href="#微调" class="headerlink" title="微调"></a><strong>微调</strong></h3><div class="table-container">
+<h3 id="微调"><strong>微调</strong></h3>
 <table>
 <thead>
 <tr>
@@ -593,16 +726,19 @@
 </tr>
 </tbody>
 </table>
-</div>
 <p>总结</p>
 <ul>
-<li><p><strong>服务器精度</strong> → <strong>ResNet-FPN</strong> 永远是 baseline；</p>
+<li>
+<p><strong>服务器精度</strong> → <strong>ResNet-FPN</strong> 永远是 baseline；</p>
 </li>
-<li><p><strong>移动端速度</strong> → <strong>MobileNet-V3</strong> 先跑通，再试 <strong>ShuffleNet-V2</strong>；</p>
+<li>
+<p><strong>移动端速度</strong> → <strong>MobileNet-V3</strong> 先跑通，再试 <strong>ShuffleNet-V2</strong>；</p>
 </li>
-<li><p><strong>Transformer 尝鲜</strong> → <strong>Swin-Tiny</strong> 最小可用，<strong>RegNet</strong> 调参最省心；</p>
+<li>
+<p><strong>Transformer 尝鲜</strong> → <strong>Swin-Tiny</strong> 最小可用，<strong>RegNet</strong> 调参最省心；</p>
 </li>
-<li><p><strong>边缘量化</strong> → 选 <strong>无 SE 模块</strong> 的版本（SE 对 INT8 不友好）。</p>
+<li>
+<p><strong>边缘量化</strong> → 选 <strong>无 SE 模块</strong> 的版本（SE 对 INT8 不友好）。</p>
 </li>
 </ul>
 <p>（来自ai）</p>
@@ -720,7 +856,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%8F%E5%85%B8backbone"><span class="nav-number">1.</span> <span class="nav-text">经典backbone</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AlexNet"><span class="nav-number">1.1.</span> <span class="nav-text">AlexNet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VggNet"><span class="nav-number">1.2.</span> <span class="nav-text">VggNet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GoogLeNet"><span class="nav-number">1.3.</span> <span class="nav-text">GoogLeNet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Inception%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.1.</span> <span class="nav-text">Inception结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1x1%E5%8D%B7%E7%A7%AF"><span class="nav-number">1.3.2.</span> <span class="nav-text">1x1卷积</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%85%E5%8A%A9%E5%88%86%E7%B1%BB%E5%99%A8"><span class="nav-number">1.3.3.</span> <span class="nav-text">辅助分类器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ResNet"><span class="nav-number">1.4.</span> <span class="nav-text">ResNet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Residual%E7%BB%93%E6%9E%84"><span class="nav-number">1.4.1.</span> <span class="nav-text">Residual结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Batch-Normalization"><span class="nav-number">1.4.2.</span> <span class="nav-text">Batch Normalization</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MobileNet"><span class="nav-number">1.5.</span> <span class="nav-text">MobileNet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#V1"><span class="nav-number">1.5.1.</span> <span class="nav-text">V1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Depthwise-Convolution"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">Depthwise Convolution</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#alpha%E3%80%81-beta"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">$\alpha、\beta$</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#V2"><span class="nav-number">1.5.2.</span> <span class="nav-text">V2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Inverted-Residuals%EF%BC%88%E5%80%92%E6%AE%8B%E5%B7%AE%E7%BB%93%E6%9E%84%EF%BC%89"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">Inverted Residuals（倒残差结构）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Relu6"><span class="nav-number">1.5.2.2.</span> <span class="nav-text">Relu6</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linear-Bottlenecks"><span class="nav-number">1.5.2.3.</span> <span class="nav-text">Linear Bottlenecks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Shortcut"><span class="nav-number">1.5.2.4.</span> <span class="nav-text">Shortcut</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#V3"><span class="nav-number">1.5.3.</span> <span class="nav-text">V3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#V4"><span class="nav-number">1.5.4.</span> <span class="nav-text">V4</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DenseNet"><span class="nav-number">1.6.</span> <span class="nav-text">DenseNet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SENet%EF%BC%88Squeeze-and-Excitation%EF%BC%89"><span class="nav-number">1.7.</span> <span class="nav-text">SENet（Squeeze-and-Excitation）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ResNeXt"><span class="nav-number">1.8.</span> <span class="nav-text">ResNeXt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ShuffleNet-V1-V2"><span class="nav-number">1.9.</span> <span class="nav-text">ShuffleNet V1&#x2F;V2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EfficientNet"><span class="nav-number">1.10.</span> <span class="nav-text">EfficientNet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RegNet"><span class="nav-number">1.11.</span> <span class="nav-text">RegNet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vision-Transformer-ViT"><span class="nav-number">1.12.</span> <span class="nav-text">Vision Transformer (ViT)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Swin-Transformer"><span class="nav-number">1.13.</span> <span class="nav-text">Swin Transformer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E9%80%89%E6%8B%A9"><span class="nav-number">1.14.</span> <span class="nav-text">怎么选择</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B"><span class="nav-number">1.14.1.</span> <span class="nav-text">目标检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2-%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2"><span class="nav-number">1.14.2.</span> <span class="nav-text">语义分割 &#x2F; 实例分割</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E8%B0%83"><span class="nav-number">1.14.3.</span> <span class="nav-text">微调</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">经典backbone</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AlexNet"><span class="nav-number">1.1.</span> <span class="nav-text">AlexNet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VggNet"><span class="nav-number">1.2.</span> <span class="nav-text">VggNet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GoogLeNet"><span class="nav-number">1.3.</span> <span class="nav-text">GoogLeNet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Inception%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.1.</span> <span class="nav-text">Inception结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1x1%E5%8D%B7%E7%A7%AF"><span class="nav-number">1.3.2.</span> <span class="nav-text">1x1卷积</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%85%E5%8A%A9%E5%88%86%E7%B1%BB%E5%99%A8"><span class="nav-number">1.3.3.</span> <span class="nav-text">辅助分类器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ResNet"><span class="nav-number">1.4.</span> <span class="nav-text">ResNet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Residual%E7%BB%93%E6%9E%84"><span class="nav-number">1.4.1.</span> <span class="nav-text">Residual结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Batch-Normalization"><span class="nav-number">1.4.2.</span> <span class="nav-text">Batch Normalization</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MobileNet"><span class="nav-number">1.5.</span> <span class="nav-text">MobileNet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#V1"><span class="nav-number">1.5.1.</span> <span class="nav-text">V1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Depthwise-Convolution"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">Depthwise Convolution</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#alpha%E3%80%81-beta"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">\alpha、\beta</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#V2"><span class="nav-number">1.5.2.</span> <span class="nav-text">V2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Inverted-Residuals%EF%BC%88%E5%80%92%E6%AE%8B%E5%B7%AE%E7%BB%93%E6%9E%84%EF%BC%89"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">Inverted Residuals（倒残差结构）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Relu6"><span class="nav-number">1.5.2.2.</span> <span class="nav-text">Relu6</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linear-Bottlenecks"><span class="nav-number">1.5.2.3.</span> <span class="nav-text">Linear Bottlenecks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Shortcut"><span class="nav-number">1.5.2.4.</span> <span class="nav-text">Shortcut</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#V3"><span class="nav-number">1.5.3.</span> <span class="nav-text">V3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#V4"><span class="nav-number">1.5.4.</span> <span class="nav-text">V4</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DenseNet"><span class="nav-number">1.6.</span> <span class="nav-text">DenseNet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SENet%EF%BC%88Squeeze-and-Excitation%EF%BC%89"><span class="nav-number">1.7.</span> <span class="nav-text">SENet（Squeeze-and-Excitation）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ResNeXt"><span class="nav-number">1.8.</span> <span class="nav-text">ResNeXt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ShuffleNet-V1-V2"><span class="nav-number">1.9.</span> <span class="nav-text">ShuffleNet V1&#x2F;V2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EfficientNet"><span class="nav-number">1.10.</span> <span class="nav-text">EfficientNet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RegNet"><span class="nav-number">1.11.</span> <span class="nav-text">RegNet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vision-Transformer-ViT"><span class="nav-number">1.12.</span> <span class="nav-text">Vision Transformer (ViT)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Swin-Transformer"><span class="nav-number">1.13.</span> <span class="nav-text">Swin Transformer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E9%80%89%E6%8B%A9"><span class="nav-number">1.14.</span> <span class="nav-text">怎么选择</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B"><span class="nav-number">1.14.1.</span> <span class="nav-text">目标检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2-%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2"><span class="nav-number">1.14.2.</span> <span class="nav-text">语义分割 &#x2F; 实例分割</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E8%B0%83"><span class="nav-number">1.14.3.</span> <span class="nav-text">微调</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -801,7 +937,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">101k</span>
+    <span title="站点总字数">102k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
@@ -812,7 +948,7 @@
   </div>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共54.4k字</span>
+  <span class="post-count">博客全站共54.8k字</span>
 </div>
 
 
@@ -928,58 +1064,8 @@ $(document).ready(function() {
 
   
       
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
 
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
 
   
 

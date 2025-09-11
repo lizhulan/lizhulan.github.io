@@ -302,7 +302,8 @@
 <p><strong>解读一下这个版本号命名规范</strong>：</p>
 <blockquote>
 <ul>
-<li><p><strong>第一位：版本前缀（V1.0.0.20211028_base）</strong></p>
+<li><strong>第一位：版本前缀（V1.0.0.20211028_base）</strong></li>
+</ul>
 <p>V （version）英文版本的缩写</p>
 <p><strong>- 第二位：主版本号（V1.0.0.20211028_base）</strong></p>
 <p>当功能模块有较大的变动，比如增加模块或是整体架构发生变化。此版本号由项目经理决定是否修改。</p>
@@ -314,15 +315,29 @@
 <p>用于记录修改项目的当前日期，每天对项目的修改都需要更改日期版本号。此版本号由开发人员决定是否修改。</p>
 <p><strong>- 第六位：希腊字母版本号（V1.0.0.20211028_base）</strong></p>
 <p>希腊字母版本号共有五种，分别为base、alpha、beta 、RC 、 release</p>
-</li>
-</ul>
 </blockquote>
 <p><strong>Base</strong>： 此版本表示该软件仅仅是一个假页面链接，通常包括所有的功能和页面布局，但是页面中的功能都没有做完整的实现，只是做为整体网站的一个基础架构。</p>
 <p><strong>Alpha</strong> ： 软件的初级版本，表示该软件在此阶段以实现软件功能为主，通常只在软件开发者 内部交流，一般而言，该版本软件的Bug较多，需要继续修改，是测试版本。测试人员提交Bug经开发人员修改确认之后，发布到测试网址让测试人员测试，此时可将软件版本标注为alpha版。</p>
 <p><strong>Beta</strong> ： 该版本相对于Alpha 版已经有了很大的进步，消除了严重错误，但还需要经过多次测试来进一步消除，此版本主要的修改对象是软件的UI。修改的的Bug 经测试人员测试确认后可发布到外网上，此时可将软件版本标注为 beta版。</p>
 <p><strong>RC</strong> ： 该版本已经相当成熟了，基本上不存在导致错误的Bug，与即将发行的正式版本相差无几。</p>
 <p><strong>Release</strong>： 该版本意味“最终版本”，在前面版本的一系列测试版之后，终归会有一个正式的版本，是最终交付用户使用的一个版本。该版本有时也称标准版。</p>
-<p>产品的版本号的统一，在整个软件研发过程中是比较重要的，贯穿了整个产品的生命周期。<br>那么涉及到哪些方面呢，<br>列一下：<br>git代码库版本<br>数据库版本<br>需求文档版本<br>需求变更文档版本<br>设计文档版本<br>开发文档版本<br>测试计划版本<br>操作手册版本<br>测试用例版本<br>测试报告版本<br>版本发布内容<br>迭代总结版本<br>docker镜像版本<br>pom版本</p>
+<p>产品的版本号的统一，在整个软件研发过程中是比较重要的，贯穿了整个产品的生命周期。<br>
+那么涉及到哪些方面呢，<br>
+列一下：<br>
+git代码库版本<br>
+数据库版本<br>
+需求文档版本<br>
+需求变更文档版本<br>
+设计文档版本<br>
+开发文档版本<br>
+测试计划版本<br>
+操作手册版本<br>
+测试用例版本<br>
+测试报告版本<br>
+版本发布内容<br>
+迭代总结版本<br>
+docker镜像版本<br>
+pom版本</p>
 
     </div>
 
@@ -518,7 +533,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">101k</span>
+    <span title="站点总字数">102k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
@@ -529,7 +544,7 @@
   </div>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共54.4k字</span>
+  <span class="post-count">博客全站共54.8k字</span>
 </div>
 
 
@@ -645,58 +660,8 @@ $(document).ready(function() {
 
   
       
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
 
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
 
   
 

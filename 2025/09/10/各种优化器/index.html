@@ -290,9 +290,45 @@
 
       
         <p>优化器用于更新模型的参数以最小化损失函数。以下是SGD（随机梯度下降）、SGD with Momentum（带动量的随机梯度下降）、AdaGrad、RMSProp和Adam几种常用优化器的优缺点概述：</p>
-<p><strong>SGD（随机梯度下降）</strong><br>优点‌ ：<br>简单易懂‌：SGD是最基础的优化算法之一，易于理解和实现。 ‌<br>全局更新‌：每次迭代都会使用整个训练集的一个样本来更新参数，因此可以较快地收敛到全局最优解（在理想情况下）。 ‌<br>缺点‌：‌<br>收敛慢‌：由于每次只使用一个样本，梯度方向可能非常不稳定，导致收敛速度较慢。 ‌<br>震荡‌：在接近最优解时，SGD可能会因为梯度方向的频繁变化而在最优解附近震荡。 ‌难以跳出局部最优‌：SGD容易陷入局部最优解，特别是在高维空间中。<br><strong>SGD with Momentum（带动量的随机梯度下降）</strong> ‌<br>优点‌：‌<br>加速收敛‌：动量项可以加速SGD在相关方向上的收敛，同时抑制震荡。 ‌<br>减少震荡‌：通过引入动量，可以在一定程度上减少梯度方向频繁变化带来的震荡。 ‌<br>缺点‌：‌<br>参数选择‌：动量项的学习率和动量参数需要仔细选择，否则可能导致不稳定。 ‌<br>仍然可能陷入局部最优‌：虽然动量可以帮助跳出一些浅的局部最优，但在深度局部最优或鞍点处仍可能陷入。<br><strong>AdaGrad（自适应梯度算法）</strong> ‌<br>优点‌：‌<br>自适应学习率‌：AdaGrad根据每个参数的梯度历史来调整学习率，对于稀疏数据特别有效。 ‌无需手动调整学习率‌：在一定程度上，AdaGrad可以自动调整学习率，减少了手动调参的工作量。 ‌<br>缺点‌：‌<br>学习率衰减‌：由于学习率是根据梯度历史来调整的，随着训练的进行，学习率会逐渐衰减，可能导致在训练后期收敛速度非常慢。 ‌<br>对初始学习率敏感‌：虽然AdaGrad可以自适应调整学习率，但初始学习率的选择仍然很重要。<br><strong>RMSProp（均方根传播</strong>） ‌<br>优点‌：‌<br>自适应学习率‌：与AdaGrad类似，RMSProp也根据梯度历史来调整学习率，但使用了不同的方法来计算梯度平方的加权平均。 ‌ 缓解学习率衰减‌：RMSProp通过引入衰减因子来缓解AdaGrad中学习率过快衰减的问题。 ‌<br>缺点‌：‌<br>参数选择‌：RMSProp引入了额外的参数（如衰减因子），需要仔细选择。 ‌<br>可能不适用于所有情况‌：虽然RMSProp在许多情况下表现良好，但在某些特定任务或数据集上可能不是最佳选择。<br><strong>Adam（自适应矩估计）</strong> ‌<br>优点‌：‌<br>结合动量‌：Adam结合了动量（用于加速收敛）和自适应学习率（用于根据梯度历史调整学习率）的优点。<br>高效且稳定‌：在许多任务和数据集上，Adam都表现出了高效和稳定的性能。 ‌<br>较少的内存需求‌：与其他一些自适应学习率算法相比，Adam的内存需求相对较低。 ‌<br>缺点‌：‌<br>可能不收敛‌：在某些情况下（特别是当学习率设置得太高或太低时），Adam可能无法收敛到最优解。 ‌<br>对初始学习率和参数敏感‌：尽管可以自适应地调整学习率，但初始学习率和其他参数（如动量项的参数）的选择仍然很重要。 ‌<br>泛化能力问题‌：在某些情况下，使用Adam优化的模型可能在测试集上的泛化能力不如使用SGD或其他优化器的模型。</p>
+<p><strong>SGD（随机梯度下降）</strong><br>
+优点‌ ：<br>
+简单易懂‌：SGD是最基础的优化算法之一，易于理解和实现。 ‌<br>
+全局更新‌：每次迭代都会使用整个训练集的一个样本来更新参数，因此可以较快地收敛到全局最优解（在理想情况下）。 ‌<br>
+缺点‌：‌<br>
+收敛慢‌：由于每次只使用一个样本，梯度方向可能非常不稳定，导致收敛速度较慢。 ‌<br>
+震荡‌：在接近最优解时，SGD可能会因为梯度方向的频繁变化而在最优解附近震荡。 ‌难以跳出局部最优‌：SGD容易陷入局部最优解，特别是在高维空间中。<br>
+<strong>SGD with Momentum（带动量的随机梯度下降）</strong> ‌<br>
+优点‌：‌<br>
+加速收敛‌：动量项可以加速SGD在相关方向上的收敛，同时抑制震荡。 ‌<br>
+减少震荡‌：通过引入动量，可以在一定程度上减少梯度方向频繁变化带来的震荡。 ‌<br>
+缺点‌：‌<br>
+参数选择‌：动量项的学习率和动量参数需要仔细选择，否则可能导致不稳定。 ‌<br>
+仍然可能陷入局部最优‌：虽然动量可以帮助跳出一些浅的局部最优，但在深度局部最优或鞍点处仍可能陷入。<br>
+<strong>AdaGrad（自适应梯度算法）</strong> ‌<br>
+优点‌：‌<br>
+自适应学习率‌：AdaGrad根据每个参数的梯度历史来调整学习率，对于稀疏数据特别有效。 ‌无需手动调整学习率‌：在一定程度上，AdaGrad可以自动调整学习率，减少了手动调参的工作量。 ‌<br>
+缺点‌：‌<br>
+学习率衰减‌：由于学习率是根据梯度历史来调整的，随着训练的进行，学习率会逐渐衰减，可能导致在训练后期收敛速度非常慢。 ‌<br>
+对初始学习率敏感‌：虽然AdaGrad可以自适应调整学习率，但初始学习率的选择仍然很重要。<br>
+<strong>RMSProp（均方根传播</strong>） ‌<br>
+优点‌：‌<br>
+自适应学习率‌：与AdaGrad类似，RMSProp也根据梯度历史来调整学习率，但使用了不同的方法来计算梯度平方的加权平均。 ‌ 缓解学习率衰减‌：RMSProp通过引入衰减因子来缓解AdaGrad中学习率过快衰减的问题。 ‌<br>
+缺点‌：‌<br>
+参数选择‌：RMSProp引入了额外的参数（如衰减因子），需要仔细选择。 ‌<br>
+可能不适用于所有情况‌：虽然RMSProp在许多情况下表现良好，但在某些特定任务或数据集上可能不是最佳选择。<br>
+<strong>Adam（自适应矩估计）</strong> ‌<br>
+优点‌：‌<br>
+结合动量‌：Adam结合了动量（用于加速收敛）和自适应学习率（用于根据梯度历史调整学习率）的优点。<br>
+高效且稳定‌：在许多任务和数据集上，Adam都表现出了高效和稳定的性能。 ‌<br>
+较少的内存需求‌：与其他一些自适应学习率算法相比，Adam的内存需求相对较低。 ‌<br>
+缺点‌：‌<br>
+可能不收敛‌：在某些情况下（特别是当学习率设置得太高或太低时），Adam可能无法收敛到最优解。 ‌<br>
+对初始学习率和参数敏感‌：尽管可以自适应地调整学习率，但初始学习率和其他参数（如动量项的参数）的选择仍然很重要。 ‌<br>
+泛化能力问题‌：在某些情况下，使用Adam优化的模型可能在测试集上的泛化能力不如使用SGD或其他优化器的模型。</p>
 <p>总的来说，每种优化器都有其独特的优点和缺点，选择哪种优化器取决于具体的任务、数据集和模型架构。在实际应用中，通常需要通过实验来比较不同优化器的性能，并选择最适合当前任务的优化器。</p>
-<h6 id=""><a href="#" class="headerlink" title="#"></a>#</h6><p>存在多种主流的自适应优化器，例如 Adam、Adagrad、Adadelta 及 RMSprop 等。与此同时，<strong>SGD+momentum</strong>（随机梯度下降结合动量，详见参考链接：<a target="_blank" rel="noopener" href="https://cs231n.github.io/neural-networks-3/#sgd">https://cs231n.github.io/neural-networks-3/#sgd</a>）凭借其稳定性，在各类问题场景中均有广泛应用。<br>选择优化器时，需重点考虑以下两方面核心特性：</p>
+<p>#################################################################<br>
+存在多种主流的自适应优化器，例如 Adam、Adagrad、Adadelta 及 RMSprop 等。与此同时，<strong>SGD+momentum</strong>（随机梯度下降结合动量，详见参考链接：<a target="_blank" rel="noopener" href="https://cs231n.github.io/neural-networks-3/#sgd">https://cs231n.github.io/neural-networks-3/#sgd</a>）凭借其稳定性，在各类问题场景中均有广泛应用。<br>
+选择优化器时，需重点考虑以下两方面核心特性：</p>
 <ol>
 <li>若优先追求<strong>快速收敛</strong>，Adam 等自适应优化器是更优选择，但这类优化器存在一定局限性 —— 可能陷入局部最小值，进而导致模型泛化能力较差。</li>
 <li>若以<strong>寻找全局最小值</strong>为目标，SGD+momentum 更具优势，但它对参数的稳健初始化依赖性较强，且收敛速度通常慢于其他自适应优化器。</li>
@@ -306,7 +342,6 @@
 <blockquote>
 <p><strong>将权重衰减从梯度更新中分离出来，直接作用于参数更新步骤。</strong></p>
 </blockquote>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -343,24 +378,31 @@
 </tr>
 </tbody>
 </table>
-</div>
-<p> 实际应用与调参建议</p>
+<p>实际应用与调参建议</p>
 <ul>
-<li><p><strong>学习率（lr）</strong>：常用范围 1e−5 到 1e−3，需配合 warmup 使用；</p>
+<li>
+<p><strong>学习率（lr）</strong>：常用范围 1e−5 到 1e−3，需配合 warmup 使用；</p>
 </li>
-<li><p><strong>weight_decay</strong>：常用值 0.01 或 0.0001，过大可能导致欠拟合；</p>
+<li>
+<p><strong>weight_decay</strong>：常用值 0.01 或 0.0001，过大可能导致欠拟合；</p>
 </li>
-<li><p><strong>beta1/beta2</strong>：默认值为 0.9 和 0.999；</p>
+<li>
+<p><strong>beta1/beta2</strong>：默认值为 0.9 和 0.999；</p>
 </li>
-<li><p><strong>epsilon</strong>：默认 1e−8，用于数值稳定性；</p>
+<li>
+<p><strong>epsilon</strong>：默认 1e−8，用于数值稳定性；</p>
 </li>
-<li><p><strong>适用场景</strong>：</p>
+<li>
+<p><strong>适用场景</strong>：</p>
 <ul>
-<li><p>大型预训练模型（如 NLP、CV 中的 Transformer）；</p>
+<li>
+<p>大型预训练模型（如 NLP、CV 中的 Transformer）；</p>
 </li>
-<li><p>需要正则化的高维模型；</p>
+<li>
+<p>需要正则化的高维模型；</p>
 </li>
-<li><p>对泛化能力要求高的任务。</p>
+<li>
+<p>对泛化能力要求高的任务。</p>
 </li>
 </ul>
 </li>
@@ -474,7 +516,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">#</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -555,7 +596,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">101k</span>
+    <span title="站点总字数">102k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
@@ -566,7 +607,7 @@
   </div>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共54.4k字</span>
+  <span class="post-count">博客全站共54.8k字</span>
 </div>
 
 
@@ -682,58 +723,8 @@ $(document).ready(function() {
 
   
       
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
 
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
 
   
 

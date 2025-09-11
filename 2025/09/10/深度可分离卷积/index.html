@@ -30,7 +30,7 @@
 <meta property="og:description" content="详解深度可分离卷积的核心概念与实现原理，通过将标准卷积分解为深度卷积和逐点卷积两个步骤，大幅减少模型参数量和计算复杂度。深入分析这一轻量级网络设计技术如何在保持性能的同时实现高效的特征提取，为移动端和边缘计算场景提供优化方案。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-09-10T11:40:22.000Z">
-<meta property="article:modified_time" content="2025-09-11T05:35:28.849Z">
+<meta property="article:modified_time" content="2025-09-11T06:15:39.651Z">
 <meta property="article:author" content="李猪兰">
 <meta property="article:tag" content="计算机视觉">
 <meta property="article:tag" content="机器学习">
@@ -246,7 +246,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-09-11 13:35:28" itemprop="dateModified" datetime="2025-09-11T13:35:28+08:00">2025-09-11</time>
+                <time title="修改时间：2025-09-11 14:15:39" itemprop="dateModified" datetime="2025-09-11T14:15:39+08:00">2025-09-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -275,7 +275,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>529</span>
+              <span>677</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -294,18 +294,21 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="深度可分离卷积（Depthwise-Separable-Convolution）"><a href="#深度可分离卷积（Depthwise-Separable-Convolution）" class="headerlink" title="深度可分离卷积（Depthwise Separable Convolution）"></a>深度可分离卷积（Depthwise Separable Convolution）</h2><p><strong>深度可分离卷积 = 深度卷积（逐通道卷积） + 逐点卷积（1×1卷积）</strong><br>它将标准卷积拆分为两步：</p>
+        <h2 id="深度可分离卷积（Depthwise-Separable-Convolution）">深度可分离卷积（Depthwise Separable Convolution）</h2>
+<p><strong>深度可分离卷积 = 深度卷积（逐通道卷积） + 逐点卷积（1×1卷积）</strong><br>
+它将标准卷积拆分为两步：</p>
 <ol>
 <li>深度卷积（Depthwise Convolution）：对每个输入通道单独进行卷积，<strong>不跨通道</strong>。</li>
 <li>逐点卷积（Pointwise Convolution）：用 1×1 卷积<strong>跨通道</strong>组合信息，改变通道数。</li>
 </ol>
 <ul>
-<li><p><strong>深度卷积</strong>：像给每个通道“单独拍照”，不混合信息。</p>
+<li>
+<p><strong>深度卷积</strong>：像给每个通道“单独拍照”，不混合信息。</p>
 </li>
-<li><p><strong>逐点卷积</strong>：像用 1×1 的“小镜头”把所有通道的照片叠加成新照片，可以控制输出通道数。</p>
+<li>
+<p><strong>逐点卷积</strong>：像用 1×1 的“小镜头”把所有通道的照片叠加成新照片，可以控制输出通道数。</p>
 </li>
 </ul>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -328,8 +331,6 @@
 </tr>
 </tbody>
 </table>
-</div>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -341,17 +342,16 @@
 <tbody>
 <tr>
 <td>标准卷积</td>
-<td>$H \cdot W \cdot C<em>{\text{in}} \cdot C</em>{\text{out}} \cdot K^2$</td>
-<td>$C<em>{\text{in}} \cdot C</em>{\text{out}} \cdot K^2$</td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>H</mi><mo>⋅</mo><mi>W</mi><mo>⋅</mo><msub><mi>C</mi><mrow><mtext><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi></mtext></mrow></msub><mo>⋅</mo><msub><mi>C</mi><mrow><mtext><mi mathvariant="normal">o</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">t</mi></mtext></mrow></msub><mo>⋅</mo><msup><mi>K</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">H \cdot W \cdot C_{\text{in}} \cdot C_{\text{out}} \cdot K^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:0.964108em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.08125em;">H</span><span class="mbin">⋅</span><span class="mord mathit" style="margin-right:0.13889em;">W</span><span class="mbin">⋅</span><span class="mord"><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.07153em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="text mord scriptstyle cramped"><span class="mord mathrm">i</span><span class="mord mathrm">n</span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">⋅</span><span class="mord"><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.07153em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="text mord scriptstyle cramped"><span class="mord mathrm">o</span><span class="mord mathrm">u</span><span class="mord mathrm">t</span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">⋅</span><span class="mord"><span class="mord mathit" style="margin-right:0.07153em;">K</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>C</mi><mrow><mtext><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi></mtext></mrow></msub><mo>⋅</mo><msub><mi>C</mi><mrow><mtext><mi mathvariant="normal">o</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">t</mi></mtext></mrow></msub><mo>⋅</mo><msup><mi>K</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">C_{\text{in}} \cdot C_{\text{out}} \cdot K^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:0.964108em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.07153em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="text mord scriptstyle cramped"><span class="mord mathrm">i</span><span class="mord mathrm">n</span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">⋅</span><span class="mord"><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.07153em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="text mord scriptstyle cramped"><span class="mord mathrm">o</span><span class="mord mathrm">u</span><span class="mord mathrm">t</span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">⋅</span><span class="mord"><span class="mord mathit" style="margin-right:0.07153em;">K</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span></td>
 </tr>
 <tr>
 <td>深度可分离卷积</td>
-<td>$H \cdot W \cdot C<em>{\text{in}} \cdot (K^2 + C</em>{\text{out}})$</td>
-<td>$C<em>{\text{in}} \cdot (K^2 + C</em>{\text{out}})$</td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>H</mi><mo>⋅</mo><mi>W</mi><mo>⋅</mo><msub><mi>C</mi><mrow><mtext><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi></mtext></mrow></msub><mo>⋅</mo><mo>(</mo><msup><mi>K</mi><mn>2</mn></msup><mo>+</mo><msub><mi>C</mi><mrow><mtext><mi mathvariant="normal">o</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">t</mi></mtext></mrow></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">H \cdot W \cdot C_{\text{in}} \cdot (K^2 + C_{\text{out}})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.08125em;">H</span><span class="mbin">⋅</span><span class="mord mathit" style="margin-right:0.13889em;">W</span><span class="mbin">⋅</span><span class="mord"><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.07153em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="text mord scriptstyle cramped"><span class="mord mathrm">i</span><span class="mord mathrm">n</span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">⋅</span><span class="mopen">(</span><span class="mord"><span class="mord mathit" style="margin-right:0.07153em;">K</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="mord"><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.07153em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="text mord scriptstyle cramped"><span class="mord mathrm">o</span><span class="mord mathrm">u</span><span class="mord mathrm">t</span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>C</mi><mrow><mtext><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi></mtext></mrow></msub><mo>⋅</mo><mo>(</mo><msup><mi>K</mi><mn>2</mn></msup><mo>+</mo><msub><mi>C</mi><mrow><mtext><mi mathvariant="normal">o</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">t</mi></mtext></mrow></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">C_{\text{in}} \cdot (K^2 + C_{\text{out}})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.07153em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="text mord scriptstyle cramped"><span class="mord mathrm">i</span><span class="mord mathrm">n</span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">⋅</span><span class="mopen">(</span><span class="mord"><span class="mord mathit" style="margin-right:0.07153em;">K</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">+</span><span class="mord"><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.07153em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="text mord scriptstyle cramped"><span class="mord mathrm">o</span><span class="mord mathrm">u</span><span class="mord mathrm">t</span></span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose">)</span></span></span></span></td>
 </tr>
 </tbody>
 </table>
-</div>
 
     </div>
 
@@ -546,7 +546,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">101k</span>
+    <span title="站点总字数">102k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
@@ -557,7 +557,7 @@
   </div>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共54.4k字</span>
+  <span class="post-count">博客全站共54.8k字</span>
 </div>
 
 
@@ -673,58 +673,8 @@ $(document).ready(function() {
 
   
       
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
 
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
 
   
 
