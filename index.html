@@ -235,6 +235,13 @@
 
               <time title="创建时间：2025-09-10 19:49:57" itemprop="dateCreated datePublished" datetime="2025-09-10T19:49:57+08:00">2025-09-10</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-09-11 13:33:29" itemprop="dateModified" datetime="2025-09-11T13:33:29+08:00">2025-09-11</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -270,79 +277,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>优化器用于更新模型的参数以最小化损失函数。以下是SGD（随机梯度下降）、SGD with Momentum（带动量的随机梯度下降）、AdaGrad、RMSProp和Adam几种常用优化器的优缺点概述：</p>
-<p><strong>SGD（随机梯度下降）</strong><br>优点‌ ：<br>简单易懂‌：SGD是最基础的优化算法之一，易于理解和实现。 ‌<br>全局更新‌：每次迭代都会使用整个训练集的一个样本来更新参数，因此可以较快地收敛到全局最优解（在理想情况下）。 ‌<br>缺点‌：‌<br>收敛慢‌：由于每次只使用一个样本，梯度方向可能非常不稳定，导致收敛速度较慢。 ‌<br>震荡‌：在接近最优解时，SGD可能会因为梯度方向的频繁变化而在最优解附近震荡。 ‌难以跳出局部最优‌：SGD容易陷入局部最优解，特别是在高维空间中。<br><strong>SGD with Momentum（带动量的随机梯度下降）</strong> ‌<br>优点‌：‌<br>加速收敛‌：动量项可以加速SGD在相关方向上的收敛，同时抑制震荡。 ‌<br>减少震荡‌：通过引入动量，可以在一定程度上减少梯度方向频繁变化带来的震荡。 ‌<br>缺点‌：‌<br>参数选择‌：动量项的学习率和动量参数需要仔细选择，否则可能导致不稳定。 ‌<br>仍然可能陷入局部最优‌：虽然动量可以帮助跳出一些浅的局部最优，但在深度局部最优或鞍点处仍可能陷入。<br><strong>AdaGrad（自适应梯度算法）</strong> ‌<br>优点‌：‌<br>自适应学习率‌：AdaGrad根据每个参数的梯度历史来调整学习率，对于稀疏数据特别有效。 ‌无需手动调整学习率‌：在一定程度上，AdaGrad可以自动调整学习率，减少了手动调参的工作量。 ‌<br>缺点‌：‌<br>学习率衰减‌：由于学习率是根据梯度历史来调整的，随着训练的进行，学习率会逐渐衰减，可能导致在训练后期收敛速度非常慢。 ‌<br>对初始学习率敏感‌：虽然AdaGrad可以自适应调整学习率，但初始学习率的选择仍然很重要。<br><strong>RMSProp（均方根传播</strong>） ‌<br>优点‌：‌<br>自适应学习率‌：与AdaGrad类似，RMSProp也根据梯度历史来调整学习率，但使用了不同的方法来计算梯度平方的加权平均。 ‌ 缓解学习率衰减‌：RMSProp通过引入衰减因子来缓解AdaGrad中学习率过快衰减的问题。 ‌<br>缺点‌：‌<br>参数选择‌：RMSProp引入了额外的参数（如衰减因子），需要仔细选择。 ‌<br>可能不适用于所有情况‌：虽然RMSProp在许多情况下表现良好，但在某些特定任务或数据集上可能不是最佳选择。<br><strong>Adam（自适应矩估计）</strong> ‌<br>优点‌：‌<br>结合动量‌：Adam结合了动量（用于加速收敛）和自适应学习率（用于根据梯度历史调整学习率）的优点。<br>高效且稳定‌：在许多任务和数据集上，Adam都表现出了高效和稳定的性能。 ‌<br>较少的内存需求‌：与其他一些自适应学习率算法相比，Adam的内存需求相对较低。 ‌<br>缺点‌：‌<br>可能不收敛‌：在某些情况下（特别是当学习率设置得太高或太低时），Adam可能无法收敛到最优解。 ‌<br>对初始学习率和参数敏感‌：尽管可以自适应地调整学习率，但初始学习率和其他参数（如动量项的参数）的选择仍然很重要。 ‌<br>泛化能力问题‌：在某些情况下，使用Adam优化的模型可能在测试集上的泛化能力不如使用SGD或其他优化器的模型。</p>
-<p>总的来说，每种优化器都有其独特的优点和缺点，选择哪种优化器取决于具体的任务、数据集和模型架构。在实际应用中，通常需要通过实验来比较不同优化器的性能，并选择最适合当前任务的优化器。</p>
-<p>#################################################################<br>存在多种主流的自适应优化器，例如 Adam、Adagrad、Adadelta 及 RMSprop 等。与此同时，<strong>SGD+momentum</strong>（随机梯度下降结合动量，详见参考链接：<a target="_blank" rel="noopener" href="https://cs231n.github.io/neural-networks-3/#sgd">https://cs231n.github.io/neural-networks-3/#sgd</a>）凭借其稳定性，在各类问题场景中均有广泛应用。<br>选择优化器时，需重点考虑以下两方面核心特性：</p>
-<ol>
-<li>若优先追求<strong>快速收敛</strong>，Adam 等自适应优化器是更优选择，但这类优化器存在一定局限性 —— 可能陷入局部最小值，进而导致模型泛化能力较差。</li>
-<li>若以<strong>寻找全局最小值</strong>为目标，SGD+momentum 更具优势，但它对参数的稳健初始化依赖性较强，且收敛速度通常慢于其他自适应优化器。</li>
-</ol>
-<p><strong>AdamW</strong></p>
-<blockquote>
-<p>AdamW 通过 <strong>解耦权重衰减</strong>，解决了 Adam 中正则化效果不佳的问题，成为当前深度学习训练中的<strong>默认优化器之一</strong>。它在保持Adam 自适应学习率优势的同时，显著提升了模型的泛化能力和训练稳定性，尤其适用于大规模模型训练场景。</p>
-</blockquote>
-<p>AdamW 的核心改进：解耦权重衰减</p>
-<p>AdamW 的关键思想是：</p>
-<blockquote>
-<p><strong>将权重衰减从梯度更新中分离出来，直接作用于参数更新步骤。</strong></p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>特性</th>
-<th>Adam</th>
-<th>AdamW</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>权重衰减实现方式</td>
-<td>加入损失函数，参与梯度计算</td>
-<td>与梯度解耦，直接更新参数</td>
-</tr>
-<tr>
-<td>正则化效果</td>
-<td>易受影响，效果不稳定</td>
-<td>更稳定、有效</td>
-</tr>
-<tr>
-<td>泛化能力</td>
-<td>较弱</td>
-<td>更强</td>
-</tr>
-<tr>
-<td>大模型表现</td>
-<td>一般</td>
-<td>优秀，尤其适用于 Transformer 等</td>
-</tr>
-<tr>
-<td>是否广泛使用</td>
-<td>较少（已过时）</td>
-<td>是，当前主流（如 BERT、GPT、T5）</td>
-</tr>
-</tbody></table>
-<p> 实际应用与调参建议</p>
-<ul>
-<li><p><strong>学习率（lr）</strong>：常用范围 1e−5 到 1e−3，需配合 warmup 使用；</p>
-</li>
-<li><p><strong>weight_decay</strong>：常用值 0.01 或 0.0001，过大可能导致欠拟合；</p>
-</li>
-<li><p><strong>beta1&#x2F;beta2</strong>：默认值为 0.9 和 0.999；</p>
-</li>
-<li><p><strong>epsilon</strong>：默认 1e−8，用于数值稳定性；</p>
-</li>
-<li><p><strong>适用场景</strong>：</p>
-<ul>
-<li><p>大型预训练模型（如 NLP、CV 中的 Transformer）；</p>
-</li>
-<li><p>需要正则化的高维模型；</p>
-</li>
-<li><p>对泛化能力要求高的任务。</p>
-</li>
-</ul>
-</li>
-</ul>
-
+          深入解析机器学习中的主流优化器，包括SGD、Momentum SGD、AdaGrad、RMSProp、Adam和AdamW等算法的原理、优缺点及应用场景。重点介绍AdamW通过解耦权重衰减解决正则化问题，成为大规模模型训练的首选优化器，为深度学习模型选择合适的优化策略提供实用指导。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2025/09/10/%E5%90%84%E7%A7%8D%E4%BC%98%E5%8C%96%E5%99%A8/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -386,10 +329,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2025-09-10 19:41:56 / 修改时间：19:42:01" itemprop="dateCreated datePublished" datetime="2025-09-10T19:41:56+08:00">2025-09-10</time>
+              <time title="创建时间：2025-09-10 19:41:56" itemprop="dateCreated datePublished" datetime="2025-09-10T19:41:56+08:00">2025-09-10</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-09-11 13:36:21" itemprop="dateModified" datetime="2025-09-11T13:36:21+08:00">2025-09-11</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -429,29 +378,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="数据增强方法"><a href="#数据增强方法" class="headerlink" title="数据增强方法"></a>数据增强方法</h1><h2 id="基本数据增强"><a href="#基本数据增强" class="headerlink" title="基本数据增强"></a>基本数据增强</h2><h3 id="单样本增强"><a href="#单样本增强" class="headerlink" title="单样本增强"></a>单样本增强</h3><p>翻转，旋转，裁剪，缩放，仿射变换<br>噪声，模糊，颜色扰动，对比度扰动，擦除</p>
-<h3 id="多样本增强"><a href="#多样本增强" class="headerlink" title="多样本增强"></a>多样本增强</h3><h4 id="多样本插值-SMOT"><a href="#多样本插值-SMOT" class="headerlink" title="多样本插值-SMOT"></a>多样本插值-SMOT</h4><p>是一种用于处理不平衡数据集的过采样技术，主要用于解决分类问题中少数类样本数量不足的问题。<br>在许多实际的分类问题中，数据集往往是不平衡的，即少数类样本的数量远远少于多数类样本的数量。这种不平衡会导致分类器偏向多数类，从而降低对少数类的分类性能。SMOTE通过生成新的少数类样本来平衡数据集，从而提高分类器的性能</p>
-<ul>
-<li><strong>医学诊断</strong>：在疾病诊断中，少数类样本（如罕见疾病）的数量往往较少</li>
-<li><strong>金融欺诈检测</strong>：欺诈交易的数量通常远少于正常交易</li>
-<li><strong>网络安全</strong>：恶意软件检测中，恶意样本的数量远少于正常样本</li>
-</ul>
-<p>SMOTE有许多变体和改进版本，例如：</p>
-<ul>
-<li><strong>ADASYN</strong>：自适应合成采样方法，根据少数类样本的分布自适应地生成新样本</li>
-<li><strong>SMOTE-NC</strong>：专门用于处理包含分类特征的数据集</li>
-<li><strong>Borderline-SMOTE</strong>：只在少数类样本的边界上生成新样本，以减少噪声</li>
-</ul>
-<p><img src="https://free.picui.cn/free/2025/09/08/68be92678b96b.png" alt="输入图片说明"></p>
-<h4 id="多样本插值-SamplePariring"><a href="#多样本插值-SamplePariring" class="headerlink" title="多样本插值-SamplePariring"></a>多样本插值-SamplePariring</h4><p>随机抽取两张图片分别经过基础数据增强操作（如随机翻转等）处理后，直接叠加合成为一个新的样本，标签为原样本标签中的一种。对相似样本数据集比较有效</p>
-<h4 id="多样本插值-Mixup"><a href="#多样本插值-Mixup" class="headerlink" title="多样本插值-Mixup"></a>多样本插值-Mixup</h4><p>对图像和标签都进行插值</p>
-<p>imgaug是一个用于图像增强的Python库，广泛应用于计算机视觉和深度学习领域。它提供了丰富的图像增强功能，可以模拟各种现实世界的图像变化，从而提高模型的泛化能力</p>
-<h3 id="自动数据增强方法"><a href="#自动数据增强方法" class="headerlink" title="自动数据增强方法"></a>自动数据增强方法</h3><h4 id="Autoaugment"><a href="#Autoaugment" class="headerlink" title="Autoaugment"></a>Autoaugment</h4><p>学习一有数据增强操作的组合，不同的任务，需要不同的数据增强操作<br>16个常用数据增强操作组合：</p>
-<blockquote>
-<p>shear裁剪，translate平移，rotate旋转，autocontrast自动对比度调整，invert负片，equalize直方图均衡化，solarize阈值反转，posterize减少位数，contrast控制对比度，color颜色平衡，brightness亮度调整，sharpness模糊，cutout随机擦除，sample pairing样本叠加</p>
-</blockquote>
-<h3 id="生成新的数据"><a href="#生成新的数据" class="headerlink" title="生成新的数据"></a>生成新的数据</h3><p>生成对抗网络</p>
-
+          系统介绍计算机视觉中的数据增强技术，涵盖基本的单样本增强方法（翻转、旋转、裁剪、噪声等）和先进的多样本增强策略（SMOT、Mixup、CutMix等）。深入探讨各种增强技术的原理、应用场景及实现方式，帮助提升模型泛化能力和训练效果。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2025/09/10/%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA%E6%96%B9%E6%B3%95/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -495,10 +430,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2025-09-10 19:40:22 / 修改时间：19:40:38" itemprop="dateCreated datePublished" datetime="2025-09-10T19:40:22+08:00">2025-09-10</time>
+              <time title="创建时间：2025-09-10 19:40:22" itemprop="dateCreated datePublished" datetime="2025-09-10T19:40:22+08:00">2025-09-10</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-09-11 13:35:28" itemprop="dateModified" datetime="2025-09-11T13:35:28+08:00">2025-09-11</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -538,57 +479,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="深度可分离卷积（Depthwise-Separable-Convolution）"><a href="#深度可分离卷积（Depthwise-Separable-Convolution）" class="headerlink" title="深度可分离卷积（Depthwise Separable Convolution）"></a>深度可分离卷积（Depthwise Separable Convolution）</h2><p><strong>深度可分离卷积 &#x3D; 深度卷积（逐通道卷积） + 逐点卷积（1×1卷积）</strong><br>它将标准卷积拆分为两步：</p>
-<ol>
-<li>深度卷积（Depthwise Convolution）：对每个输入通道单独进行卷积，<strong>不跨通道</strong>。</li>
-<li>逐点卷积（Pointwise Convolution）：用 1×1 卷积<strong>跨通道</strong>组合信息，改变通道数。</li>
-</ol>
-<ul>
-<li><p><strong>深度卷积</strong>：像给每个通道“单独拍照”，不混合信息。</p>
-</li>
-<li><p><strong>逐点卷积</strong>：像用 1×1 的“小镜头”把所有通道的照片叠加成新照片，可以控制输出通道数。</p>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>优点</th>
-<th>缺点</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>极大减少计算量和参数量</td>
-<td>表达能力略弱于标准卷积</td>
-</tr>
-<tr>
-<td>适合移动端、嵌入式设备</td>
-<td>在某些任务上精度略有下降</td>
-</tr>
-<tr>
-<td>可与其他结构（如残差）结合使用</td>
-<td>对通道间复杂建模能力有限</td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th>类型</th>
-<th>计算量（FLOPs）</th>
-<th>参数量（Params）</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>标准卷积</td>
-<td>$H \cdot W \cdot C_{\text{in}} \cdot C_{\text{out}} \cdot K^2$</td>
-<td>$C_{\text{in}} \cdot C_{\text{out}} \cdot K^2$</td>
-</tr>
-<tr>
-<td>深度可分离卷积</td>
-<td>$H \cdot W \cdot C_{\text{in}} \cdot (K^2 + C_{\text{out}})$</td>
-<td>$C_{\text{in}} \cdot (K^2 + C_{\text{out}})$</td>
-</tr>
-</tbody></table>
-
+          详解深度可分离卷积的核心概念与实现原理，通过将标准卷积分解为深度卷积和逐点卷积两个步骤，大幅减少模型参数量和计算复杂度。深入分析这一轻量级网络设计技术如何在保持性能的同时实现高效的特征提取，为移动端和边缘计算场景提供优化方案。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2025/09/10/%E6%B7%B1%E5%BA%A6%E5%8F%AF%E5%88%86%E7%A6%BB%E5%8D%B7%E7%A7%AF/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1172,339 +1071,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="经典backbone"><a href="#经典backbone" class="headerlink" title="经典backbone"></a>经典backbone</h1><h2 id="AlexNet"><a href="#AlexNet" class="headerlink" title="AlexNet"></a>AlexNet</h2><p><strong>创新</strong></p>
-<ol>
-<li>首次使用GPU训练网络</li>
-<li>使用Relu激活函数</li>
-<li>使用LRN局部响应归一化</li>
-<li>在全连接层加入Dropout</li>
-</ol>
-<p><strong>LRN的主要思想是在神经元输出的局部范围内进行归一化操作，使得激活值较大的神经元对后续神经元的影响降低，从而减少梯度消失和梯度爆炸的问题。</strong></p>
-<blockquote>
-<p><strong>为什么说归一化的目的可以被理解为“抑制”？</strong></p>
-<p>虽然归一化的主要目的是调整数据的范围和分布，但可以从某种角度将其与“抑制”联系起来：</p>
-<ul>
-<li><strong>抑制异常值的影响</strong>：在归一化过程中，极端值（异常值）会被调整到与其他值相近的范围内，从而减少其对模型训练的负面影响。这种调整可以被看作是对异常值的“抑制”。</li>
-<li><strong>抑制某些特征的主导作用</strong>：如果某些特征的值域远大于其他特征，它们可能会在模型训练中占据主导地位。归一化通过将所有特征调整到相同的范围，抑制了这些特征的过度影响，使模型能够更公平地处理所有特征。</li>
-<li><strong>抑制过大的梯度</strong>：在神经网络中，归一化可以防止某些神经元的激活值过大，从而避免梯度爆炸问题。这种对激活值的调整也可以被看作是一种“抑制”。</li>
-</ul>
-</blockquote>
-<blockquote>
-<p><strong>Dropout为什么能够解决过拟合</strong>：</p>
-<p>（1）<strong>减少过拟合：</strong><br>在标准的神经网络中，网络可能会过度依赖于一些特定的神经元，导致对训练数据的过拟合。Dropout通过随机丢弃神经元，迫使网络学习对于任何单个神经元的变化都要更加鲁棒的特征表示，从而减少了对训练数据的过度拟合。</p>
-<p>（2）<strong>取平均的作用：</strong><br>在训练过程中，通过丢弃随机的神经元，每次前向传播都相当于在训练不同的子网络。在测试阶段，不再进行Dropout，但是通过保留所有的权重，网络结构变得更加完整。因此，可以看作是在多个不同的子网络中进行了训练，最终的预测结果相当于对这些子网络的输出取平均。这种“综合取平均”的策略有助于减轻过拟合，因为一些互为反向的拟合会相互抵消。</p>
-</blockquote>
-<h2 id="VggNet"><a href="#VggNet" class="headerlink" title="VggNet"></a>VggNet</h2><p><strong>VGGNet的特点是在训练过程中采用小的卷积核和池化层，并通过堆叠多个卷积层来增加网络的深度，从而实现高精度的图像识别。</strong><br><strong>VGGNet的亮点</strong>在于它通过堆叠多个卷积层，以小的卷积核和池化层的方式来增加网络深度，从而实现高精度的图像识别。这种方法可以有效地捕获图像中的高级特征，并通过不断拟合训练数据来提高识别准确率。<br><strong>感受野</strong><br>感受野（Receptive Field），指的是神经网络中神经元“看到的”输入区域，在卷积神经网络中，feature map上某个元素的计算受输入图像上某个区域的影响，这个区域即该元素的感受野。</p>
-<p>卷积神经网络中，越深层的神经元看到的输入区域越大，如下图所示，卷积核kernel size 均为3×3，stride均为1，绿色标记的是Layer2绿色神经元看到的区域，黄色标记的是Layer3 看到的区域，具体地，Layer2每个神经元可看到Layer1上3×3 大小的区域，Layer3 每个神经元看到Layer2 上3×3 大小的区域，该区域可以又看到Layer1上5×5 大小的区域。<br><img src="https://free.picui.cn/free/2025/09/11/68c23a0ebceb9.png" alt="输入图片说明"><br>感受野是个相对概念，某层feature map上的元素看到前面不同层上的区域范围是不同的，通常在不特殊指定的情况下，感受野指的是看到输入图像上的区域。<br>堆叠<strong>两个3x3的卷积核可以替代5x5的卷积核，堆叠三个3x3的卷积核可以替代7x7的卷积核</strong>，那么通过多个小的感受野的堆叠，替代大的感受野是为了减少网络训练时参数的数量，<strong>堆叠三个3x3的卷积核的计算量要小于7x7的卷积核，而且这个差距会随着特征矩阵的channels的变大而扩大</strong></p>
-<blockquote>
-<p>尽管VggNet在许多方面都表现优秀，但它也有一些缺陷：</p>
-<ol>
-<li><p>该网络架构非常大，并且需要大量的计算资源来训练。这意味着，如果你想在较小的设备上使用VggNet，比如移动设备或个人电脑，会发现它非常慢，并且可能无法获得足够的性能。</p>
-</li>
-<li><p>由于VggNet网络架构非常深，它可能会导致梯度消失或爆炸的问题。这是由于在非常深的神经网络中，梯度在传播过程中可能会变得非常小或非常大，从而导致模型无法正常训练。</p>
-</li>
-</ol>
-</blockquote>
-<h2 id="GoogLeNet"><a href="#GoogLeNet" class="headerlink" title="GoogLeNet"></a>GoogLeNet</h2><p><strong>创新</strong></p>
-<ol>
-<li>Inception结构</li>
-<li>1*1卷积核降维</li>
-<li>辅助分类器</li>
-</ol>
-<h3 id="Inception结构"><a href="#Inception结构" class="headerlink" title="Inception结构"></a>Inception结构</h3><p><img src="https://free.picui.cn/free/2025/09/11/68c23b35928e1.png" alt="输入图片说明"></p>
-<blockquote>
-<p>Inception结构是对输入图像并行地执行多个卷积运算或池化操作，并将所有输出结果拼接为一个非常深的特征图，且不同大小卷积核的卷积运算可以得到图像中的不同信息，处理获取到的图像中的不同信息可以得到更好的图像特征</p>
-</blockquote>
-<p>Inception结构通常用于图像分类和识别任务，因为它能够有效地捕捉图像中的细节信息。它的主要优势在于能够以高效的方式处理大量的数据，并且模型的参数量相对较少，这使得它能够在不同的设备上运行。</p>
-<blockquote>
-<p><strong>Inception 模块的设计基于以下两个核心思想</strong>：</p>
-<ol>
-<li><p><strong>多尺度特征提取</strong>：通过并行的多个卷积分支，Inception 模块能够同时捕捉不同尺度的特征。这使得网络能够更好地处理图像中的多尺度信息，例如小目标和大目标。</p>
-<ul>
-<li><p><strong>1×1 卷积分支</strong>：用于提取局部特征，同时减少通道数，起到降维的作用。</p>
-</li>
-<li><p><strong>3×3 卷积分支</strong>：用于捕捉中等尺度的特征。</p>
-</li>
-<li><p><strong>5×5 卷积分支</strong>：用于捕捉较大尺度的特征。</p>
-</li>
-<li><p><strong>池化分支</strong>：通常是一个 3×3 的最大池化或平均池化，用于捕捉更全局的特征。</p>
-</li>
-</ul>
-</li>
-<li><p><strong>计算资源优化</strong>：通过合理分配计算资源，Inception 模块在不显著增加计算量的情况下，增加了网络的深度和宽度。这使得网络能够在有限的计算资源下达到更高的性能</p>
-</li>
-</ol>
-</blockquote>
-<h3 id="1x1卷积"><a href="#1x1卷积" class="headerlink" title="1x1卷积"></a>1x1卷积</h3><p> 1x1卷积核，又称为网中网（Network in Network）。<br>其实1x1卷积，可以看成一种全连接（full connection）。</p>
-<h3 id="辅助分类器"><a href="#辅助分类器" class="headerlink" title="辅助分类器"></a>辅助分类器</h3><p>GoogLeNet（Inception v1）是一个22层的深层网络，在2014年提出时面临两个关键挑战：</p>
-<ol>
-<li><p><strong>梯度消失</strong>：深层网络中反向传播时梯度逐渐衰减</p>
-</li>
-<li><p><strong>训练不稳定</strong>：深层参数难以有效更新</p>
-</li>
-</ol>
-<p>解决方案：引入辅助分类器（Auxiliary Classifiers），通过中间监督信号改善训练</p>
-<p><strong>辅助分类器主要是为了解决训练深层网络时遇到的梯度消失和过拟合问题 。</strong><br><strong>辅助分类器的作用</strong></p>
-<ul>
-<li><p><strong>缓解梯度消失</strong>：由于网络深度达22层，反向传播时梯度可能在前几层衰减严重。辅助分类器通过中间层的额外损失计算，直接向浅层传递梯度信号，加速训练收敛28。</p>
-</li>
-<li><p><strong>正则化效果</strong>：辅助分类器引入的额外损失（权重为0.3）对主分类器起到正则化作用，减少过拟合风险。</p>
-</li>
-<li><p><strong>特征融合</strong>：中间层的特征具有较强判别能力，辅助分类器通过多尺度特征融合提升模型表达能力。</p>
-</li>
-</ul>
-<p>辅助分类器通常与主要的分类器结合使用，以帮助模型更好地理解图像中的细节和复杂模式。这种技术可以提高模型的泛化能力，使其更准确地预测未知的图像，在GoogLeNet中有两个辅助分类器，分别在<strong>Inception4a和Inception4d</strong></p>
-<blockquote>
-<p>尽管GoogLeNet在当时取得了很好的成绩，但它也有一些缺点。</p>
-<ol>
-<li><p>由于其使用了Inception模块，网络的计算复杂度较高。这使得GoogLeNet的训练速度较慢，不太适合对实时性要求较高的应用。</p>
-</li>
-<li><p>GoogLeNet的网络结构相对复杂，不太容易理解，并且由于辅助分类器的存在，这使得在调试和优化网络时较为困难。</p>
-</li>
-</ol>
-<p>总之，GoogLeNet的计算复杂度高、网络结构复杂是其主要缺点。</p>
-</blockquote>
-<h2 id="ResNet"><a href="#ResNet" class="headerlink" title="ResNet"></a>ResNet</h2><p>ResNet的主要特点是采用了残差学习机制。在传统的神经网络中，每一层的输出都是直接通过一个非线性激活函数得到的。但在ResNet中，每一层的输出是通过一个“残差块”得到的，该残差块包含了一个快捷连接（shortcut）和几个卷积层。这样，在训练过程中，每一层只需要<strong>学习残差</strong>（即输入与输出之间的差异），而不是所有的信息。这<strong>有助于防止梯度消失和梯度爆炸</strong>的问题，从而使得网络能够训练得更深。<br>ResNet的主要优点是具有非常深的层数，可以达到1000多层，但仍然能够高效地训练。这是通过使用残差连接来实现的，这种连接允许模型学习跨越多个层的残差，而不是直接学习每一层的输出。这使得ResNet能够更快地收敛，并且能够更好地泛化到新的数据集，ResNet论文中共提出了五种结构，分别是ResNet-18，ResNet-34，ResNet-50，ResNet-101，ResNet-152。<br><strong>创新</strong></p>
-<ol>
-<li>Residual结构</li>
-<li>Batch Normalization</li>
-</ol>
-<h3 id="Residual结构"><a href="#Residual结构" class="headerlink" title="Residual结构"></a>Residual结构</h3><p>Residual结构是残差结构，在文章中给了两种不同的残差结构，在ResNet-18和ResNet-34中，用的如下图中左侧图的结构，在ResNet-50、ResNet-101和ResNet-152中，用的是下图中右侧图的结构。<br><img src="https://free.picui.cn/free/2025/09/11/68c251c5408cb.png" alt="输入图片说明"><br>在主分支上有一个圆弧的线从输入特征矩阵直接连到了一个加号，这个圆弧的线是shortcut（捷径分支），它直接将输入特征矩阵加到经过第二次3x3的卷积核卷积之后的输出特征矩阵，注意，这里描述的是加，而不是叠加或者拼接，也就是说是矩阵对应维度位置进行一个加法运算，意味着主分支的输出矩阵和shortcut的输出矩阵的shape必须相同（此时卷积默认padding&#x3D;1），这里包括宽、高、channels，在相加之后，再经过Relu激活函数进行激活。<br>为什么**残差结构能够抑制degradation problem(退化)**问题呢？<br>其实残差的网络结构很简单：$H(x)&#x3D;F(x)+x$，其中，$x$是shortcut的输出特征矩阵，在某些残差结构中它就是输入特征矩阵，$F(x)$是主分支的输出特征矩阵，假如没有残差网络的话直接将输入特征矩阵$x$放入卷积层中进行计算来得到$H(x)$，如果加入残差结构的话，输入特征矩阵$x$进入神经网络得到也就等同于$H(x)-x$，在与$x$相加得到$H(x)$。</p>
-<p>根据$H(x)&#x3D;F(x)+x$，可以求得${\frac{\partial H(x)}{\partial w}&#x3D;{\frac{\partial F(x)}{\partial w}}+{\frac{\partial x}{\partial w}}}$，可以知道本次残差结构的反向传播不仅与主分支$F(x)$有关，还与$x$有关，当经过主分支的卷积层的导数很小的情况下，那么会对网络起不到更新的作用，但是由于加入了输入矩阵的导数，也就保证了网络导数会一直存在，而不会出现导数消失的情况。<br><strong>ResNet网络中的残差结构的堆叠有点这类似于这个过程</strong>：刚开始的前几个残差结构提取了很重要的一些特征，后几个残差结构负责把一些特征进行细化，当然，后几个残差结构可能有的会学不到东西，但是并不会影响前面的梯度从而造成degradation problem退化问题。</p>
-<h3 id="Batch-Normalization"><a href="#Batch-Normalization" class="headerlink" title="Batch Normalization"></a>Batch Normalization</h3><p>Batch Normalization的作用是将一个批次（Batch）的特征矩阵的每一个channels（通道）计算为均值为0，方差为1的分布规律。<br>一般而言，在一个神经网络输入图像之前，会将图像进行预处理，这个预处理可能是标准化处理等手段，由于输入数据满足某一分布规律，所以会加速网络的收敛。这样在输入第一次卷积的时候满足某一分布规律，但是在输入第二次卷积时，就不一定满足某一分布规律了，再往后的卷积的输入就更不满足了，那么就需要一个中间商，让上一层的输出经过它之后能够某一分布规律，Batch Normalization就是这个中间商，它可以让输入的特征矩阵的每一个channels满足均值为0，方差为1的分布规律。</p>
-<blockquote>
-<p>用<strong>Batch Normalization要注意的问题</strong>：</p>
-<ol>
-<li><p><strong>Batch Size要设置的大一些</strong>，Batch Size越大，均值和方差越接近整个数据集的均值和方差，所以这对GPU显存比较小的机器不是很友好，个人建议要≥4。</p>
-</li>
-<li><p>ResNet文章中提到BN层要放在卷积和激活之间，并且卷积层不要有偏置，因为有没有偏置都计算出来的结果都是一致的：</p>
-<ul>
-<li><p>没有偏置的公式为：$y_{i}&#x3D;{\frac{x_{i}-\mu(x)}{\sqrt{\sigma^{2}(x)}}}$，先放在这里，待会直接做对比。</p>
-</li>
-<li><p>有偏置的公式为：$y_{i}^{b},&#x3D;,\frac{x_{i}^{b}!-!\mu(x^{b})}{\sqrt{\sigma^{2}(x^{b})}}$，其中$x_{i}^{b}&#x3D;x_{i}+b$；</p>
-<ul>
-<li><p>对于均值而言：$\mu(x^{b})&#x3D;\mu(x)+b$；</p>
-</li>
-<li><p>对于方差而言：$\sigma^{2}(x^{b})&#x3D;\frac{1}{m}\sum_{i&#x3D;1}^{m}[x_{i}^{b}-\mu(x^{b})]^{2}&#x3D;\frac{1}{m}\sum_{i&#x3D;1}^{m}[x_{i}+b-\mu(x)-b]^{2}&#x3D;\frac{1}{m}\sum_{i&#x3D;1}^{m}[x_{i}-\mu(x)]^{2}&#x3D;\sigma^{2}(x)$，</p>
-</li>
-<li><p>那么可以计算出：$y_{i}^{b}&#x3D;\frac{x_{i}^{b}-\mu(x^{b})}{\sqrt{\sigma^{2}(x^{b})}}&#x3D;\frac{x_{i}+b-\mu(x)-b}{\sqrt{\sigma^{2}(x)}}&#x3D;\frac{x_{i}-\mu(x)}{\sqrt{\sigma^{2}(x)}}$。</p>
-</li>
-<li><p>可以看出来，这个值和没有偏置的时候的$y_{i}&#x3D;{\frac{x_{i}-\mu(x)}{\sqrt{\sigma^{2}(x)}}}$是完全一致的。</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-</blockquote>
-<blockquote>
-<p>由于ResNet的结构非常复杂，所以它的训练时间比较长。此外，由于它具有非常深的层数，因此它需要大量的数据来进行训练。</p>
-</blockquote>
-<h2 id="MobileNet"><a href="#MobileNet" class="headerlink" title="MobileNet"></a>MobileNet</h2><h3 id="V1"><a href="#V1" class="headerlink" title="V1"></a>V1</h3><p><strong>创新</strong></p>
-<ol>
-<li>Depthwise Convolution</li>
-<li>$\alpha、\beta$ 的引入</li>
-</ol>
-<h4 id="Depthwise-Convolution"><a href="#Depthwise-Convolution" class="headerlink" title="Depthwise Convolution"></a>Depthwise Convolution</h4><p>DW卷积（Depthwise Convolution），它能够大大减少模型的参数以及运算量。<br><strong>经典的卷积</strong><br><img src="https://free.picui.cn/free/2025/09/11/68c254ae99a9d.png" alt="输入图片说明"><br><strong>DW卷积</strong><br><img src="https://free.picui.cn/free/2025/09/11/68c254daf0e90.png" alt="输入图片说明"><br>DW卷积的每一个卷积核负责一个输入特征矩阵的channel，那么总结下来：输入特征矩阵的channel &#x3D; 卷积核个数 &#x3D; 输出特征矩阵的channel。<br><strong>深度可分卷积操作（Depthwise Separable Conv</strong><br><a target="_blank" rel="noopener" href="https://lizhuoran.com/2025/09/10/%E6%B7%B1%E5%BA%A6%E5%8F%AF%E5%88%86%E7%A6%BB%E5%8D%B7%E7%A7%AF/">深度可分离卷积 | 李猪兰</a><br>这种卷积操作是有两种卷积组成的，即DW卷积和PW卷积（Pointwise Conv）组成，先DW卷积，结果作为PW卷积的输入<br><strong>PW卷积</strong><br><img src="https://free.picui.cn/free/2025/09/11/68c255abc4aa0.png" alt="输入图片说明"><br>通常情况下，DW卷积核PW卷积是放在一起使用的，这种卷积比普通的卷积能节省大量的计算量，由上图普通卷积、DW卷积、PW卷积三个图可知，普通卷积的输入是3通道，输出是4通道，深度可分卷积由DW和PW一起构成（先DW后PW），所以输入是3通道，输出是4通道。</p>
-<blockquote>
-<p>在使用过程中，发现了部分DW卷积核会废掉的情况，即卷积核的参数为0，为什么会出现这种问题呢？主要是以下几个原因：</p>
-<ol>
-<li><p>卷积核、通道数量以及权重数量太少，感受野太单薄；</p>
-</li>
-<li><p>Relu激活函数；</p>
-</li>
-<li><p>精度低时，例如float18，int8这种低精度浮点数表示时很有限。</p>
-</li>
-</ol>
-<p>这种情况会造成特征拿不全的问题，但是这个问题在MobileNetV2中得以改善。</p>
-</blockquote>
-<h4 id="alpha、-beta"><a href="#alpha、-beta" class="headerlink" title="$\alpha、\beta$"></a>$\alpha、\beta$</h4><p>$\alpha$ 是卷积核个数的倍率，用来控制卷积过程中卷积核的个数，当取不同的$\alpha$的时候，准确率、计算量和参数量是不一样的<br>$\beta$ 是分辨率参数，即输入图像尺寸的参数</p>
-<p>这种情况会造成特征拿不全的问题，但是这个问题在MobileNetV2中得以改善。</p>
-<h3 id="V2"><a href="#V2" class="headerlink" title="V2"></a>V2</h3><p><strong>创新</strong></p>
-<ol>
-<li>Inverted Residuals（倒残差结构）</li>
-<li>Relu6</li>
-<li>Linear Bottlenecks</li>
-<li>Shortcut</li>
-<li>拓展因子</li>
-</ol>
-<h4 id="Inverted-Residuals（倒残差结构）"><a href="#Inverted-Residuals（倒残差结构）" class="headerlink" title="Inverted Residuals（倒残差结构）"></a>Inverted Residuals（倒残差结构）</h4><p>在之前的ResNet残差结构是先用1x1的卷积降维，再升维的操作。而在MobileNetV2中，是先升维，再降维的操作，所以该结构叫倒残差结构，网络结构表格中的bottleneck就是倒残差结构。</p>
-<blockquote>
-<p><strong>残差结构的过程是</strong>：</p>
-<ol>
-<li><p>1x1卷积降维</p>
-</li>
-<li><p>3x3卷积</p>
-</li>
-<li><p>1x1卷积升维</p>
-</li>
-</ol>
-<p>即对输入特征矩阵进行利用1x1卷积进行降维，减少输入特征矩阵的channel，然后通过3x3的卷积核进行处理提取特征，最后通过1x1的卷积核进行升维，那么它的结构就是两边深，中间浅的结构</p>
-</blockquote>
-<blockquote>
-<p><strong>倒残差结构的过程是</strong>：</p>
-<ol>
-<li><p>首先会通过一个1x1卷积层来进行升维处理，在卷积后会跟有BN和Relu6激活函数</p>
-</li>
-<li><p>紧接着是一个3x3大小DW卷积，卷积后面依旧会跟有BN和Relu6激活函数</p>
-</li>
-<li><p>最后一个卷积层是1x1卷积，起到降维作用，注意卷积后只跟了BN结构，并没有使用Relu6激活函数。</p>
-</li>
-</ol>
-<p>结构应该是中间深，两边浅</p>
-</blockquote>
-<h4 id="Relu6"><a href="#Relu6" class="headerlink" title="Relu6"></a>Relu6</h4><p>$y&#x3D;ReLU6(x)&#x3D;min(max(x,0),6)$</p>
-<p>Relu6激活函数是Relu的变种，它的输入小于0时，结果为0，输入大于6时：结果为6。在0到6之间时：$y&#x3D;x$。</p>
-<blockquote>
-<p>如果对Relu的激活范围不加限制，输出范围为0到正无穷，如果激活值非常大，分布在一个很大的范围内，则低精度的float16无法很好地精确描述如此大范围的数值，带来精度损失，所以在量化过程中，Relu6能够有更好的量化表现和更小的精度下降。</p>
-</blockquote>
-<h4 id="Linear-Bottlenecks"><a href="#Linear-Bottlenecks" class="headerlink" title="Linear Bottlenecks"></a>Linear Bottlenecks</h4><p> Linear Bottlenecks（线性瓶颈）</p>
-<h4 id="Shortcut"><a href="#Shortcut" class="headerlink" title="Shortcut"></a>Shortcut</h4><p>Shortcut并不是该网络提出的，而是残差结构提出的。<br><img src="https://free.picui.cn/free/2025/09/11/68c2596129090.png" alt="输入图片说明"><br>shortcut将输入与输出直接进行相加，可以使得网络在较深的时候依旧可以进行训练。</p>
-<h3 id="V3"><a href="#V3" class="headerlink" title="V3"></a>V3</h3><p><strong>创新</strong></p>
-<ol>
-<li>更新Block</li>
-<li>使用NAS搜索参数</li>
-<li>重新设计耗时层</li>
-</ol>
-<p>NAS是Neural Architecture Search，实现网络结构搜索<br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/450940875">https://zhuanlan.zhihu.com/p/450940875</a>。</p>
-<blockquote>
-<p>在使用过程中，可能会出现MobileNetV3准确率不如MobileNetV2的情况，MobileNetV3是来自于Google的，自然它更关注的是网络在Android设备上的表现，事实也的确如此，作者主要针对Google<br>Pixel硬件对网络做了参数优化。</p>
-<p>当然这并不意味着MobileNet V3就是慢的了，只不过它无法在其他一些设备上达到最佳效果。</p>
-</blockquote>
-<h3 id="V4"><a href="#V4" class="headerlink" title="V4"></a>V4</h3><p><strong>创新</strong></p>
-<ol>
-<li>Universal Inverted Bottleneck（UIB）——统一可搜索的构建块</li>
-<li>Mobile MQA——为移动加速器定制的注意力机制</li>
-<li>两阶段NAS配方——硬件感知的结构搜索</li>
-<li>蒸馏增强训练——精度再提升</li>
-</ol>
-<h2 id="DenseNet"><a href="#DenseNet" class="headerlink" title="DenseNet"></a>DenseNet</h2><p>密集连接，<strong>特征复用</strong>强，参数效率高</p>
-<h2 id="SENet（Squeeze-and-Excitation）"><a href="#SENet（Squeeze-and-Excitation）" class="headerlink" title="SENet（Squeeze-and-Excitation）"></a>SENet（Squeeze-and-Excitation）</h2><p>引入 <strong>通道注意力机制</strong>，可嵌入其他网络提升性能</p>
-<h2 id="ResNeXt"><a href="#ResNeXt" class="headerlink" title="ResNeXt"></a>ResNeXt</h2><p>ResNet 的升级版，引入 <strong>分组卷积</strong>，性能更强</p>
-<h2 id="ShuffleNet-V1-V2"><a href="#ShuffleNet-V1-V2" class="headerlink" title="ShuffleNet V1&#x2F;V2"></a>ShuffleNet V1&#x2F;V2</h2><p>轻量级网络，<strong>通道打乱机制</strong>，适合移动端</p>
-<h2 id="EfficientNet"><a href="#EfficientNet" class="headerlink" title="EfficientNet"></a>EfficientNet</h2><p><strong>复合缩放</strong>策略，精度高、参数少，<strong>EfficientDet 的 backbone</strong></p>
-<h2 id="RegNet"><a href="#RegNet" class="headerlink" title="RegNet"></a>RegNet</h2><p>Facebook 提出，<strong>系统设计网络结构</strong>，Detectron2 默认使用</p>
-<h2 id="Vision-Transformer-ViT"><a href="#Vision-Transformer-ViT" class="headerlink" title="Vision Transformer (ViT)"></a>Vision Transformer (ViT)</h2><p>使用 Transformer 架构，<strong>无卷积</strong>，在大规模数据上表现强劲</p>
-<h2 id="Swin-Transformer"><a href="#Swin-Transformer" class="headerlink" title="Swin Transformer"></a>Swin Transformer</h2><p>分层 Transformer，<strong>兼容 CNN 结构</strong>，在检测&#x2F;分割任务中表现优异</p>
-<h2 id="怎么选择"><a href="#怎么选择" class="headerlink" title="怎么选择"></a>怎么选择</h2><p><strong>按类型分类</strong></p>
-<table>
-<thead>
-<tr>
-<th>类型</th>
-<th>代表模型</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>标准 CNN</strong></td>
-<td>AlexNet, VGG, GoogLeNet, ResNet, DenseNet, ResNeXt</td>
-</tr>
-<tr>
-<td><strong>轻量级</strong></td>
-<td>MobileNet V1&#x2F;V2&#x2F;V3, ShuffleNet V1&#x2F;V2, EfficientNet</td>
-</tr>
-<tr>
-<td><strong>注意力机制</strong></td>
-<td>SENet, CBAM（可嵌入其他网络）</td>
-</tr>
-<tr>
-<td><strong>Transformer 系列</strong></td>
-<td>ViT, Swin Transformer, DeiT</td>
-</tr>
-</tbody></table>
-<p><strong>按用途分类</strong></p>
-<h3 id="目标检测"><a href="#目标检测" class="headerlink" title="目标检测"></a><strong>目标检测</strong></h3><table>
-<thead>
-<tr>
-<th>任务场景</th>
-<th>推荐 backbone</th>
-<th>理由</th>
-<th>常用组合</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>高精度</strong><br>服务器&#x2F;GPU</td>
-<td>ResNet-50-FPN<br>ResNet-101-FPN</td>
-<td>鲁棒、预训练多、FPN 天生适配</td>
-<td>Faster R-CNN、Mask R-CNN、RetinaNet</td>
-</tr>
-<tr>
-<td><strong>轻量级</strong><br>移动端</td>
-<td>MobileNet-V3-Large-FPN</td>
-<td>参数量 ↓90%，仍保留 FPN 结构</td>
-<td>SSD-Lite、YOLOv4-tiny、EfficientDet-D0</td>
-</tr>
-<tr>
-<td><strong>超高精度</strong><br>比赛&#x2F;科研</td>
-<td>Swin-Tiny-FPN<br>RegNetY-4GF-FPN</td>
-<td>分层 Transformer &#x2F; 设计空间搜索</td>
-<td>Detectron2、MMDetection 一键调用</td>
-</tr>
-</tbody></table>
-<h3 id="语义分割-实例分割"><a href="#语义分割-实例分割" class="headerlink" title="语义分割 &#x2F; 实例分割"></a><strong>语义分割 &#x2F; 实例分割</strong></h3><table>
-<thead>
-<tr>
-<th>任务场景</th>
-<th>推荐 backbone</th>
-<th>理由</th>
-<th>常用组合</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>通用</strong></td>
-<td>ResNet-50-DeepLabV3+<br>ResNet-101-DeepLabV3+</td>
-<td>空洞卷积 + ASPP，成熟 pipeline</td>
-<td>DeepLabV3+、U-Net++</td>
-</tr>
-<tr>
-<td><strong>实时</strong></td>
-<td>MobileNet-V2<br>ShuffleNet-V2</td>
-<td>速度 30+ FPS@720p， TensorRT 友好</td>
-<td>BiSeNet、SwiftNet</td>
-</tr>
-<tr>
-<td><strong>高精度</strong></td>
-<td>Swin-Tiny-UperNet<br>RegNetY-8GF-MaskFormer</td>
-<td>全局上下文强，MaskFormer 统一分割</td>
-<td>MMSeg、Detectron2</td>
-</tr>
-</tbody></table>
-<h3 id="微调"><a href="#微调" class="headerlink" title="微调"></a><strong>微调</strong></h3><table>
-<thead>
-<tr>
-<th>数据量</th>
-<th>推荐 backbone</th>
-<th>技巧</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>千级</strong></td>
-<td>VGG-16 &#x2F; DenseNet-121</td>
-<td>冻结前 1&#x2F;3 层 + 小学习率 1e-4</td>
-</tr>
-<tr>
-<td><strong>万级</strong></td>
-<td>ResNet-50 &#x2F; EfficientNet-B0</td>
-<td>全局微调 + RandAugment</td>
-</tr>
-<tr>
-<td><strong>百级</strong></td>
-<td>Swin-Tiny</td>
-<td>冻结 patch embedding，只训 stages 3-4</td>
-</tr>
-</tbody></table>
-<p>总结</p>
-<ul>
-<li><p><strong>服务器精度</strong> → <strong>ResNet-FPN</strong> 永远是 baseline；</p>
-</li>
-<li><p><strong>移动端速度</strong> → <strong>MobileNet-V3</strong> 先跑通，再试 <strong>ShuffleNet-V2</strong>；</p>
-</li>
-<li><p><strong>Transformer 尝鲜</strong> → <strong>Swin-Tiny</strong> 最小可用，<strong>RegNet</strong> 调参最省心；</p>
-</li>
-<li><p><strong>边缘量化</strong> → 选 <strong>无 SE 模块</strong> 的版本（SE 对 INT8 不友好）。</p>
-</li>
-</ul>
-<p>（来自ai）</p>
-
+          全面解析深度学习经典骨干网络架构，从AlexNet、VGG、GoogLeNet的奠基性创新，到ResNet的残差连接突破、MobileNet系列的移动端优化，再到Transformer在视觉领域的应用。详细介绍各网络的核心创新点、技术原理和应用场景，为不同任务提供骨干网络选择指导。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2025/05/11/%E7%BB%8F%E5%85%B8backbone/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
