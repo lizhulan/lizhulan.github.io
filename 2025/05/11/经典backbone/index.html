@@ -22,28 +22,43 @@
     var CONFIG = {"hostname":"lizhulan.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":300,"display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#667eea","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="李猪兰">
-<meta property="og:url" content="https://lizhulan.github.io/index.html">
+  <meta name="description" content="经典backboneAlexNet创新  首次使用GPU训练网络 使用Relu激活函数 使用LRN局部响应归一化 在全连接层加入Dropout  LRN的主要思想是在神经元输出的局部范围内进行归一化操作，使得激活值较大的神经元对后续神经元的影响降低，从而减少梯度消失和梯度爆炸的问题。  为什么说归一化的目的可以被理解为“抑制”？ 虽然归一化的主要目的是调整数据的范围和分布，但可以从某种角度将其与“">
+<meta property="og:type" content="article">
+<meta property="og:title" content="经典backbone">
+<meta property="og:url" content="https://lizhulan.github.io/2025/05/11/%E7%BB%8F%E5%85%B8backbone/index.html">
 <meta property="og:site_name" content="李猪兰">
+<meta property="og:description" content="经典backboneAlexNet创新  首次使用GPU训练网络 使用Relu激活函数 使用LRN局部响应归一化 在全连接层加入Dropout  LRN的主要思想是在神经元输出的局部范围内进行归一化操作，使得激活值较大的神经元对后续神经元的影响降低，从而减少梯度消失和梯度爆炸的问题。  为什么说归一化的目的可以被理解为“抑制”？ 虽然归一化的主要目的是调整数据的范围和分布，但可以从某种角度将其与“">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://free.picui.cn/free/2025/09/11/68c23a0ebceb9.png">
+<meta property="og:image" content="https://free.picui.cn/free/2025/09/11/68c23b35928e1.png">
+<meta property="og:image" content="https://free.picui.cn/free/2025/09/11/68c251c5408cb.png">
+<meta property="og:image" content="https://free.picui.cn/free/2025/09/11/68c254ae99a9d.png">
+<meta property="og:image" content="https://free.picui.cn/free/2025/09/11/68c254daf0e90.png">
+<meta property="og:image" content="https://free.picui.cn/free/2025/09/11/68c255abc4aa0.png">
+<meta property="og:image" content="https://free.picui.cn/free/2025/09/11/68c2596129090.png">
+<meta property="article:published_time" content="2025-05-11T05:20:39.000Z">
+<meta property="article:modified_time" content="2025-09-11T05:20:51.000Z">
 <meta property="article:author" content="李猪兰">
+<meta property="article:tag" content="计算机视觉">
+<meta property="article:tag" content="图像处理">
+<meta property="article:tag" content="机器学习">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://free.picui.cn/free/2025/09/11/68c23a0ebceb9.png">
 
-<link rel="canonical" href="https://lizhulan.github.io/">
+<link rel="canonical" href="https://lizhulan.github.io/2025/05/11/%E7%BB%8F%E5%85%B8backbone/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>李猪兰</title>
+  <title>经典backbone | 李猪兰</title>
   
 
 
@@ -203,904 +218,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lizhulan.github.io/2025/09/10/%E5%90%84%E7%A7%8D%E4%BC%98%E5%8C%96%E5%99%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.jpg">
-      <meta itemprop="name" content="李猪兰">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="李猪兰">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/09/10/%E5%90%84%E7%A7%8D%E4%BC%98%E5%8C%96%E5%99%A8/" class="post-title-link" itemprop="url">各种优化器</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2025-09-10 19:49:57" itemprop="dateCreated datePublished" datetime="2025-09-10T19:49:57+08:00">2025-09-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
 
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>优化器用于更新模型的参数以最小化损失函数。以下是SGD（随机梯度下降）、SGD with Momentum（带动量的随机梯度下降）、AdaGrad、RMSProp和Adam几种常用优化器的优缺点概述：</p>
-<p><strong>SGD（随机梯度下降）</strong><br>优点‌ ：<br>简单易懂‌：SGD是最基础的优化算法之一，易于理解和实现。 ‌<br>全局更新‌：每次迭代都会使用整个训练集的一个样本来更新参数，因此可以较快地收敛到全局最优解（在理想情况下）。 ‌<br>缺点‌：‌<br>收敛慢‌：由于每次只使用一个样本，梯度方向可能非常不稳定，导致收敛速度较慢。 ‌<br>震荡‌：在接近最优解时，SGD可能会因为梯度方向的频繁变化而在最优解附近震荡。 ‌难以跳出局部最优‌：SGD容易陷入局部最优解，特别是在高维空间中。<br><strong>SGD with Momentum（带动量的随机梯度下降）</strong> ‌<br>优点‌：‌<br>加速收敛‌：动量项可以加速SGD在相关方向上的收敛，同时抑制震荡。 ‌<br>减少震荡‌：通过引入动量，可以在一定程度上减少梯度方向频繁变化带来的震荡。 ‌<br>缺点‌：‌<br>参数选择‌：动量项的学习率和动量参数需要仔细选择，否则可能导致不稳定。 ‌<br>仍然可能陷入局部最优‌：虽然动量可以帮助跳出一些浅的局部最优，但在深度局部最优或鞍点处仍可能陷入。<br><strong>AdaGrad（自适应梯度算法）</strong> ‌<br>优点‌：‌<br>自适应学习率‌：AdaGrad根据每个参数的梯度历史来调整学习率，对于稀疏数据特别有效。 ‌无需手动调整学习率‌：在一定程度上，AdaGrad可以自动调整学习率，减少了手动调参的工作量。 ‌<br>缺点‌：‌<br>学习率衰减‌：由于学习率是根据梯度历史来调整的，随着训练的进行，学习率会逐渐衰减，可能导致在训练后期收敛速度非常慢。 ‌<br>对初始学习率敏感‌：虽然AdaGrad可以自适应调整学习率，但初始学习率的选择仍然很重要。<br><strong>RMSProp（均方根传播</strong>） ‌<br>优点‌：‌<br>自适应学习率‌：与AdaGrad类似，RMSProp也根据梯度历史来调整学习率，但使用了不同的方法来计算梯度平方的加权平均。 ‌ 缓解学习率衰减‌：RMSProp通过引入衰减因子来缓解AdaGrad中学习率过快衰减的问题。 ‌<br>缺点‌：‌<br>参数选择‌：RMSProp引入了额外的参数（如衰减因子），需要仔细选择。 ‌<br>可能不适用于所有情况‌：虽然RMSProp在许多情况下表现良好，但在某些特定任务或数据集上可能不是最佳选择。<br><strong>Adam（自适应矩估计）</strong> ‌<br>优点‌：‌<br>结合动量‌：Adam结合了动量（用于加速收敛）和自适应学习率（用于根据梯度历史调整学习率）的优点。<br>高效且稳定‌：在许多任务和数据集上，Adam都表现出了高效和稳定的性能。 ‌<br>较少的内存需求‌：与其他一些自适应学习率算法相比，Adam的内存需求相对较低。 ‌<br>缺点‌：‌<br>可能不收敛‌：在某些情况下（特别是当学习率设置得太高或太低时），Adam可能无法收敛到最优解。 ‌<br>对初始学习率和参数敏感‌：尽管可以自适应地调整学习率，但初始学习率和其他参数（如动量项的参数）的选择仍然很重要。 ‌<br>泛化能力问题‌：在某些情况下，使用Adam优化的模型可能在测试集上的泛化能力不如使用SGD或其他优化器的模型。</p>
-<p>总的来说，每种优化器都有其独特的优点和缺点，选择哪种优化器取决于具体的任务、数据集和模型架构。在实际应用中，通常需要通过实验来比较不同优化器的性能，并选择最适合当前任务的优化器。</p>
-<p>#################################################################<br>存在多种主流的自适应优化器，例如 Adam、Adagrad、Adadelta 及 RMSprop 等。与此同时，<strong>SGD+momentum</strong>（随机梯度下降结合动量，详见参考链接：<a target="_blank" rel="noopener" href="https://cs231n.github.io/neural-networks-3/#sgd">https://cs231n.github.io/neural-networks-3/#sgd</a>）凭借其稳定性，在各类问题场景中均有广泛应用。<br>选择优化器时，需重点考虑以下两方面核心特性：</p>
-<ol>
-<li>若优先追求<strong>快速收敛</strong>，Adam 等自适应优化器是更优选择，但这类优化器存在一定局限性 —— 可能陷入局部最小值，进而导致模型泛化能力较差。</li>
-<li>若以<strong>寻找全局最小值</strong>为目标，SGD+momentum 更具优势，但它对参数的稳健初始化依赖性较强，且收敛速度通常慢于其他自适应优化器。</li>
-</ol>
-<p><strong>AdamW</strong></p>
-<blockquote>
-<p>AdamW 通过 <strong>解耦权重衰减</strong>，解决了 Adam 中正则化效果不佳的问题，成为当前深度学习训练中的<strong>默认优化器之一</strong>。它在保持Adam 自适应学习率优势的同时，显著提升了模型的泛化能力和训练稳定性，尤其适用于大规模模型训练场景。</p>
-</blockquote>
-<p>AdamW 的核心改进：解耦权重衰减</p>
-<p>AdamW 的关键思想是：</p>
-<blockquote>
-<p><strong>将权重衰减从梯度更新中分离出来，直接作用于参数更新步骤。</strong></p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>特性</th>
-<th>Adam</th>
-<th>AdamW</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>权重衰减实现方式</td>
-<td>加入损失函数，参与梯度计算</td>
-<td>与梯度解耦，直接更新参数</td>
-</tr>
-<tr>
-<td>正则化效果</td>
-<td>易受影响，效果不稳定</td>
-<td>更稳定、有效</td>
-</tr>
-<tr>
-<td>泛化能力</td>
-<td>较弱</td>
-<td>更强</td>
-</tr>
-<tr>
-<td>大模型表现</td>
-<td>一般</td>
-<td>优秀，尤其适用于 Transformer 等</td>
-</tr>
-<tr>
-<td>是否广泛使用</td>
-<td>较少（已过时）</td>
-<td>是，当前主流（如 BERT、GPT、T5）</td>
-</tr>
-</tbody></table>
-<p> 实际应用与调参建议</p>
-<ul>
-<li><p><strong>学习率（lr）</strong>：常用范围 1e−5 到 1e−3，需配合 warmup 使用；</p>
-</li>
-<li><p><strong>weight_decay</strong>：常用值 0.01 或 0.0001，过大可能导致欠拟合；</p>
-</li>
-<li><p><strong>beta1&#x2F;beta2</strong>：默认值为 0.9 和 0.999；</p>
-</li>
-<li><p><strong>epsilon</strong>：默认 1e−8，用于数值稳定性；</p>
-</li>
-<li><p><strong>适用场景</strong>：</p>
-<ul>
-<li><p>大型预训练模型（如 NLP、CV 中的 Transformer）；</p>
-</li>
-<li><p>需要正则化的高维模型；</p>
-</li>
-<li><p>对泛化能力要求高的任务。</p>
-</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lizhulan.github.io/2025/09/10/%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA%E6%96%B9%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.jpg">
-      <meta itemprop="name" content="李猪兰">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="李猪兰">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/09/10/%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">数据增强方法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2025-09-10 19:41:56 / 修改时间：19:42:01" itemprop="dateCreated datePublished" datetime="2025-09-10T19:41:56+08:00">2025-09-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>871</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="数据增强方法"><a href="#数据增强方法" class="headerlink" title="数据增强方法"></a>数据增强方法</h1><h2 id="基本数据增强"><a href="#基本数据增强" class="headerlink" title="基本数据增强"></a>基本数据增强</h2><h3 id="单样本增强"><a href="#单样本增强" class="headerlink" title="单样本增强"></a>单样本增强</h3><p>翻转，旋转，裁剪，缩放，仿射变换<br>噪声，模糊，颜色扰动，对比度扰动，擦除</p>
-<h3 id="多样本增强"><a href="#多样本增强" class="headerlink" title="多样本增强"></a>多样本增强</h3><h4 id="多样本插值-SMOT"><a href="#多样本插值-SMOT" class="headerlink" title="多样本插值-SMOT"></a>多样本插值-SMOT</h4><p>是一种用于处理不平衡数据集的过采样技术，主要用于解决分类问题中少数类样本数量不足的问题。<br>在许多实际的分类问题中，数据集往往是不平衡的，即少数类样本的数量远远少于多数类样本的数量。这种不平衡会导致分类器偏向多数类，从而降低对少数类的分类性能。SMOTE通过生成新的少数类样本来平衡数据集，从而提高分类器的性能</p>
-<ul>
-<li><strong>医学诊断</strong>：在疾病诊断中，少数类样本（如罕见疾病）的数量往往较少</li>
-<li><strong>金融欺诈检测</strong>：欺诈交易的数量通常远少于正常交易</li>
-<li><strong>网络安全</strong>：恶意软件检测中，恶意样本的数量远少于正常样本</li>
-</ul>
-<p>SMOTE有许多变体和改进版本，例如：</p>
-<ul>
-<li><strong>ADASYN</strong>：自适应合成采样方法，根据少数类样本的分布自适应地生成新样本</li>
-<li><strong>SMOTE-NC</strong>：专门用于处理包含分类特征的数据集</li>
-<li><strong>Borderline-SMOTE</strong>：只在少数类样本的边界上生成新样本，以减少噪声</li>
-</ul>
-<p><img src="https://free.picui.cn/free/2025/09/08/68be92678b96b.png" alt="输入图片说明"></p>
-<h4 id="多样本插值-SamplePariring"><a href="#多样本插值-SamplePariring" class="headerlink" title="多样本插值-SamplePariring"></a>多样本插值-SamplePariring</h4><p>随机抽取两张图片分别经过基础数据增强操作（如随机翻转等）处理后，直接叠加合成为一个新的样本，标签为原样本标签中的一种。对相似样本数据集比较有效</p>
-<h4 id="多样本插值-Mixup"><a href="#多样本插值-Mixup" class="headerlink" title="多样本插值-Mixup"></a>多样本插值-Mixup</h4><p>对图像和标签都进行插值</p>
-<p>imgaug是一个用于图像增强的Python库，广泛应用于计算机视觉和深度学习领域。它提供了丰富的图像增强功能，可以模拟各种现实世界的图像变化，从而提高模型的泛化能力</p>
-<h3 id="自动数据增强方法"><a href="#自动数据增强方法" class="headerlink" title="自动数据增强方法"></a>自动数据增强方法</h3><h4 id="Autoaugment"><a href="#Autoaugment" class="headerlink" title="Autoaugment"></a>Autoaugment</h4><p>学习一有数据增强操作的组合，不同的任务，需要不同的数据增强操作<br>16个常用数据增强操作组合：</p>
-<blockquote>
-<p>shear裁剪，translate平移，rotate旋转，autocontrast自动对比度调整，invert负片，equalize直方图均衡化，solarize阈值反转，posterize减少位数，contrast控制对比度，color颜色平衡，brightness亮度调整，sharpness模糊，cutout随机擦除，sample pairing样本叠加</p>
-</blockquote>
-<h3 id="生成新的数据"><a href="#生成新的数据" class="headerlink" title="生成新的数据"></a>生成新的数据</h3><p>生成对抗网络</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lizhulan.github.io/2025/09/10/%E6%B7%B1%E5%BA%A6%E5%8F%AF%E5%88%86%E7%A6%BB%E5%8D%B7%E7%A7%AF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.jpg">
-      <meta itemprop="name" content="李猪兰">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="李猪兰">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/09/10/%E6%B7%B1%E5%BA%A6%E5%8F%AF%E5%88%86%E7%A6%BB%E5%8D%B7%E7%A7%AF/" class="post-title-link" itemprop="url">深度可分离卷积</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2025-09-10 19:40:22 / 修改时间：19:40:38" itemprop="dateCreated datePublished" datetime="2025-09-10T19:40:22+08:00">2025-09-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>542</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="深度可分离卷积（Depthwise-Separable-Convolution）"><a href="#深度可分离卷积（Depthwise-Separable-Convolution）" class="headerlink" title="深度可分离卷积（Depthwise Separable Convolution）"></a>深度可分离卷积（Depthwise Separable Convolution）</h2><p><strong>深度可分离卷积 &#x3D; 深度卷积（逐通道卷积） + 逐点卷积（1×1卷积）</strong><br>它将标准卷积拆分为两步：</p>
-<ol>
-<li>深度卷积（Depthwise Convolution）：对每个输入通道单独进行卷积，<strong>不跨通道</strong>。</li>
-<li>逐点卷积（Pointwise Convolution）：用 1×1 卷积<strong>跨通道</strong>组合信息，改变通道数。</li>
-</ol>
-<ul>
-<li><p><strong>深度卷积</strong>：像给每个通道“单独拍照”，不混合信息。</p>
-</li>
-<li><p><strong>逐点卷积</strong>：像用 1×1 的“小镜头”把所有通道的照片叠加成新照片，可以控制输出通道数。</p>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>优点</th>
-<th>缺点</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>极大减少计算量和参数量</td>
-<td>表达能力略弱于标准卷积</td>
-</tr>
-<tr>
-<td>适合移动端、嵌入式设备</td>
-<td>在某些任务上精度略有下降</td>
-</tr>
-<tr>
-<td>可与其他结构（如残差）结合使用</td>
-<td>对通道间复杂建模能力有限</td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th>类型</th>
-<th>计算量（FLOPs）</th>
-<th>参数量（Params）</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>标准卷积</td>
-<td>$H \cdot W \cdot C_{\text{in}} \cdot C_{\text{out}} \cdot K^2$</td>
-<td>$C_{\text{in}} \cdot C_{\text{out}} \cdot K^2$</td>
-</tr>
-<tr>
-<td>深度可分离卷积</td>
-<td>$H \cdot W \cdot C_{\text{in}} \cdot (K^2 + C_{\text{out}})$</td>
-<td>$C_{\text{in}} \cdot (K^2 + C_{\text{out}})$</td>
-</tr>
-</tbody></table>
-
-      
-    </div>
-
-    
-    
-    
-
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lizhulan.github.io/2025/09/07/GAN/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.jpg">
-      <meta itemprop="name" content="李猪兰">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="李猪兰">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/09/07/GAN/" class="post-title-link" itemprop="url">GAN</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2025-09-07 19:59:37 / 修改时间：20:03:28" itemprop="dateCreated datePublished" datetime="2025-09-07T19:59:37+08:00">2025-09-07</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>7.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>7 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          本文全面介绍了生成对抗网络(GAN)的核心概念与发展历程，从自编码器、变分自编码器的基础原理出发，深入探讨了条件生成GAN(CGAN、InfoGAN、ACGAN)、多尺度生成GAN(LAPGAN、Progressive GAN)以及StyleGAN系列的技术创新。文章详细分析了GAN的评估方法，包括Inception Score、FID等指标，并对比了GAN与扩散模型在生成质量、训练稳定性、推理速度等方面的差异，为深度学习从业者提供了完整的GAN技术图谱。
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2025/09/07/GAN/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lizhulan.github.io/2025/08/19/Python%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.jpg">
-      <meta itemprop="name" content="李猪兰">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="李猪兰">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/08/19/Python%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/" class="post-title-link" itemprop="url">Python代码规范</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2025-08-19 22:44:31" itemprop="dateCreated datePublished" datetime="2025-08-19T22:44:31+08:00">2025-08-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-08-20 00:39:26" itemprop="dateModified" datetime="2025-08-20T00:39:26+08:00">2025-08-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F/" itemprop="url" rel="index"><span itemprop="name">代码质量</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>16k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>15 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          全面的Python代码规范指南，包含PEP8规范、命名约定、函数设计原则、异常处理、性能优化等最佳实践，帮助开发者编写更清晰、可维护的Python代码。
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2025/08/19/Python%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lizhulan.github.io/2025/08/14/%E5%85%B3%E4%BA%8E%E9%A1%B9%E7%9B%AE%E3%80%81%E4%BA%A7%E5%93%81%E7%89%88%E6%9C%AC%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.jpg">
-      <meta itemprop="name" content="李猪兰">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="李猪兰">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/08/14/%E5%85%B3%E4%BA%8E%E9%A1%B9%E7%9B%AE%E3%80%81%E4%BA%A7%E5%93%81%E7%89%88%E6%9C%AC%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83/" class="post-title-link" itemprop="url">关于项目、产品版本命名规范</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2025-08-14 22:45:55" itemprop="dateCreated datePublished" datetime="2025-08-14T22:45:55+08:00">2025-08-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-08-20 01:02:36" itemprop="dateModified" datetime="2025-08-20T01:02:36+08:00">2025-08-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">项目管理</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          详细解读项目和产品版本命名规范，包括主版本号、副版本号、修订版本号、日期版本号和希腊字母版本号的含义和使用方法。涵盖从Base到Release各个阶段的版本定义，以及版本号在整个软件研发生命周期中的应用场景。
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2025/08/14/%E5%85%B3%E4%BA%8E%E9%A1%B9%E7%9B%AE%E3%80%81%E4%BA%A7%E5%93%81%E7%89%88%E6%9C%AC%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lizhulan.github.io/2025/08/13/Vibe-coding%E6%B5%81%E7%A8%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.jpg">
-      <meta itemprop="name" content="李猪兰">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="李猪兰">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/08/13/Vibe-coding%E6%B5%81%E7%A8%8B/" class="post-title-link" itemprop="url">Vibe coding流程</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2025-08-13 00:49:56" itemprop="dateCreated datePublished" datetime="2025-08-13T00:49:56+08:00">2025-08-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-08-31 21:33:07" itemprop="dateModified" datetime="2025-08-31T21:33:07+08:00">2025-08-31</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/vibe-coding/" itemprop="url" rel="index"><span itemprop="name">vibe coding</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>20k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>18 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          详细介绍AI编程的完整开发流程，从需求分析到编码测试的全方位指南。包含需求分析、系统设计、详细设计、渐进式编码等各个阶段的规范化流程和提示词模板，是AI辅助开发的实用手册。
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2025/08/13/Vibe-coding%E6%B5%81%E7%A8%8B/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lizhulan.github.io/2025/07/09/%E6%8F%90%E7%A4%BA%E8%AF%8D/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.jpg">
-      <meta itemprop="name" content="李猪兰">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="李猪兰">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/07/09/%E6%8F%90%E7%A4%BA%E8%AF%8D/" class="post-title-link" itemprop="url">提示词</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2025-07-09 00:38:14" itemprop="dateCreated datePublished" datetime="2025-07-09T00:38:14+08:00">2025-07-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-08-18 00:38:39" itemprop="dateModified" datetime="2025-08-18T00:38:39+08:00">2025-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/AI%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">AI工具</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>12k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>10 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          全面的AI开发提示词集合，涵盖需求编写、框架设计、代码编写、Bug修复、代码分析等各个环节。包含具体的提示词模板和使用示例，是AI辅助开发的实用工具库，帮助开发者更高效地与AI协作完成项目开发。
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2025/07/09/%E6%8F%90%E7%A4%BA%E8%AF%8D/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -1116,10 +237,9 @@
       <meta itemprop="name" content="李猪兰">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/05/11/%E7%BB%8F%E5%85%B8backbone/" class="post-title-link" itemprop="url">经典backbone</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          经典backbone
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -1147,7 +267,14 @@
                 </span>
             </span>
 
-          <br>
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
@@ -1172,7 +299,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="经典backbone"><a href="#经典backbone" class="headerlink" title="经典backbone"></a>经典backbone</h1><h2 id="AlexNet"><a href="#AlexNet" class="headerlink" title="AlexNet"></a>AlexNet</h2><p><strong>创新</strong></p>
+        <h1 id="经典backbone"><a href="#经典backbone" class="headerlink" title="经典backbone"></a>经典backbone</h1><h2 id="AlexNet"><a href="#AlexNet" class="headerlink" title="AlexNet"></a>AlexNet</h2><p><strong>创新</strong></p>
 <ol>
 <li>首次使用GPU训练网络</li>
 <li>使用Relu激活函数</li>
@@ -1505,7 +632,6 @@
 </ul>
 <p>（来自ai）</p>
 
-      
     </div>
 
     
@@ -1513,120 +639,61 @@
     
 
     
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lizhulan.github.io/2025/05/10/OpenCV/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.jpg">
-      <meta itemprop="name" content="李猪兰">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="李猪兰">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/05/10/OpenCV/" class="post-title-link" itemprop="url">OpenCV</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2025-05-10 21:25:13" itemprop="dateCreated datePublished" datetime="2025-05-10T21:25:13+08:00">2025-05-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-08-31 21:25:36" itemprop="dateModified" datetime="2025-08-31T21:25:36+08:00">2025-08-31</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>32k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>29 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
+      <div>
+        <div>
     
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
     
+</div>
+      </div>
     
-    <div class="post-body" itemprop="articleBody">
-
-      
-          全面的OpenCV计算机视觉库使用指南，涵盖图像基本操作、滤波处理、边缘检测、轮廓分析、模板匹配、霍夫变换等核心功能。包含详细的API说明、参数解释和实用代码示例，是学习和应用OpenCV进行图像处理和计算机视觉开发的完整参考手册。
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2025/05/10/OpenCV/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>李猪兰
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://lizhulan.github.io/2025/05/11/%E7%BB%8F%E5%85%B8backbone/" title="经典backbone">https://lizhulan.github.io/2025/05/11/经典backbone/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
 
-    
+
+
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" rel="tag"># 计算机视觉</a>
+              <a href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" rel="tag"># 图像处理</a>
+              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"># 机器学习</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/05/10/OpenCV/" rel="prev" title="OpenCV">
+      <i class="fa fa-chevron-left"></i> OpenCV
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2025/07/09/%E6%8F%90%E7%A4%BA%E8%AF%8D/" rel="next" title="提示词">
+      提示词 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
       </footer>
+    
   </article>
   
   
   
-
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
 
 
 
@@ -1678,6 +745,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%8F%E5%85%B8backbone"><span class="nav-number">1.</span> <span class="nav-text">经典backbone</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AlexNet"><span class="nav-number">1.1.</span> <span class="nav-text">AlexNet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VggNet"><span class="nav-number">1.2.</span> <span class="nav-text">VggNet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GoogLeNet"><span class="nav-number">1.3.</span> <span class="nav-text">GoogLeNet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Inception%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.1.</span> <span class="nav-text">Inception结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1x1%E5%8D%B7%E7%A7%AF"><span class="nav-number">1.3.2.</span> <span class="nav-text">1x1卷积</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%85%E5%8A%A9%E5%88%86%E7%B1%BB%E5%99%A8"><span class="nav-number">1.3.3.</span> <span class="nav-text">辅助分类器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ResNet"><span class="nav-number">1.4.</span> <span class="nav-text">ResNet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Residual%E7%BB%93%E6%9E%84"><span class="nav-number">1.4.1.</span> <span class="nav-text">Residual结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Batch-Normalization"><span class="nav-number">1.4.2.</span> <span class="nav-text">Batch Normalization</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MobileNet"><span class="nav-number">1.5.</span> <span class="nav-text">MobileNet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#V1"><span class="nav-number">1.5.1.</span> <span class="nav-text">V1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Depthwise-Convolution"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">Depthwise Convolution</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#alpha%E3%80%81-beta"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">$\alpha、\beta$</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#V2"><span class="nav-number">1.5.2.</span> <span class="nav-text">V2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Inverted-Residuals%EF%BC%88%E5%80%92%E6%AE%8B%E5%B7%AE%E7%BB%93%E6%9E%84%EF%BC%89"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">Inverted Residuals（倒残差结构）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Relu6"><span class="nav-number">1.5.2.2.</span> <span class="nav-text">Relu6</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linear-Bottlenecks"><span class="nav-number">1.5.2.3.</span> <span class="nav-text">Linear Bottlenecks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Shortcut"><span class="nav-number">1.5.2.4.</span> <span class="nav-text">Shortcut</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#V3"><span class="nav-number">1.5.3.</span> <span class="nav-text">V3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#V4"><span class="nav-number">1.5.4.</span> <span class="nav-text">V4</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DenseNet"><span class="nav-number">1.6.</span> <span class="nav-text">DenseNet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SENet%EF%BC%88Squeeze-and-Excitation%EF%BC%89"><span class="nav-number">1.7.</span> <span class="nav-text">SENet（Squeeze-and-Excitation）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ResNeXt"><span class="nav-number">1.8.</span> <span class="nav-text">ResNeXt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ShuffleNet-V1-V2"><span class="nav-number">1.9.</span> <span class="nav-text">ShuffleNet V1&#x2F;V2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EfficientNet"><span class="nav-number">1.10.</span> <span class="nav-text">EfficientNet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RegNet"><span class="nav-number">1.11.</span> <span class="nav-text">RegNet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vision-Transformer-ViT"><span class="nav-number">1.12.</span> <span class="nav-text">Vision Transformer (ViT)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Swin-Transformer"><span class="nav-number">1.13.</span> <span class="nav-text">Swin Transformer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E9%80%89%E6%8B%A9"><span class="nav-number">1.14.</span> <span class="nav-text">怎么选择</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B"><span class="nav-number">1.14.1.</span> <span class="nav-text">目标检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2-%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2"><span class="nav-number">1.14.2.</span> <span class="nav-text">语义分割 &#x2F; 实例分割</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E8%B0%83"><span class="nav-number">1.14.3.</span> <span class="nav-text">微调</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
